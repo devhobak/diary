@@ -11,7 +11,9 @@
   "scripts": {
     "server": "cd server && yarn start",
     "client": "cd client && yarn start",
-    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "start": "concurrently --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "build-client": "cd ./client && yarn build",
+    "deploy": "node ./server/bin/www"
   },
   "devDependencies": {
     "nodemon": "^2.0.15"
