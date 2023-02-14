@@ -1,8 +1,7 @@
-import { createPool, Pool } from "mysql";
+import { createPool, Pool } from "mysql2";
 import { DATA_SOURCES } from "./../../config/vars.config";
 
 const dataSource = DATA_SOURCES.mySqlDataSource;
-
 let pool: Pool;
 
 /**
@@ -43,7 +42,8 @@ export const execute = <T>(
       );
 
     return new Promise<T>((resolve, reject) => {
-      pool.query(query, params, (error, results) => {
+      pool.query(query, params, (error: any, results: any) => {
+        console.log(results);
         if (error) reject(error);
         else resolve(results);
       });
