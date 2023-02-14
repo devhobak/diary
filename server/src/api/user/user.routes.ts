@@ -8,5 +8,4 @@ router
     .post(
         Controller.addUser
     ); 
-
 export default router;

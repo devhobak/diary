@@ -1,7 +1,8 @@
 import { Request, RequestHandler, Response } from 'express';
 import {
     IUser,
-    IAddUserReq
+    IAddUserReq,
+    IGetUserReq
 } from './user.model';
 import * as UserService from './user.service';
 
@@ -31,3 +32,9 @@ export const addUser: RequestHandler = async (req: IAddUserReq, res: Response) =
       });
     }
   };
+/**
+ * Authentication
+ *
+ * @param req Express Request
+ * @param res Express Response
+ */

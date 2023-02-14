@@ -8,3 +8,4 @@ export interface IUser {
 };
 
 export interface IAddUserReq extends Request<any, any, IUser> { }
+export interface IGetUserReq extends Request<any, any, IUser> { }

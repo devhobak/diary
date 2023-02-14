@@ -4,6 +4,13 @@ import { IUser } from "./user.model";
 import bcrypt from 'bcrypt'
 
 /**
+ * gets a user based on username provided
+ */
+export const getUserByName = async (user: IUser) => {
+  return execute<IUser>(UserQueries.GetUserByName, [user.username, user.password]);
+}
+
+/**
  * adds a new active user record
  */
 export const insertUser = async (user: IUser) => {
