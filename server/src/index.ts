@@ -19,7 +19,7 @@ MySQLConnector.init();
 app.use(express.json());
 app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(cookieParser("secret"));
-app.use(session({ secret: "secret" }));
+app.use(session({ resave: false, saveUninitialized: false, secret: "secret" }));
 app.use(passport.initialize()); // passport 구동
 app.use(passport.session()); // 세션 연결
 passportConfig.loginUser(); // 이 부분 추가
