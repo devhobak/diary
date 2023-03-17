@@ -1,5 +1,4 @@
-import { Request, RequestHandler, Response } from "express";
-import { IUser, IAddUserReq, IGetUserReq } from "./../user/user.model";
+import { RequestHandler } from "express";
 import * as UserService from "./../user/user.service";
 import bcrypt from "bcrypt";
 
@@ -24,21 +23,19 @@ export const loginUser: RequestHandler = () => {
         username: "username",
         password: "password",
       },
-      async (
-        username: string,
-        password: string,
-        done: any,
-        req: IGetUserReq,
-        res: Response
-      ) => {
+      async (username: string, password: string, done: any) => {
         try {
-          console.log("req", req.params);
-          const user = await UserService.getUserByName(req.params.username);
-          console.log("auth-result", user);
-          const hashedPassword = await bcrypt.hash(user.password, 10);
-
-          if (!user.username) return done(null, false, { message: "No ID" });
-          if (hashedPassword === password) return done(null, user);
+          const user = await UserService.getUserByName(username);
+          if (!user[0].username)
+            return done(null, false, { message: "ID does not exist" });
+          bcrypt.compare(password, user[0].password, (err, result: boolean) => {
+            if (err) throw err;
+            if (result === true) {
+              return done(null, user);
+            } else {
+              return done(null, false);
+            }
+          });
         } catch (error) {
           console.error(
             "[user.controller][getUserByName][Error] ",
