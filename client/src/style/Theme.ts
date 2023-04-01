@@ -1,3 +1,4 @@
+import { DefaultTheme } from 'styled-components';
 const color = {
     backgroundColor: '#D6ECFA',
     inputBoxColor: '#FBD96D',
@@ -9,9 +10,10 @@ const fontSize = {
     defaultSize: '1.6rem',
 };
 
-const theme = {
+const theme: DefaultTheme = {
     color,
     fontSize,
 };
 
 export default theme;
+export type Theme = typeof theme;
