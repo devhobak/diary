@@ -1,39 +1,39 @@
 import React from 'react';
-import Button from './Button';
+import { FormLayout, Input, LinkButton, LoginButton } from './style/form';
 interface FormType {
     type: string;
 }
 export default function Form({ type }: FormType): JSX.Element {
     if (type === 'signin') {
         return (
-            <form>
+            <FormLayout>
                 <label>
-                    <input placeholder="이메일" name="email"></input>
+                    <Input placeholder="이메일" name="email"></Input>
                 </label>
                 <label>
-                    <input placeholder="비밀번호" name="password"></input>
+                    <Input placeholder="비밀번호" name="password"></Input>
                 </label>
-                <button>비밀번호 찾기</button>
-                <button>회원가입</button>
-                <Button type="siginin" />
-                <button>SNS계정으로 간편 로그인/회원가입</button>
-            </form>
+                <LinkButton find="find">비밀번호 찾기</LinkButton>
+                <LinkButton>회원가입</LinkButton>
+                <LoginButton type="submit">로그인</LoginButton>
+                <LinkButton>SNS계정으로 간편 로그인/회원가입</LinkButton>
+            </FormLayout>
         );
     } else if (type === 'signup') {
         return (
-            <form>
+            <FormLayout>
                 <label>
-                    <input placeholder="닉네임" name="nickname"></input>
+                    <Input placeholder="닉네임" name="nickname"></Input>
                 </label>
                 <label>
-                    <input placeholder="이메일" name="email"></input>
+                    <Input placeholder="이메일" name="email"></Input>
                 </label>
                 <label>
-                    <input placeholder="비밀번호" name="password"></input>
+                    <Input placeholder="비밀번호" name="password"></Input>
                 </label>
-                <Button type="signin" />
-                <button>이미 아이디가 있으신가요? 로그인</button>
-            </form>
+                <LoginButton type="submit">회원가입하기</LoginButton>
+                <LinkButton>이미 아이디가 있으신가요? 로그인</LinkButton>
+            </FormLayout>
         );
     }
     return <></>;
