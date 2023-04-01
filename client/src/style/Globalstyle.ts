@@ -4,18 +4,30 @@ const GlobalStyle = createGlobalStyle`
   *{
     margin:0;
     padding:0;
+    box-sizing: border-box;
   }
  html{
     font-size:62.5%;
+    width:100vw;
+    height:100vh;
  }
-  body{
-    box-sizing: border-box;
-  }
+body{
+    background-color: #D6ECFA;
+}
   button{
     cursor: pointer;
   }
   ul{
     list-style: none;
+  }
+  .ir{
+    position: absolute;
+    width:1px;
+    height:1px;
+    border: 0;
+    clip:rect(1px,1px,1px,1px);
+    overflow: hidden;
+    z-index: -1;
   }
 `;
 

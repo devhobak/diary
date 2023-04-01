@@ -1,6 +1,6 @@
 const color = {
     backgroundColor: '#D6ECFA',
-    inputBoxColor: '#F9C00C',
+    inputBoxColor: '#FBD96D',
     defaultFontColor: '#000000',
     lightFontColor: '#8B8687',
     headerBackgroundColor: '#FFFFFF',
@@ -13,4 +13,5 @@ const theme = {
     color,
     fontSize,
 };
+
 export default theme;
