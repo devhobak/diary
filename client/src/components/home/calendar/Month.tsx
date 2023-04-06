@@ -2,6 +2,7 @@ import React from 'react';
 import prevIcon from '../../../assets/Prev.png';
 import nextIcon from '../../../assets/Next.png';
 import { subMonths, addMonths } from 'date-fns';
+import { CalendarHead } from '../style';
 interface MonthType {
     curDate: Date;
     setCurDate: React.Dispatch<React.SetStateAction<Date>>;
@@ -9,20 +10,6 @@ interface MonthType {
     curYear: string;
 }
 export default function Month(props: MonthType) {
-    const months = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
     const UpClick = () => {
         props.setCurDate(addMonths(props.curDate, 1));
     };
@@ -32,10 +19,12 @@ export default function Month(props: MonthType) {
     return (
         <section>
             <h3 className="ir">년도,달 파트</h3>
-            <img src={prevIcon} alt="이전달이동" onClick={DownClick} />
-            <p>{props.curMonth}</p>
-            <p>{props.curYear}</p>
-            <img src={nextIcon} alt="다음달이동" onClick={UpClick} />
+            <CalendarHead>
+                <img src={prevIcon} alt="이전달이동" onClick={DownClick} />
+                <p style={{ width: '70px' }}>{props.curMonth}</p>
+                <p style={{ width: '60px' }}>{props.curYear}</p>
+                <img src={nextIcon} alt="다음달이동" onClick={UpClick} />
+            </CalendarHead>
         </section>
     );
 }
