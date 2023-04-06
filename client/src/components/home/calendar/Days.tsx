@@ -6,31 +6,45 @@ import {
     format,
     eachDayOfInterval,
 } from 'date-fns';
+import { DayUI, DayLi, DaySection, DaySpan } from '../style';
 interface DayType {
     days: string[];
     curDate: Date;
 }
 export default function Days(props: DayType) {
+    const monthStart = startOfMonth(props.curDate);
+    const monthEnd = endOfMonth(props.curDate);
+    const weekStart = startOfWeek(monthStart);
+    const weekEnd = endOfWeek(monthEnd);
+    console.log(weekStart, weekEnd);
     const days = eachDayOfInterval({
-        start: startOfMonth(props.curDate),
-        end: endOfMonth(props.curDate),
+        start: weekStart,
+        end: weekEnd,
     });
     const forMatDay: string[] = [];
+    const forMatDayOfWeek: string[] = [];
+
     days.forEach((item) => {
         forMatDay.push(format(item, 'd'));
+        forMatDayOfWeek.push(format(item, 'eeee'));
     });
+    //35일
+    console.log(forMatDay);
+    console.log(forMatDayOfWeek);
     return (
-        <section>
-            <ul>
+        <DaySection>
+            <DayUI>
                 {props.days.map((item, idx) => (
-                    <li key={idx}>{item}</li>
+                    <DaySpan key={idx}>
+                        <p>{item}</p>
+                    </DaySpan>
                 ))}
-            </ul>
-            <ul>
+            </DayUI>
+            <DayUI title="">
                 {forMatDay.map((item, idx) => {
-                    return <li key={idx}>{item}</li>;
+                    return <DayLi key={idx}>{item}</DayLi>;
                 })}
-            </ul>
-        </section>
+            </DayUI>
+        </DaySection>
     );
 }
