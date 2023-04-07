@@ -1,5 +1,5 @@
 import React from 'react';
-import { TopLayout } from './style.ts/calendar';
+import { TopLayout } from './style/calendar';
 
 export default function Top() {
     return (

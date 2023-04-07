@@ -6,7 +6,7 @@ import {
     NavList,
     LogoImg,
     NavLi,
-} from '../home/style.ts/navbar';
+} from '../home/style/navbar';
 
 export default function Navbar() {
     return (
