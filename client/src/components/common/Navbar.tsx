@@ -1,16 +1,22 @@
 import React from 'react';
-import { NavLayout } from '../home/style';
-
+import {
+    NavLayout,
+    LogOutButton,
+    NavList,
+    LogoImg,
+    NavLi,
+} from '../home/style.ts/navbar';
+import logoImg from '../../assets/logo.png';
 export default function Navbar() {
     return (
         <NavLayout>
-            <img src="" alt="로고" />
-            <ul>
-                <li>달력</li>
-                <li>일상 기록</li>
-                <li>마이 페이지</li>
-            </ul>
-            <div>Logout</div>
+            <LogoImg src={logoImg} alt="로고" />
+            <NavList>
+                <NavLi>달력</NavLi>
+                <NavLi>일상 기록</NavLi>
+                <NavLi>마이 페이지</NavLi>
+            </NavList>
+            <LogOutButton>Logout</LogOutButton>
         </NavLayout>
     );
 }

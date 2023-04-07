@@ -2,7 +2,7 @@ import React from 'react';
 import prevIcon from '../../../assets/Prev.png';
 import nextIcon from '../../../assets/Next.png';
 import { subMonths, addMonths } from 'date-fns';
-import { CalendarHead } from '../style';
+import { CalendarHead } from '../style.ts/calendar';
 interface MonthType {
     curDate: Date;
     setCurDate: React.Dispatch<React.SetStateAction<Date>>;

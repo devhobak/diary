@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
-import { CalendarLayout } from '../style';
+import { CalendarLayout } from '../style.ts/calendar';
 import Days from './Days';
 import Month from './Month';
 
