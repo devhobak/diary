@@ -1,4 +1,5 @@
 import React from 'react';
+import logoImg from '../../assets/logo.png';
 import {
     NavLayout,
     LogOutButton,
@@ -6,7 +7,7 @@ import {
     LogoImg,
     NavLi,
 } from '../home/style.ts/navbar';
-import logoImg from '../../assets/logo.png';
+
 export default function Navbar() {
     return (
         <NavLayout>
