@@ -1,14 +1,16 @@
 import React from 'react';
 import { FormLayout, Input, LinkButton, LoginButton } from './style/form';
 import { useNavigate } from 'react-router-dom';
+import useForm from '../../hooks/useForm';
 interface FormType {
     type: string;
 }
 export default function Form({ type }: FormType): JSX.Element {
     let navigate = useNavigate();
+    let { handleSumit } = useForm();
     if (type === 'signin') {
         return (
-            <FormLayout>
+            <FormLayout onSubmit={handleSumit}>
                 <label>
                     <Input placeholder="이메일" name="email"></Input>
                 </label>
@@ -31,7 +33,7 @@ export default function Form({ type }: FormType): JSX.Element {
         return (
             <FormLayout>
                 <label>
-                    <Input placeholder="닉네임" name="nickname"></Input>
+                    <Input placeholder="닉네임" name="username"></Input>
                 </label>
                 <label>
                     <Input placeholder="이메일" name="email"></Input>
