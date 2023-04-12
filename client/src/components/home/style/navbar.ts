@@ -7,13 +7,14 @@ const NavLayout = styled.section`
     flex-direction: column;
     gap: 30px;
     border: 1px solid #fff;
-    padding: 30px 30px 0 30px;
+    padding: 30px 10px 0 30px;
 `;
 const LogoImg = styled.img`
     width: 50px;
     height: 50px;
 `;
 const NavList = styled.ul`
+    width: 15rem;
     border-radius: 10px;
     flex-basis: 80%;
     display: flex;
@@ -22,11 +23,11 @@ const NavList = styled.ul`
 `;
 const NavLi = styled.li`
     border-radius: 10px;
-    width: 90%;
-    height: 40px;
-    text-align: center;
+    width: 200px;
+    height: 45px;
+    text-align: left;
     font-size: 1.2rem;
-    padding: 15px;
+    line-height: 45px;
     &:hover {
         background-color: ${({ theme }) => theme.color.inputBoxColor};
     }
@@ -36,7 +37,12 @@ const LogOutButton = styled.button`
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     border: 0;
     text-align: left;
-    //width: 20%;
-    //flex-basis: 20%;
 `;
-export { NavLayout, LogOutButton, NavList, LogoImg, NavLi };
+const IconImg = styled.img`
+    width: 20px;
+    height: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+    vertical-align: middle;
+`;
+export { NavLayout, LogOutButton, NavList, LogoImg, NavLi, IconImg };

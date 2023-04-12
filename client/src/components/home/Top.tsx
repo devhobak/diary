@@ -4,7 +4,7 @@ import { TopLayout } from './style/calendar';
 export default function Top() {
     return (
         <TopLayout>
-            <p>달력</p>
+            <p style={{ fontSize: '1.8rem' }}>달력</p>
         </TopLayout>
     );
 }
