@@ -12,7 +12,7 @@ type FormType = LoginType | SignupType;
 
 type Vaildation = (
     arg: FormType,
-    type: string
+    type?: string
 ) => { username: string; email: string; password: string };
 const vaildation: Vaildation = (data, type) => {
     let error = { username: '', email: '', password: '' };

@@ -5,25 +5,38 @@ interface FormType {
     email: FormDataEntryValue;
     password: FormDataEntryValue;
 }
+interface ErrorType {
+    username?: string;
+    email: string;
+    password: string;
+}
+type Click = (e: React.MouseEvent<HTMLElement>) => void;
 export default function useForm() {
     const [value, setValue] = useState<FormType>({
-        username: '',
-        email: '',
-        password: '',
+        username: 'username',
+        email: 'email',
+        password: 'password',
     });
-    const [error, setError] = useState<FormType>();
-    const [loading, isLoading] = useState(false);
+    const [error, setError] = useState<ErrorType>();
+
+    const handleClick: Click = (e) => {
+        setValue({
+            username: 'username',
+            email: 'email',
+            password: 'password',
+        });
+    };
     const handleSumit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData);
         const { username, email, password } = data;
         setValue({ username, email, password });
-        isLoading(true);
+        e.currentTarget.reset();
     };
     useEffect(() => {
         setError(vaildation({ ...value }, 'login'));
-        //error내용이 없다면 api요청 하지 말기
+        setError(vaildation({ ...value }));
     }, [value]);
-    return { handleSumit, error, loading, value };
+    return { handleSumit, error, value, handleClick };
 }
