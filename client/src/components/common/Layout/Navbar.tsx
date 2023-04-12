@@ -1,9 +1,9 @@
 import React from 'react';
-import logoImg from '../../assets/logo.png';
-import calendarImg from '../../assets/Category.png';
-import diaryImg from '../../assets/Chat.png';
-import settimtImg from '../../assets/Setting.png';
-import logoutImg from '../../assets/Logout.png';
+import logoImg from '../../../assets/logo.png';
+import calendarImg from '../../../assets/Category.png';
+import diaryImg from '../../../assets/Chat.png';
+import settimtImg from '../../../assets/Setting.png';
+import logoutImg from '../../../assets/Logout.png';
 import {
     NavLayout,
     LogOutButton,
@@ -11,7 +11,7 @@ import {
     LogoImg,
     NavLi,
     IconImg,
-} from '../home/style/navbar';
+} from '../../home/style/navbar';
 
 export default function Navbar() {
     return (

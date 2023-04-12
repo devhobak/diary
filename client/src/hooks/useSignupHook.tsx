@@ -10,7 +10,7 @@ interface ErrorType {
     email: string;
     password: string;
 }
-type Click = (e: React.MouseEvent<HTMLElement>) => void;
+
 export default function useForm() {
     const [value, setValue] = useState<FormType>({
         username: 'username',
@@ -19,13 +19,6 @@ export default function useForm() {
     });
     const [error, setError] = useState<ErrorType>();
 
-    const handleClick: Click = (e) => {
-        setValue({
-            username: 'username',
-            email: 'email',
-            password: 'password',
-        });
-    };
     const handleSumit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -35,8 +28,7 @@ export default function useForm() {
         e.currentTarget.reset();
     };
     useEffect(() => {
-        setError(vaildation({ ...value }, 'login'));
         setError(vaildation({ ...value }));
     }, [value]);
-    return { handleSumit, error, value, handleClick };
+    return { handleSumit, error, value };
 }

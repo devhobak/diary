@@ -1,18 +1,12 @@
 import React from 'react';
 import Login from '../components/login/Login';
-import Header from '../components/common/Header';
-interface PageType {
-    type: string;
-}
-export default function LoginPage({ type }: PageType) {
+import Header from '../components/common/Layout/Header';
+
+export default function LoginPage() {
     return (
         <>
             <Header />
-            {type === 'signin' ? (
-                <Login type="signin" />
-            ) : (
-                <Login type="signup" />
-            )}
+            <Login />
         </>
     );
 }

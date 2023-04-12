@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import LogoImg from '../../assets/logo.png';
+import LogoImg from '../../../assets/logo.png';
 const HeaderLayout = styled.header`
     width: 100%;
     height: 7.6rem;
