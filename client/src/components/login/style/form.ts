@@ -1,18 +1,19 @@
 import styled from 'styled-components';
-import meassage from '../../../assets/Message.png';
+
 interface FindProps {
     find?: string;
 }
 const FormLayout = styled.form`
     width: 37.5rem;
-    margin: 60px auto 0;
+    margin: 30px auto 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 30px;
 `;
-const Input = styled.input`
+const Input = styled.input<FindProps>`
+    background: url('assets/${(props) => props.find}.png') no-repeat 15px center;
     padding: 0 5.6rem;
     width: 37.5rem;
     height: 5.2rem;
@@ -34,4 +35,20 @@ const LinkButton = styled.button<FindProps>`
     border: 0;
     margin-left: ${(props) => (props.find === 'find' ? 'auto' : 0)};
 `;
-export { FormLayout, Input, LoginButton, LinkButton };
+const Label = styled.label`
+    position: relative;
+    height: 70px;
+`;
+const ErrorMsg = styled.div`
+    margin-top: 5px;
+    color: #000;
+    font-size: 1.2rem;
+    text-align: left;
+`;
+const PwImg = styled.img`
+    width: 18px;
+    position: absolute;
+    right: 15px;
+    top: 18px;
+`;
+export { FormLayout, Input, LoginButton, LinkButton, ErrorMsg, Label, PwImg };
