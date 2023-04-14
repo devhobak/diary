@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { format } from 'date-fns';
-import { CalendarLayout } from '../style/calendar';
+import { CalendarLayout } from './style/calendar';
 import Days from './Days';
 import Month from './Month';
-
+import Record from '../modal/Record';
 export default function Calendar() {
     const [curDate, setCurDate] = useState(new Date());
     const curMonth = format(curDate, 'MMMM');
@@ -31,6 +31,7 @@ export default function Calendar() {
                 curYear={curYear}
             />
             <Days days={days} curDate={curDate} />
+            <Record />
         </CalendarLayout>
     );
 }

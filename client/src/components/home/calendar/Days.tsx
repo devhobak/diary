@@ -6,7 +6,7 @@ import {
     format,
     eachDayOfInterval,
 } from 'date-fns';
-import { DayUI, DayLi, DaySection, DaySpan } from '../style/calendar';
+import { DayUI, DayLi, DaySection, DaySpan } from './style/calendar';
 interface DayType {
     days: string[];
     curDate: Date;

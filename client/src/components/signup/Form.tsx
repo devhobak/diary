@@ -43,7 +43,7 @@ export default function Form() {
                 ></Input>
                 <PwImg
                     src={
-                        password.pw ? '/assets/eye-off.png' : '/assets/eye.png '
+                        password.pw ? '/assets/eye-off.png' : '/assets/eye.png'
                     }
                     alt={password ? '숨김' : '보임'}
                     onClick={ChangePwType}
@@ -61,7 +61,7 @@ export default function Form() {
                     src={
                         password.rePw
                             ? '/assets/eye-off.png'
-                            : '/assets/eye.png '
+                            : '/assets/eye.png'
                     }
                     alt={password ? '숨김' : '보임'}
                     onClick={ChangeRePwType}
