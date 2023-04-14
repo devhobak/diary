@@ -6,6 +6,7 @@ const color = {
     lightFontColor: '#8B8687',
     headerBackgroundColor: '#FFFFFF',
 };
+
 const fontSize = {
     defaultSize: '1.6rem',
 };
