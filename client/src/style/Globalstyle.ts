@@ -29,6 +29,11 @@ body{
     overflow: hidden;
     z-index: -1;
   }
+  .ellipsis{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 export default GlobalStyle;
