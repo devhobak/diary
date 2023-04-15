@@ -1,5 +1,7 @@
 import styled from 'styled-components';
-
+interface PropType {
+    title?: string;
+}
 const TopLayout = styled.section`
     grid-area: top;
     height: 4rem;
@@ -41,7 +43,8 @@ const DayUI = styled.ul`
     justify-content: center;
     padding: 10px;
 `;
-const DayLi = styled.li`
+const DayLi = styled.li<PropType>`
+    background-color: ${(props) => (props.title ? '#FAFAFA' : '#ffff')};
     width: 120px;
     height: 90px;
     border: 1px solid ${({ theme }) => theme.color.inputBoxColor};
