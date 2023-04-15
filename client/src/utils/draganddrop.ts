@@ -23,16 +23,31 @@ const drop = (
             });
             reader.readAsDataURL(files[0][0]);
         });
-        el.addEventListener('dragover', onDragOver);
+        el.addEventListener('dragover', (e) => {
+            onDragOver(e, el);
+        });
+        el.addEventListener('dragleave', (e) => {
+            onDragLeave(e, el);
+        });
     }
 };
 //영역에 파일이 들어왔을때
-const onDragOver = (e: DragEvent): void => {
+const onDragOver = (e: DragEvent, el: HTMLLabelElement | null): void => {
     e.preventDefault();
     e.stopPropagation();
+    if (el instanceof HTMLLabelElement) {
+        el.classList.add('drop');
+    }
 };
-//파일을 보여주는
-const displayImg = (
+const onDragLeave = (e: DragEvent, el: HTMLLabelElement | null): void => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (el instanceof HTMLLabelElement) {
+        el.classList.remove('drop');
+    }
+};
+//파일 클릭
+const SelectFile = (
     e: React.ChangeEvent<HTMLInputElement>,
     setFiles: React.Dispatch<
         React.SetStateAction<string | undefined | null | ArrayBuffer>
@@ -44,4 +59,4 @@ const displayImg = (
     });
     if (e.target.files !== null) reader.readAsDataURL(e.target.files[0]);
 };
-export { displayImg, onDragOver, drop };
+export { SelectFile, onDragOver, drop };

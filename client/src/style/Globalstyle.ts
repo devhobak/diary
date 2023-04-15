@@ -42,6 +42,10 @@ body{
     overflow: hidden;
     text-overflow: ellipsis;
   }
+  .drop{
+    background-color:#dbdbdb;
+    border: 3px dashed #8b8687;
+  }
 `;
 
 export default GlobalStyle;
