@@ -11,7 +11,7 @@ import {
     ImgLabel,
     FileImg,
 } from './style/inputSection';
-import { displayImg, drop } from '../../../utils/draganddrop';
+import { SelectFile, drop } from '../../../utils/draganddrop';
 export default function InputSection() {
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
@@ -41,7 +41,7 @@ export default function InputSection() {
                         <input
                             type="file"
                             className="visually-hidden"
-                            onChange={(e) => displayImg(e, setFiles)}
+                            onChange={(e) => SelectFile(e, setFiles)}
                         ></input>
                         <FileImg src={files} alt="이미지" />
                     </ImgLabel>
@@ -50,7 +50,7 @@ export default function InputSection() {
                         <input
                             type="file"
                             className="visually-hidden"
-                            onChange={(e) => displayImg(e, setFiles)}
+                            onChange={(e) => SelectFile(e, setFiles)}
                         ></input>
                         <Filep>
                             Drop your file here to upload or select from storage
