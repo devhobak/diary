@@ -4,13 +4,17 @@ import { CalendarLayout } from './style/calendar';
 import Days from './Days';
 import Month from './Month';
 import Record from '../modal/Record';
+
 export default function Calendar() {
+    let [modal, setModal] = useState(false);
     const [curDate, setCurDate] = useState(new Date());
     const curMonth = format(curDate, 'MMMM');
     const curYear = format(curDate, 'yyyy');
     console.log(curMonth);
     console.log(curYear);
     console.log(curDate);
+    const fullDate = format(curDate, 'yyyy년 M월 d일');
+    console.log(fullDate);
     const days = [
         'Sunday',
         'Monday',
@@ -30,8 +34,8 @@ export default function Calendar() {
                 curMonth={curMonth}
                 curYear={curYear}
             />
-            <Days days={days} curDate={curDate} />
-            <Record />
+            <Days days={days} curDate={curDate} setModal={setModal} />
+            {modal ? <Record curDate={fullDate} /> : <></>}
         </CalendarLayout>
     );
 }

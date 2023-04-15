@@ -26,11 +26,14 @@ const Date = styled.div`
     text-align: left;
     margin-bottom: 25px;
 `;
-export default function Record() {
+interface PropType {
+    curDate: string;
+}
+export default function Record(props: PropType): JSX.Element {
     return (
         <RecordSection>
             <h2 className="ir">일상기록</h2>
-            <Date>날짜 전달 값</Date>
+            <Date>{props.curDate}</Date>
             <CloseButton src={closeImg} alt="모달 닫는 버튼" />
             <InputSection />
         </RecordSection>
