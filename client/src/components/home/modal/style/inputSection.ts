@@ -64,6 +64,16 @@ const FileLabel = styled.label`
         transform: translate(-50%, -50%);
         background: url('assets/file.png') no-repeat center;
     }
+    &:focus {
+        border: 2px dashed #8b8687;
+    }
+`;
+const ImgLabel = styled.label`
+    position: relative;
+    border: 1px dashed #8b8687;
+    border-radius: 12px;
+    height: 15rem;
+    padding: 51px 111px;
 `;
 const RecordButton = styled.button<ProsType>`
     height: 4.8rem;
@@ -77,6 +87,15 @@ const Filep = styled.p`
     bottom: 20px;
     color: #8b8687;
 `;
+const FileImg = styled.img`
+    position: absolute;
+    width: 200px;
+    height: 100px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+`;
 export {
     RecordInput,
     RecordInputSection,
@@ -86,4 +105,6 @@ export {
     RecordButton,
     Recordarea,
     Filep,
+    ImgLabel,
+    FileImg,
 };
