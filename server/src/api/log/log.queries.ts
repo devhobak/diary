@@ -4,4 +4,6 @@ export const LogQueries = {
       VALUES (?, ?, ?, ?, ?);`,
   GetLogByDay: `
       SELECT * FROM diary_system.record WHERE id = ? and DATE(datetime) = ?;`,
+  GetLogByMonth: `
+      SELECT * FROM diary_system.record WHERE user_id = ? and YEAR(datetime) = ? and MONTH(datetime) = ?;`,
 };

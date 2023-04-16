@@ -24,3 +24,14 @@ export const getLogByDay = async (
 ) => {
   return execute<ILog[]>(LogQueries.GetLogByDay, [user_id, day]);
 };
+/**
+ * gets a log based on month provided
+ */
+export const getLogByMonth = async (
+  user_id: ILog["user_id"],
+  date: ILog["datetime"]
+) => {
+  const year = date.split("-")[0];
+  const month = String(Number(date.split("-")[1]));
+  return execute<ILog[]>(LogQueries.GetLogByMonth, [user_id, year, month]);
+};
