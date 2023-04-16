@@ -6,7 +6,6 @@ import Month from './Month';
 import Record from '../modal/Record';
 
 export default function Calendar() {
-    let [modal, setModal] = useState(false);
     const [curDate, setCurDate] = useState(new Date());
     const curMonth = format(curDate, 'MMMM');
     const curYear = format(curDate, 'yyyy');
@@ -34,8 +33,8 @@ export default function Calendar() {
                 curMonth={curMonth}
                 curYear={curYear}
             />
-            <Days days={days} curDate={curDate} setModal={setModal} />
-            {modal ? <Record curDate={fullDate} /> : <></>}
+            <Days days={days} curDate={curDate} />
+            <Record curDate={fullDate} />
         </CalendarLayout>
     );
 }
