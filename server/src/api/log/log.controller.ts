@@ -14,7 +14,6 @@ export const addLog: RequestHandler = async (
 ) => {
   try {
     const result = await LogService.insertLog(req.body);
-
     res.status(200).json({
       result,
     });
