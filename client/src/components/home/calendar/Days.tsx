@@ -31,7 +31,6 @@ export default function Days(props: DayType) {
     //클릭하면 모달이 뜸
     //오늘 모달 -> 글쓰기창 , 오늘날짜전달
     //다른 날 -> 글 내용, 해당 클릭 날짜 전달
-
     return (
         <DaySection>
             <DayUI>
@@ -51,6 +50,13 @@ export default function Days(props: DayType) {
                 })}
                 {forMatDay.map((item, idx) => {
                     return <DayLi key={idx}>{item}</DayLi>;
+                })}
+                {forMatDisableEnd.map((item, idx) => {
+                    return (
+                        <DayLi key={idx} title="disable">
+                            {item}
+                        </DayLi>
+                    );
                 })}
                 {forMatDisableEnd.map((item, idx) => {
                     return (

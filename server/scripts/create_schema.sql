@@ -9,6 +9,7 @@ CREATE TABLE `diary_system`.`user` (
 
 CREATE TABLE `diary_system`.`record` (
     `id` INT NOT NULL AUTO_INCREMENT,
+    `user_id` INT NOT NULL,
     `datetime` DATETIME NOT NULL,
     `content_title` TEXT(50) NOT NULL,
     `content_main` LONGTEXT NOT NULL,
