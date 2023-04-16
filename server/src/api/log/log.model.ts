@@ -9,3 +9,5 @@ export interface ILog {
 }
 
 export interface IAddLogReq extends Request<any, any, ILog> {}
+export interface IGetLogByDayReq
+  extends Request<{ user_id: ILog["user_id"]; day: ILog["datetime"] }> {}

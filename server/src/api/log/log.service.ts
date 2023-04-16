@@ -15,3 +15,12 @@ export const insertLog = async (log: ILog) => {
   ]);
   return result.affectedRows > 0;
 };
+/**
+ * gets a log based on day provided
+ */
+export const getLogByDay = async (
+  user_id: ILog["user_id"],
+  day: ILog["datetime"]
+) => {
+  return execute<ILog[]>(LogQueries.GetLogByDay, [user_id, day]);
+};
