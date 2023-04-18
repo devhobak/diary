@@ -3,18 +3,19 @@ import prevIcon from '../../../assets/Prev.png';
 import nextIcon from '../../../assets/Next.png';
 import { subMonths, addMonths } from 'date-fns';
 import { CalendarHead } from './style/calendar';
+import { curDateState } from '../../../recoil/atoms/calendarState';
+import { useRecoilState } from 'recoil';
 interface MonthType {
-    curDate: Date;
-    setCurDate: React.Dispatch<React.SetStateAction<Date>>;
     curMonth: string;
     curYear: string;
 }
 export default function Month(props: MonthType) {
+    const [curDate, setCurDate] = useRecoilState(curDateState);
     const UpClick = () => {
-        props.setCurDate(addMonths(props.curDate, 1));
+        setCurDate({ date: addMonths(curDate.date, 1), click: false });
     };
     const DownClick = () => {
-        props.setCurDate(subMonths(props.curDate, 1));
+        setCurDate({ date: subMonths(curDate.date, 1), click: false });
     };
     return (
         <section>
