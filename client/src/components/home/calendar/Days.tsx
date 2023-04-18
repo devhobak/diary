@@ -1,13 +1,15 @@
 import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
 import { DayUI, DayLi, DaySection, DaySpan } from './style/calendar';
 import { getPeriod, getFormat } from '../../../utils/getPeriod';
+import { useRecoilValue } from 'recoil';
+import { curDateState } from '../../../recoil/atoms/calendarState';
 interface DayType {
     days: string[];
-    curDate: Date;
 }
 export default function Days(props: DayType) {
-    const monthStart = startOfMonth(props.curDate);
-    const monthEnd = endOfMonth(props.curDate);
+    const curDate = useRecoilValue(curDateState);
+    const monthStart = startOfMonth(curDate.date);
+    const monthEnd = endOfMonth(curDate.date);
     const weekStart = startOfWeek(monthStart);
     const weekEnd = endOfWeek(monthEnd);
     console.log(weekStart, weekEnd, monthStart, monthEnd);
