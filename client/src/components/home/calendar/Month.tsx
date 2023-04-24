@@ -12,10 +12,10 @@ interface MonthType {
 export default function Month(props: MonthType) {
     const [curDate, setCurDate] = useRecoilState(curDateState);
     const UpClick = () => {
-        setCurDate({ date: addMonths(curDate.date, 1), click: false });
+        setCurDate(addMonths(curDate, 1));
     };
     const DownClick = () => {
-        setCurDate({ date: subMonths(curDate.date, 1), click: false });
+        setCurDate(subMonths(curDate, 1));
     };
     return (
         <section>

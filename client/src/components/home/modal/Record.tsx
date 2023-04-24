@@ -2,6 +2,8 @@ import React from 'react';
 import InputSection from './InputSection';
 import styled from 'styled-components';
 import closeImg from '../../../assets/close.png';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { dateState } from '../../../recoil/atoms/calendarState';
 const RecordSection = styled.section`
     position: relative;
     width: 54.4rem;
@@ -30,11 +32,23 @@ interface PropType {
     curDate: string;
 }
 export default function Record(props: PropType): JSX.Element {
+    const setDate = useSetRecoilState(dateState);
+    const date = useRecoilValue(dateState);
+    const modalClose = (date: string) => {
+        setDate((prev) => [...prev, { date: date, modal: false }]);
+        console.log(date);
+    };
     return (
         <RecordSection>
             <h2 className="ir">일상기록</h2>
             <Date>{props.curDate}</Date>
-            <CloseButton src={closeImg} alt="모달 닫는 버튼" />
+            <CloseButton
+                src={closeImg}
+                alt="모달 닫는 버튼"
+                onClick={() => {
+                    modalClose(props.curDate);
+                }}
+            />
             <InputSection />
         </RecordSection>
     );

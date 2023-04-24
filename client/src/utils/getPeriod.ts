@@ -11,7 +11,7 @@ const getPeriod = (start: Date, end: Date): Date[] => {
 const getFormat = (days: Date[], store: string[]) => {
     days.forEach((item) => {
         //일
-        store.push(format(item, 'd'));
+        store.push(format(item, 'yyyy년 M월 d일'));
     });
 };
 
