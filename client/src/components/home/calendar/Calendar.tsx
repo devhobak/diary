@@ -7,13 +7,10 @@ import Record from '../modal/Record';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { curDateState, dateState } from '../../../recoil/atoms/calendarState';
 export default function Calendar() {
-    const [curDate, setCurDate] = useRecoilState(curDateState);
+    const curDate = useRecoilValue(curDateState);
     const date = useRecoilValue(dateState);
     const curMonth = format(curDate, 'MMMM');
     const curYear = format(curDate, 'yyyy');
-    console.log(curMonth);
-    console.log(curYear);
-    console.log(curDate);
     const fullDate = format(curDate, 'yyyy년 M월 d일');
     console.log(fullDate);
     const days = [
@@ -33,13 +30,11 @@ export default function Calendar() {
             <Days days={days} />
             {date.map((item, idx) => {
                 return item.modal ? (
-                    <Record curDate={item.date} idx={idx} />
+                    <Record curDate={fullDate} date={item.date} idx={idx} />
                 ) : (
                     <></>
                 );
             })}
-
-            {/* <Record curDate={fullDate} /> */}
         </CalendarLayout>
     );
 }

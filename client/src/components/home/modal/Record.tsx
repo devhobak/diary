@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import closeImg from '../../../assets/close.png';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { dateState } from '../../../recoil/atoms/calendarState';
+import Diary from './Diary';
 interface StyleType {
     display: string;
 }
@@ -42,6 +43,7 @@ const Date = styled.div`
 `;
 interface PropType {
     curDate: string;
+    date: string;
     idx: number;
 }
 export default function Record(props: PropType): JSX.Element {
@@ -53,20 +55,39 @@ export default function Record(props: PropType): JSX.Element {
         setDate(arr);
         console.log(date);
     };
-    return (
-        <RecordBackground>
-            <RecordSection display="">
-                <h2 className="ir">일상기록</h2>
-                <Date>{props.curDate}</Date>
-                <CloseButton
-                    src={closeImg}
-                    alt="모달 닫는 버튼"
-                    onClick={() => {
-                        modalClose(props.curDate, props.idx);
-                    }}
-                />
-                <InputSection />
-            </RecordSection>
-        </RecordBackground>
-    );
+    if (props.date === props.curDate) {
+        return (
+            <RecordBackground>
+                <RecordSection display="">
+                    <h2 className="ir">일상기록</h2>
+                    <Date>{props.date}</Date>
+                    <CloseButton
+                        src={closeImg}
+                        alt="모달 닫는 버튼"
+                        onClick={() => {
+                            modalClose(props.date, props.idx);
+                        }}
+                    />
+                    <InputSection />
+                </RecordSection>
+            </RecordBackground>
+        );
+    } else {
+        return (
+            <RecordBackground>
+                <RecordSection display="">
+                    <h2 className="ir">일상기록</h2>
+                    <Date>{props.date}</Date>
+                    <CloseButton
+                        src={closeImg}
+                        alt="모달 닫는 버튼"
+                        onClick={() => {
+                            modalClose(props.date, props.idx);
+                        }}
+                    />
+                    <Diary />
+                </RecordSection>
+            </RecordBackground>
+        );
+    }
 }
