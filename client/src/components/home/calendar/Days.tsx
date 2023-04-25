@@ -4,7 +4,6 @@ import { getPeriod, getFormat } from '../../../utils/getPeriod';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { curDateState, dateState } from '../../../recoil/atoms/calendarState';
 import { useEffect } from 'react';
-
 interface DayType {
     days: string[];
 }
