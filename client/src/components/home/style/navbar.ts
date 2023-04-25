@@ -1,4 +1,7 @@
 import styled from 'styled-components';
+interface ChildType {
+    child: number;
+}
 const NavLayout = styled.section`
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     height: 100vh;
@@ -21,7 +24,7 @@ const NavList = styled.ul`
     flex-direction: column;
     gap: 20px;
 `;
-const NavLi = styled.li`
+const NavLi = styled.li<ChildType>`
     border-radius: 10px;
     width: 200px;
     height: 45px;
@@ -29,6 +32,9 @@ const NavLi = styled.li`
     font-size: 1.2rem;
     line-height: 45px;
     &:hover {
+        background-color: ${({ theme }) => theme.color.inputBoxColor};
+    }
+    &:nth-child(${({ child }) => child}) {
         background-color: ${({ theme }) => theme.color.inputBoxColor};
     }
 `;
