@@ -40,16 +40,12 @@ export default function Days(props: DayType) {
         let arr = [...date];
         console.log(item);
         date.map((day, idx) => {
-            console.log(day);
             if (day.date === item) {
                 arr.splice(idx, 1, { date: item, modal: true });
                 setDate(arr);
             }
         });
-        console.log(date);
     };
-    console.log(day);
-    console.log(forMatDay);
     //클릭하면 모달이 뜸
     //오늘 모달 -> 글쓰기창 , 오늘날짜전달
     //다른 날 -> 글 내용, 해당 클릭 날짜 전달

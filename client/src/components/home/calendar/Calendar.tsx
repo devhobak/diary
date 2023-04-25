@@ -4,7 +4,7 @@ import { CalendarLayout } from './style/calendar';
 import Days from './Days';
 import Month from './Month';
 import Record from '../modal/Record';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilValue } from 'recoil';
 import { curDateState, dateState } from '../../../recoil/atoms/calendarState';
 export default function Calendar() {
     const curDate = useRecoilValue(curDateState);
@@ -12,7 +12,6 @@ export default function Calendar() {
     const curMonth = format(curDate, 'MMMM');
     const curYear = format(curDate, 'yyyy');
     const fullDate = format(curDate, 'yyyy년 M월 d일');
-    console.log(fullDate);
     const days = [
         'Sunday',
         'Monday',
@@ -30,7 +29,12 @@ export default function Calendar() {
             <Days days={days} />
             {date.map((item, idx) => {
                 return item.modal ? (
-                    <Record curDate={fullDate} date={item.date} idx={idx} />
+                    <Record
+                        curDate={fullDate}
+                        date={item.date}
+                        idx={idx}
+                        key={idx}
+                    />
                 ) : (
                     <></>
                 );
