@@ -31,8 +31,12 @@ export default function Calendar() {
             <h2 className="ir">달력</h2>
             <Month curMonth={curMonth} curYear={curYear} />
             <Days days={days} />
-            {date.map((item) => {
-                return item.modal ? <Record curDate={item.date} /> : <></>;
+            {date.map((item, idx) => {
+                return item.modal ? (
+                    <Record curDate={item.date} idx={idx} />
+                ) : (
+                    <></>
+                );
             })}
 
             {/* <Record curDate={fullDate} /> */}

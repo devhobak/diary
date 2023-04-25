@@ -16,7 +16,6 @@ export default function Days(props: DayType) {
     const monthEnd = endOfMonth(curDate);
     const weekStart = startOfWeek(monthStart);
     const weekEnd = endOfWeek(monthEnd);
-    console.log(date);
     //weekStart 부터 monthStart 사이의 값은 클릭 못하고, 색도 연하게 처리
     //monthEnd부터 weekEnd 사이의 값은 클릭 못하고, 색도 연하게 처리
     const days = getPeriod(monthStart, monthEnd);
@@ -29,27 +28,29 @@ export default function Days(props: DayType) {
     let fullDays = disableStartDays.concat(days);
     fullDays = fullDays.concat(disableEndDays);
     let forMatDay: string[] = [];
+    let day: string[] = [];
+    getFormat(days, day);
     getFormat(fullDays, forMatDay);
     useEffect(() => {
-        forMatDay.forEach((item) => {
-            //  setDate((prev) => [...prev, { date: item, modal: false }]);
+        forMatDay.forEach((item, idx) => {
             setDate((prev) => [...prev, { date: item, modal: false }]);
         });
         return () => resetDate();
     }, [curDate]);
-    // setDate([...date, { date: forMatDay, modal: false }]);
-    console.log(date);
     const modalUp = (item: string) => {
+        let arr = [...date];
         console.log(item);
         date.map((day, idx) => {
             console.log(day);
             if (day.date === item) {
-                setDate((prev) => [...prev, { date: item, modal: true }]);
+                arr.splice(idx, 1, { date: item, modal: true });
+                setDate(arr);
             }
         });
         console.log(date);
     };
-
+    console.log(day);
+    console.log(forMatDay);
     //클릭하면 모달이 뜸
     //오늘 모달 -> 글쓰기창 , 오늘날짜전달
     //다른 날 -> 글 내용, 해당 클릭 날짜 전달
@@ -64,8 +65,12 @@ export default function Days(props: DayType) {
             </DayUI>
             <DayUI title="">
                 {forMatDay.map((item, idx) => {
-                    return (
+                    return day.includes(item) ? (
                         <DayLi key={idx} onClick={() => modalUp(item)}>
+                            {item.split(' ')[2].split('일')[0]}
+                        </DayLi>
+                    ) : (
+                        <DayLi key={idx} title="disabled">
                             {item.split(' ')[2].split('일')[0]}
                         </DayLi>
                     );

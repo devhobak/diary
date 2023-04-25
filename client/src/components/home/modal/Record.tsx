@@ -4,7 +4,19 @@ import styled from 'styled-components';
 import closeImg from '../../../assets/close.png';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { dateState } from '../../../recoil/atoms/calendarState';
-const RecordSection = styled.section`
+interface StyleType {
+    display: string;
+}
+const RecordBackground = styled.div`
+    background-color: rgba(0, 0, 0, 0.3);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+`;
+const RecordSection = styled.section<StyleType>`
+display:${(props) => (props.display === 'none' ? 'none' : 'block')}
     position: relative;
     width: 54.4rem;
     height: 73rem;
@@ -30,26 +42,31 @@ const Date = styled.div`
 `;
 interface PropType {
     curDate: string;
+    idx: number;
 }
 export default function Record(props: PropType): JSX.Element {
     const setDate = useSetRecoilState(dateState);
-    const date = useRecoilValue(dateState);
-    const modalClose = (date: string) => {
-        setDate((prev) => [...prev, { date: date, modal: false }]);
+    const dateValue = useRecoilValue(dateState);
+    const modalClose = (date: string, idx: number) => {
+        let arr = [...dateValue];
+        arr.splice(idx, 1, { date: date, modal: false });
+        setDate(arr);
         console.log(date);
     };
     return (
-        <RecordSection>
-            <h2 className="ir">일상기록</h2>
-            <Date>{props.curDate}</Date>
-            <CloseButton
-                src={closeImg}
-                alt="모달 닫는 버튼"
-                onClick={() => {
-                    modalClose(props.curDate);
-                }}
-            />
-            <InputSection />
-        </RecordSection>
+        <RecordBackground>
+            <RecordSection display="">
+                <h2 className="ir">일상기록</h2>
+                <Date>{props.curDate}</Date>
+                <CloseButton
+                    src={closeImg}
+                    alt="모달 닫는 버튼"
+                    onClick={() => {
+                        modalClose(props.curDate, props.idx);
+                    }}
+                />
+                <InputSection />
+            </RecordSection>
+        </RecordBackground>
     );
 }
