@@ -1,4 +1,23 @@
+import { keyframes } from 'styled-components';
 import styled from 'styled-components';
+const fadeIn = keyframes`
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+`;
+
+const fadeOut = keyframes`
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+`;
+
 const RecordBackground = styled.div`
     background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
@@ -20,6 +39,7 @@ const RecordSection = styled.section`
     padding: 2.2rem 3.2rem;
     border-radius: 15px;
     border: 1px solid #dbdbdb;
+    animation: ${fadeIn} 0.5s ease-out;
 `;
 const CloseButton = styled.img`
     position: absolute;
