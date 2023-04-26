@@ -17,7 +17,9 @@ const fadeOut = keyframes`
     opacity: 0;
   }
 `;
-
+interface CloseType {
+    close: boolean;
+}
 const RecordBackground = styled.div`
     background-color: rgba(0, 0, 0, 0.3);
     position: fixed;
@@ -26,7 +28,7 @@ const RecordBackground = styled.div`
     right: 0;
     bottom: 0;
 `;
-const RecordSection = styled.section`
+const RecordSection = styled.section<CloseType>`
     position: relative;
     width: 54.4rem;
     height: 73rem;
@@ -39,7 +41,7 @@ const RecordSection = styled.section`
     padding: 2.2rem 3.2rem;
     border-radius: 15px;
     border: 1px solid #dbdbdb;
-    animation: ${fadeIn} 0.5s ease-out;
+    animation: ${({ close }) => (close ? fadeOut : fadeIn)} 0.5s ease-out;
 `;
 const CloseButton = styled.img`
     position: absolute;
