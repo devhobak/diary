@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import InputSection from './InputSection';
 import closeImg from '../../../assets/close.png';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -18,16 +18,20 @@ interface PropType {
 export default function Record(props: PropType): JSX.Element {
     const setDate = useSetRecoilState(dateState);
     const dateValue = useRecoilValue(dateState);
+    const [close, setClose] = useState(false);
     const modalClose = (date: string, idx: number) => {
+        setClose(true);
         let arr = [...dateValue];
         arr.splice(idx, 1, { date: date, modal: false });
-        setDate(arr);
+        setTimeout(() => {
+            setDate(arr);
+        }, 400);
         console.log(date);
     };
     if (props.date === props.curDate) {
         return (
             <RecordBackground>
-                <RecordSection>
+                <RecordSection close={close}>
                     <h2 className="ir">일상기록</h2>
                     <Date>{props.date}</Date>
                     <CloseButton
@@ -44,7 +48,7 @@ export default function Record(props: PropType): JSX.Element {
     } else {
         return (
             <RecordBackground>
-                <RecordSection>
+                <RecordSection close={close}>
                     <h2 className="ir">일상기록</h2>
                     <Date>{props.date}</Date>
                     <CloseButton
