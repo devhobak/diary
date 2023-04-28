@@ -25,7 +25,7 @@ export default function Form(): JSX.Element {
             </Label>
             <Label>
                 <Input
-                    type={password ? 'password' : 'text'}
+                    type={password.pw ? 'password' : 'text'}
                     placeholder="비밀번호"
                     name="password"
                     find="Lock"

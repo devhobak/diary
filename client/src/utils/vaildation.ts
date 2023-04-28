@@ -1,21 +1,16 @@
-interface LoginType {
+interface FormType {
     username?: FormDataEntryValue;
     email: FormDataEntryValue;
     password: FormDataEntryValue;
+    repassword?: FormDataEntryValue;
 }
-interface SignupType {
-    username: FormDataEntryValue;
-    email: FormDataEntryValue;
-    password: FormDataEntryValue;
-}
-type FormType = LoginType | SignupType;
 
 type Vaildation = (
     arg: FormType,
     type?: string
-) => { username: string; email: string; password: string };
+) => { username: string; email: string; password: string; repassword: string };
 const vaildation: Vaildation = (data, type) => {
-    let error = { username: '', email: '', password: '' };
+    let error = { username: '', email: '', password: '', repassword: '' };
     if (type === 'login') {
         if (!data.email) {
             error = { ...error, email: '이메일을 입력해주세요' };
@@ -31,6 +26,9 @@ const vaildation: Vaildation = (data, type) => {
             error = { ...error, email: '이메일을 입력해주세요' };
         }
         if (!data.password) {
+            error = { ...error, password: '비밀번호를 입력해주세요' };
+        }
+        if (!data.repassword) {
             error = { ...error, password: '비밀번호를 입력해주세요' };
         }
     }
