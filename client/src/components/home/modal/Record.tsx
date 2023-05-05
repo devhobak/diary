@@ -30,8 +30,8 @@ export default function Record(props: PropType): JSX.Element {
     };
     if (props.date === props.curDate) {
         return (
-            <RecordBackground>
-                <RecordSection close={close}>
+            <RecordBackground isClose={close}>
+                <RecordSection isClose={close}>
                     <h2 className="ir">일상기록</h2>
                     <Date>{props.date}</Date>
                     <CloseButton
@@ -47,8 +47,8 @@ export default function Record(props: PropType): JSX.Element {
         );
     } else {
         return (
-            <RecordBackground>
-                <RecordSection close={close}>
+            <RecordBackground isClose={close}>
+                <RecordSection isClose={close}>
                     <h2 className="ir">일상기록</h2>
                     <Date>{props.date}</Date>
                     <CloseButton

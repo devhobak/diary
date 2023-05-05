@@ -18,10 +18,11 @@ const fadeOut = keyframes`
   }
 `;
 interface CloseType {
-    close: boolean;
+    isClose: boolean;
 }
-const RecordBackground = styled.div`
+const RecordBackground = styled.div<CloseType>`
     background-color: rgba(0, 0, 0, 0.3);
+    animation: ${({ isClose }) => (isClose ? fadeOut : fadeIn)} 0.5s ease-out;
     position: fixed;
     top: 0;
     left: 0;
@@ -41,7 +42,7 @@ const RecordSection = styled.section<CloseType>`
     padding: 2.2rem 3.2rem;
     border-radius: 15px;
     border: 1px solid #dbdbdb;
-    animation: ${({ close }) => (close ? fadeOut : fadeIn)} 0.5s ease-out;
+    animation: ${({ isClose }) => (isClose ? fadeOut : fadeIn)} 0.5s ease-out;
 `;
 const CloseButton = styled.img`
     position: absolute;
