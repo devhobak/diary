@@ -87,12 +87,29 @@ const Filep = styled.p`
     bottom: 20px;
     color: #8b8687;
 `;
-const FileImg = styled.img`
-    position: absolute;
-    width: 200px;
-    height: 100px;
+const FileContainer = styled.div`
+    position: relative;
+    width: 120px;
+    height: 120px;
     top: 50%;
     left: 50%;
+    border-radius: 10px;
+    border: 1px solid #dbdbdb;
+    transform: translate(-50%, -50%);
+`;
+const FileDelete = styled.img`
+    position: absolute;
+    top: -10%;
+    right: -10%;
+    width: 15px;
+`;
+const FileImg = styled.img`
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
     transform: translate(-50%, -50%);
     object-fit: cover;
 `;
@@ -107,4 +124,6 @@ export {
     Filep,
     ImgLabel,
     FileImg,
+    FileContainer,
+    FileDelete,
 };

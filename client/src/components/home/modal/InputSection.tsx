@@ -10,8 +10,11 @@ import {
     Filep,
     ImgLabel,
     FileImg,
+    FileContainer,
+    FileDelete,
 } from './style/inputSection';
-import { SelectFile, drop } from '../../../utils/draganddrop';
+import deleteImg from '../../../assets/close.png';
+import { SelectFile, drop, DeleteFile } from '../../../utils/draganddrop';
 export default function InputSection() {
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
@@ -43,7 +46,14 @@ export default function InputSection() {
                             className="visually-hidden"
                             onChange={(e) => SelectFile(e, setFiles)}
                         ></input>
-                        <FileImg src={files} alt="이미지" />
+                        <FileContainer>
+                            <FileImg src={files} alt="이미지" />
+                            <FileDelete
+                                src={deleteImg}
+                                alt="사진삭제"
+                                onClick={(e) => DeleteFile(e, setFiles)}
+                            />
+                        </FileContainer>
                     </ImgLabel>
                 ) : (
                     <FileLabel ref={dropSection}>

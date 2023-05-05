@@ -59,4 +59,13 @@ const SelectFile = (
     });
     if (e.target.files !== null) reader.readAsDataURL(e.target.files[0]);
 };
-export { SelectFile, onDragOver, drop };
+const DeleteFile = (
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    setFiles: React.Dispatch<
+        React.SetStateAction<string | undefined | null | ArrayBuffer>
+    >
+) => {
+    setFiles(null);
+    e.preventDefault();
+};
+export { SelectFile, onDragOver, drop, DeleteFile };
