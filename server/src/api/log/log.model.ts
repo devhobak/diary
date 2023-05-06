@@ -3,6 +3,8 @@ export interface ILog {
   id: number;
   user_id: string;
   datetime: string;
+  year: string;
+  month: string;
   content_title: string;
   content_main: string;
   content_image: string;
@@ -12,4 +14,8 @@ export interface IAddLogReq extends Request<any, any, ILog> {}
 export interface IGetLogByDayReq
   extends Request<{ user_id: ILog["user_id"]; day: ILog["datetime"] }> {}
 export interface IGetLogByMonthReq
-  extends Request<{ user_id: ILog["user_id"]; date: ILog["datetime"] }> {}
+  extends Request<{
+    user_id: ILog["user_id"];
+    year: ILog["year"];
+    month: ILog["month"];
+  }> {}

@@ -58,9 +58,9 @@ export const getLogByMonth = async (req: IGetLogByMonthReq, res: Response) => {
   try {
     const log = await LogService.getLogByMonth(
       req.params.user_id,
-      req.params.date
+      req.query.year as string,
+      req.query.month as string
     );
-    ("2023-04-15");
     res.status(200).json({ log });
   } catch (error) {
     console.error(
