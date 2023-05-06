@@ -4,6 +4,7 @@ import { getPeriod, getFormat } from '../../../utils/getPeriod';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { curDateState, dateState } from '../../../recoil/atoms/calendarState';
 import { useEffect } from 'react';
+
 interface DayType {
     days: string[];
 }
@@ -15,6 +16,7 @@ export default function Days(props: DayType) {
     const monthEnd = endOfMonth(curDate);
     const weekStart = startOfWeek(monthStart);
     const weekEnd = endOfWeek(monthEnd);
+
     //weekStart 부터 monthStart 사이의 값은 클릭 못하고, 색도 연하게 처리
     //monthEnd부터 weekEnd 사이의 값은 클릭 못하고, 색도 연하게 처리
     const days = getPeriod(monthStart, monthEnd);
@@ -28,6 +30,7 @@ export default function Days(props: DayType) {
     fullDays = fullDays.concat(disableEndDays);
     let forMatDay: string[] = [];
     let day: string[] = [];
+
     getFormat(days, day);
     getFormat(fullDays, forMatDay);
     useEffect(() => {
@@ -36,6 +39,17 @@ export default function Days(props: DayType) {
         });
         return () => resetDate();
     }, [curDate]);
+    console.log(forMatDay);
+
+    const viewReport = () => {
+        // if (res.isLoading) {
+        //     console.log(res);
+        // } else if (res.data) {
+        //     console.log(res.data);
+        // }
+        //console.log(data);
+    };
+
     const modalUp = (item: string) => {
         let arr = [...date];
         console.log(item);
