@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import InputSection from './InputSection';
 import closeImg from '../../../assets/close.png';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
@@ -30,7 +30,7 @@ export default function Record(props: PropType): JSX.Element {
     };
     if (props.date === props.curDate) {
         return (
-            <RecordBackground>
+            <RecordBackground close={close}>
                 <RecordSection close={close}>
                     <h2 className="ir">일상기록</h2>
                     <Date>{props.date}</Date>
@@ -47,7 +47,7 @@ export default function Record(props: PropType): JSX.Element {
         );
     } else {
         return (
-            <RecordBackground>
+            <RecordBackground close={close}>
                 <RecordSection close={close}>
                     <h2 className="ir">일상기록</h2>
                     <Date>{props.date}</Date>

@@ -20,8 +20,9 @@ const fadeOut = keyframes`
 interface CloseType {
     close: boolean;
 }
-const RecordBackground = styled.div`
+const RecordBackground = styled.div<CloseType>`
     background-color: rgba(0, 0, 0, 0.3);
+    animation: ${({ close }) => (close ? fadeOut : fadeIn)} 0.5s ease-out;
     position: fixed;
     top: 0;
     left: 0;
