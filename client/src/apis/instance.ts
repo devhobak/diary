@@ -1,12 +1,12 @@
 import axios from 'axios';
-const authApi = axios.create({
+const Api = axios.create({
     baseURL: 'http://localhost:4000/',
     headers: { 'Content-Type': 'application/json' },
 });
-const api = axios.create({
+const authApi = axios.create({
     baseURL: 'http://localhost:4000/',
 });
-api.interceptors.request.use((config) => {
+authApi.interceptors.request.use((config) => {
     try {
         config.headers['Content-Type'] = 'application/json';
         //config.headers['Authorization'] = ' 토큰 값';
@@ -16,5 +16,4 @@ api.interceptors.request.use((config) => {
 
     return config;
 });
-
-export { authApi, api };
+export { Api, authApi };

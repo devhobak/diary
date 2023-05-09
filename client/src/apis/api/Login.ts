@@ -1,4 +1,4 @@
-import { authApi } from '../instance';
+import { Api } from '../instance';
 interface SignUpType {
     username: FormDataEntryValue;
     password: FormDataEntryValue;
@@ -10,7 +10,7 @@ const LoginCheck = async (
 ): Promise<SignUpType> => {
     console.log({ ...data });
     try {
-        let res = await authApi.post<SignUpType>(url, {
+        let res = await Api.post<SignUpType>(url, {
             username: data.username,
             password: data.password,
             email: data.email,
