@@ -2,23 +2,27 @@ import { useState } from 'react';
 import InputSection from './InputSection';
 import closeImg from '../../../assets/close.png';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { dateState } from '../../../recoil/atoms/calendarState';
+import { dateState, curDateState } from '../../../recoil/atoms/calendarState';
 import Diary from './Diary';
+import { format } from 'date-fns';
 import {
     RecordBackground,
     RecordSection,
     CloseButton,
     Date,
 } from './style/Record';
+
 interface PropType {
-    curDate: string;
     date: string;
     idx: number;
 }
 export default function Record(props: PropType): JSX.Element {
+    const curDate = useRecoilValue(curDateState);
+    const fullDate = format(curDate, 'yyyy-MM-dd');
     const setDate = useSetRecoilState(dateState);
     const dateValue = useRecoilValue(dateState);
     const [close, setClose] = useState(false);
+
     const modalClose = (date: string, idx: number) => {
         setClose(true);
         let arr = [...dateValue];
@@ -26,9 +30,8 @@ export default function Record(props: PropType): JSX.Element {
         setTimeout(() => {
             setDate(arr);
         }, 400);
-        console.log(date);
     };
-    if (props.date === props.curDate) {
+    if (props.date === fullDate) {
         return (
             <RecordBackground isClose={close}>
                 <RecordSection isClose={close}>
@@ -41,7 +44,7 @@ export default function Record(props: PropType): JSX.Element {
                             modalClose(props.date, props.idx);
                         }}
                     />
-                    <InputSection />
+                    <InputSection setClose={setClose} />
                 </RecordSection>
             </RecordBackground>
         );

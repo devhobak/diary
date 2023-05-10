@@ -1,8 +1,11 @@
 import { atom } from 'recoil';
-
-const Modal = atom({
-    key: 'modal',
-    default: false,
+interface ModalType {
+    date: string;
+    modal: boolean;
+}
+const modalState = atom<ModalType[]>({
+    key: 'modalState',
+    default: [],
 });
 
-export { Modal };
+export { modalState };

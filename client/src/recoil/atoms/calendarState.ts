@@ -10,10 +10,13 @@ const curDateState = atom({
     key: 'curDateState',
     default: new Date(),
 });
-
+const selectDateState = atom({
+    key: 'selecDateState',
+    default: { date: '', modal: false },
+});
 const dateState = atom<DateType[]>({
     key: 'dateState',
     default: [],
 });
 
-export { curDateState, dateState };
+export { curDateState, dateState, selectDateState };
