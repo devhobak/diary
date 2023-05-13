@@ -44,6 +44,7 @@ const DayUI = styled.ul`
     padding: 10px;
 `;
 const DayLi = styled.li<PropType>`
+    position: relative;
     background-color: ${(props) => (props.title ? '#FAFAFA' : '#ffff')};
     width: 120px;
     height: 90px;
@@ -59,6 +60,14 @@ const DaySpan = styled.p`
     padding: 3px;
     border-radius: 10px;
 `;
+const StateRecord = styled.div`
+    position: absolute;
+    bottom: 10px;
+    width: 5rem;
+    height: 1rem;
+    background-color: ${({ theme }) => theme.color.inputBoxColor};
+    border-radius: 10px;
+`;
 export {
     TopLayout,
     CalendarLayout,
@@ -67,4 +76,5 @@ export {
     DaySection,
     DaySpan,
     CalendarHead,
+    StateRecord,
 };

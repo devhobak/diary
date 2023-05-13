@@ -1,4 +1,10 @@
-import { DayUI, DayLi, DaySection, DaySpan } from './style/calendar';
+import {
+    DayUI,
+    DayLi,
+    DaySection,
+    DaySpan,
+    StateRecord,
+} from './style/calendar';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import {
     curDateState,
@@ -7,11 +13,18 @@ import {
 } from '../../../recoil/atoms/calendarState';
 import { useEffect } from 'react';
 import { formatCurDataState } from '../../../recoil/selectors/date';
-import { recordState } from '../../../recoil/atoms/recordState';
-
+interface GetDataType {
+    user_id: number;
+    datetime: string;
+    content_title: string;
+    content_main: string;
+    content_image: string;
+}
 interface DayType {
     days: string[];
+    data?: GetDataType[];
 }
+
 export default function Days(props: DayType) {
     const [date, setDate] = useRecoilState(dateState);
     const [selectDate, setSelectDate] = useRecoilState(selectDateState);
@@ -24,6 +37,12 @@ export default function Days(props: DayType) {
         });
         return () => resetDate();
     }, [curDate]);
+    let datetime = props.data?.map((data) => data.datetime.split('T')[0]);
+    let dup = datetime?.reduce(
+        (arr: string[], cur: string) =>
+            arr.includes(cur) ? arr : [...arr, cur],
+        []
+    );
     const modalUp = (item: string) => {
         let arr = [...date];
         console.log(item);
@@ -35,13 +54,12 @@ export default function Days(props: DayType) {
             }
         });
     };
-
     return (
         <DaySection>
             <DayUI>
                 {props.days.map((item, idx) => (
                     <DaySpan key={idx}>
-                        <p>{item}</p>
+                        <p key={idx}>{item}</p>
                     </DaySpan>
                 ))}
             </DayUI>
@@ -50,6 +68,13 @@ export default function Days(props: DayType) {
                     return formatDate.prevNextMonthday.includes(item) ? (
                         <DayLi key={idx} onClick={() => modalUp(item)}>
                             {item.split('-')[2]}
+                            {dup?.map((date) => {
+                                if (date === item) {
+                                    return (
+                                        <StateRecord key={idx}></StateRecord>
+                                    );
+                                }
+                            })}
                         </DayLi>
                     ) : (
                         <DayLi key={idx} title="disabled">
