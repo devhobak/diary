@@ -6,13 +6,14 @@ interface Type {
 const SliderStyle = styled(Slider)`
     .slick-list {
         width: 50rem;
+        text-align: right;
+        margin-right: 20px;
     }
 `;
 const DiarySection = styled.section`
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 5rem;
     gap: 15px;
 `;
 const DiaryLabel = styled.p`
@@ -30,6 +31,7 @@ const DiaryTitle = styled.div`
     border: 1px solid #dfdfe6;
     font-size: 1.5rem;
     text-align: left;
+    margin-top: 15px;
 `;
 const DiaryTextarea = styled.div<Type>`
     width: 48.2rem;
@@ -48,7 +50,15 @@ const DiaryImgDiv = styled.div`
     border-radius: 12px;
     border: 1px solid #dfdfe6;
 `;
-
+const EditButton = styled.button`
+    width: 8rem;
+    height: 2.5rem;
+    border-radius: 15px;
+    border: 0;
+    background-color: ${({ theme }) => theme.color.inputBoxColor};
+    font-size: 10px;
+    margin-right: 20px;
+`;
 export {
     DiarySection,
     DiaryTitle,
@@ -56,4 +66,5 @@ export {
     DiaryLabel,
     DiaryImgDiv,
     SliderStyle,
+    EditButton,
 };

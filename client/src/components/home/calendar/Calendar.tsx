@@ -44,7 +44,7 @@ export default function Calendar() {
         {
             select: (record) => record.log,
             refetchOnWindowFocus: false,
-            staleTime: 1000, // 1초,
+            staleTime: Infinity, // 1초,
             onSuccess(data) {
                 console.log(GetMonth);
                 console.log(data);

@@ -13,6 +13,7 @@ import {
     DiaryLabel,
     DiaryImgDiv,
     SliderStyle,
+    EditButton,
 } from './style/diary';
 interface GetDataType {
     user_id: number;
@@ -23,15 +24,15 @@ interface GetDataType {
 }
 interface ProsType {
     data?: GetDataType[];
+    type?: string;
 }
 export default function Diary(props: ProsType) {
     const settings = {
-        infinite: true,
+        infinite: false,
         speed: 500,
         slidesToShow: 1,
         slidesToScroll: 1,
         adaptiveHeight: true,
-        centerPadding: '0px', // 0px 하면 슬라이드 끝쪽 이미지가 안잘림
         nextArrow: <img src={next} alt="다음버튼" />,
         prevArrow: <img src={prev} alt="이전버튼" />,
     };
@@ -48,7 +49,12 @@ export default function Diary(props: ProsType) {
                 {diary?.map((item: GetDataType, idx: number) => {
                     if (selectValue.date === dateArr[idx]) {
                         return (
-                            <>
+                            <div key={idx}>
+                                {props.type === 'today' ? (
+                                    <EditButton>수정하기</EditButton>
+                                ) : (
+                                    <></>
+                                )}
                                 <DiaryLabel>일상</DiaryLabel>
                                 <DiaryTitle>{item.content_title}</DiaryTitle>
                                 <DiaryLabel>기록</DiaryLabel>
@@ -66,7 +72,7 @@ export default function Diary(props: ProsType) {
                                         {item.content_main}
                                     </DiaryTextarea>
                                 )}
-                            </>
+                            </div>
                         );
                     }
                 })}
