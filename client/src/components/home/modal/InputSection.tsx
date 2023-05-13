@@ -33,13 +33,12 @@ export default function InputSection(props: PropType) {
         drop(dropSection.current, setFiles);
         console.log(files);
     }, [files]);
-    let { content, onSubmit } = useRecord();
+    let { onSubmit } = useRecord();
     const ModalClose = () => {
         let arr = [...date];
         date.map((item, idx) => {
             if (item.date === selectDate.date) {
                 arr.splice(idx, 1, { date: selectDate.date, modal: false });
-                console.log(arr[idx]);
                 setTimeout(() => {
                     props.setClose(true);
                     setDate(arr);

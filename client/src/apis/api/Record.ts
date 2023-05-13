@@ -16,12 +16,19 @@ interface PostDataType {
     content_main: FormDataEntryValue;
     content_image: FormDataEntryValue;
 }
-const getRecord = async ({
-    year,
-    month,
-}: ParamType): Promise<GetRecordType> => {
+interface GetDataType {
+    user_id: number;
+    datetime: string;
+    content_title: string;
+    content_main: string;
+    content_image: string;
+}
+interface LogType {
+    log: GetDataType[];
+}
+const getRecord = async ({ year, month }: ParamType): Promise<LogType> => {
     try {
-        const res = await Api.get<GetRecordType>('api/log/1/date', {
+        const res = await Api.get<LogType>('api/log/1/date', {
             params: {
                 year: year,
                 month: month,
@@ -43,11 +50,11 @@ const postRecord = async ({
 }: PostDataType): Promise<PostRecordType> => {
     try {
         const res = await Api.post<PostRecordType>('api/log', {
-            user_id: '1',
-            datetime: '2023-05-04',
-            content_title: 'hi1',
-            content_main: 'hihi',
-            content_image: 'image1.jpg',
+            user_id: user_id,
+            datetime: datetime,
+            content_title: content_title,
+            content_main: content_main,
+            content_image: content_image,
         });
         return res.data;
     } catch (err) {

@@ -1,23 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import useRecordMutation from './useRecordMutation';
 import { useRecoilValue } from 'recoil';
-import { curDateState } from '../recoil/atoms/calendarState';
+import { selectDateState } from '../recoil/atoms/calendarState';
 
 export default function useRecord() {
-    let [content, setContent] = useState({
-        user_id: '',
-        datetime: '',
-        content_title: '',
-        content_main: '',
-        content_image: '',
-    });
-    let curDate = useRecoilValue(curDateState);
-    console.log(curDate);
+    let curDate = useRecoilValue(selectDateState);
     let { mutate } = useRecordMutation('postRecord');
     let onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const user_id = 1;
-        const datetime = '2023-05-10';
+        const datetime = curDate.date;
         const formData = new FormData(e.currentTarget);
         const data = Object.fromEntries(formData);
         const { content_title, content_main, content_image } = data;
@@ -32,5 +24,5 @@ export default function useRecord() {
             });
         }
     };
-    return { content, onSubmit };
+    return { onSubmit };
 }
