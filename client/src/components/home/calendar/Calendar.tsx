@@ -8,6 +8,7 @@ import { curDateState, dateState } from '../../../recoil/atoms/calendarState';
 import { useQuery } from 'react-query';
 import { getRecord } from '../../../apis/api/Record';
 import { recordState } from '../../../recoil/atoms/recordState';
+import { AxiosError } from 'axios';
 export default function Calendar() {
     const curDate = useRecoilValue(curDateState);
     const curMonth = format(curDate, 'MMMM');
@@ -26,18 +27,27 @@ export default function Calendar() {
         year: format(curDate, 'yyyy'),
         month: format(curDate, 'MM'),
     };
-    const [record, setRecord] = useRecoilState(recordState);
-    const { isLoading, isError, data, error } = useQuery(
+    interface PostDataType {
+        user_id: number;
+        datetime: string;
+        content_title: string;
+        content_main: string;
+        content_image: string;
+    }
+    interface LogType {
+        log: PostDataType[];
+    }
+    //const [record, setRecord] = useRecoilState(recordState);
+    const { data, isLoading } = useQuery<LogType, AxiosError, PostDataType[]>(
         ['record', GetMonth],
         () => getRecord(GetMonth),
         {
+            select: (record) => record.log,
             refetchOnWindowFocus: false,
             staleTime: 1000, // 1초,
-
             onSuccess(data) {
                 console.log(GetMonth);
                 console.log(data);
-                setRecord(data);
             },
         }
     );
@@ -45,12 +55,12 @@ export default function Calendar() {
         <CalendarLayout>
             <h2 className="ir">달력</h2>
             <Month curMonth={curMonth} curYear={curYear} />
-            <Days days={days} />
+            {{ isLoading } ? <Days days={days} data={data} /> : <></>}
             {date.map((item, idx) => {
                 return item.modal ? (
-                    <Record date={item.date} key={idx} idx={idx} />
+                    <Record data={data} key={idx} idx={idx} />
                 ) : (
-                    <></>
+                    <p key={idx}></p>
                 );
             })}
         </CalendarLayout>

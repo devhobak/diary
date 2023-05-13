@@ -1,8 +1,12 @@
 import { useState } from 'react';
 import InputSection from './InputSection';
 import closeImg from '../../../assets/close.png';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { dateState, curDateState } from '../../../recoil/atoms/calendarState';
+import { useRecoilValue, useRecoilState } from 'recoil';
+import {
+    dateState,
+    curDateState,
+    selectDateState,
+} from '../../../recoil/atoms/calendarState';
 import Diary from './Diary';
 import { format } from 'date-fns';
 import {
@@ -11,18 +15,23 @@ import {
     CloseButton,
     Date,
 } from './style/Record';
-
+interface GetDataType {
+    user_id: number;
+    datetime: string;
+    content_title: string;
+    content_main: string;
+    content_image: string;
+}
 interface PropType {
-    date: string;
     idx: number;
+    data?: GetDataType[];
 }
 export default function Record(props: PropType): JSX.Element {
     const curDate = useRecoilValue(curDateState);
     const fullDate = format(curDate, 'yyyy-MM-dd');
-    const setDate = useSetRecoilState(dateState);
-    const dateValue = useRecoilValue(dateState);
+    const [dateValue, setDate] = useRecoilState(dateState);
     const [close, setClose] = useState(false);
-
+    const selectDay = useRecoilValue(selectDateState);
     const modalClose = (date: string, idx: number) => {
         setClose(true);
         let arr = [...dateValue];
@@ -31,17 +40,17 @@ export default function Record(props: PropType): JSX.Element {
             setDate(arr);
         }, 400);
     };
-    if (props.date === fullDate) {
+    if (selectDay.date === fullDate) {
         return (
             <RecordBackground isClose={close}>
                 <RecordSection isClose={close}>
                     <h2 className="ir">일상기록</h2>
-                    <Date>{props.date}</Date>
+                    <Date>{selectDay.date}</Date>
                     <CloseButton
                         src={closeImg}
                         alt="모달 닫는 버튼"
                         onClick={() => {
-                            modalClose(props.date, props.idx);
+                            modalClose(selectDay.date, props.idx);
                         }}
                     />
                     <InputSection setClose={setClose} />
@@ -53,15 +62,15 @@ export default function Record(props: PropType): JSX.Element {
             <RecordBackground isClose={close}>
                 <RecordSection isClose={close}>
                     <h2 className="ir">일상기록</h2>
-                    <Date>{props.date}</Date>
+                    <Date>{selectDay.date}</Date>
                     <CloseButton
                         src={closeImg}
                         alt="모달 닫는 버튼"
                         onClick={() => {
-                            modalClose(props.date, props.idx);
+                            modalClose(selectDay.date, props.idx);
                         }}
                     />
-                    <Diary />
+                    <Diary data={props.data} />
                 </RecordSection>
             </RecordBackground>
         );

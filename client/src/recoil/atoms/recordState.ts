@@ -1,16 +1,24 @@
 import { atom } from 'recoil';
 interface RecordType {
     log: {
-        id: '';
-        user_id: '';
+        user_id: number;
         datetime: '';
         content_title: '';
         content_main: '';
+        content_image: '';
     };
 }
-const recordState = atom({
+const recordState = atom<RecordType>({
     key: 'recordState',
-    default: {},
+    default: {
+        log: {
+            user_id: 0,
+            datetime: '',
+            content_title: '',
+            content_main: '',
+            content_image: '',
+        },
+    },
 });
 
 export { recordState };
