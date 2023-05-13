@@ -41,7 +41,7 @@ const Label = styled.label`
 `;
 const ErrorMsg = styled.div`
     margin-top: 5px;
-    color: #000;q
+    color: #000;
     font-size: 1.2rem;
     text-align: left;
 `;
