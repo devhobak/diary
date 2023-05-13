@@ -40,6 +40,9 @@ export default function Record(props: PropType): JSX.Element {
             setDate(arr);
         }, 400);
     };
+    const todayRecord = props.data?.filter(
+        (item) => item.datetime.split('T')[0] === selectDay.date
+    ).length;
     if (selectDay.date === fullDate) {
         return (
             <RecordBackground isClose={close}>
@@ -53,7 +56,11 @@ export default function Record(props: PropType): JSX.Element {
                             modalClose(selectDay.date, props.idx);
                         }}
                     />
-                    <InputSection setClose={setClose} />
+                    {todayRecord ? (
+                        <Diary data={props.data} type="today" />
+                    ) : (
+                        <InputSection setClose={setClose} />
+                    )}
                 </RecordSection>
             </RecordBackground>
         );
@@ -61,7 +68,7 @@ export default function Record(props: PropType): JSX.Element {
         return (
             <RecordBackground isClose={close}>
                 <RecordSection isClose={close}>
-                    <h2 className="ir">일상기록</h2>
+                    <h2 className="ir">일상기록1</h2>
                     <Date>{selectDay.date}</Date>
                     <CloseButton
                         src={closeImg}
