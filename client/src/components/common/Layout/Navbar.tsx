@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import logoImg from '../../../assets/logo.png';
 import calendarImg from '../../../assets/Category.png';
 import diaryImg from '../../../assets/Chat.png';
 import settimtImg from '../../../assets/Setting.png';
 import logoutImg from '../../../assets/Logout.png';
+import writeImg from '../../../assets/Light.png';
 import {
     NavLayout,
     LogOutButton,
@@ -11,12 +12,15 @@ import {
     LogoImg,
     NavLi,
     IconImg,
-} from '../../home/style/navbar';
-import { useNavigate } from 'react-router';
+} from './style/navbar';
+import { useLocation, useNavigate } from 'react-router';
 
 export default function Navbar() {
     const navigate = useNavigate();
-    let [position, setPosition] = useState<number>(1);
+    let url = useLocation();
+    let pathArr = ['/home', '/record', '/write', '/myPage'];
+    let p = pathArr.indexOf(url.pathname) + 1;
+    let [position, setPosition] = useState(p);
     return (
         <NavLayout>
             <LogoImg src={logoImg} alt="로고" />
@@ -43,8 +47,18 @@ export default function Navbar() {
                 </NavLi>
                 <NavLi
                     onClick={() => {
-                        navigate('/myPage');
+                        navigate('/write');
                         setPosition(3);
+                    }}
+                    child={position}
+                >
+                    <IconImg src={writeImg} alt="일기 작성 아이콘" />
+                    일기 작성
+                </NavLi>
+                <NavLi
+                    onClick={() => {
+                        navigate('/myPage');
+                        setPosition(4);
                     }}
                     child={position}
                 >

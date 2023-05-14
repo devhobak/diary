@@ -1,15 +1,9 @@
 import styled from 'styled-components';
-const HomeLayout = styled.section`
-    display: grid;
-    grid-template-areas: 'nav top top top' 'nav calendar calendar calendar';
-`;
 
 const NavLayout = styled.section`
     grid-area: nav;
 `;
-const TopLayout = styled.section`
-    grid-area: top;
-`;
+
 const CalendarLayout = styled.section`
     width: 70%;
     grid-area: 'calendar';
@@ -57,9 +51,7 @@ const DaySpan = styled.p`
     border-radius: 10px;
 `;
 export {
-    HomeLayout,
     NavLayout,
-    TopLayout,
     CalendarLayout,
     DayUI,
     DayLi,

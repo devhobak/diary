@@ -2,6 +2,10 @@ import styled from 'styled-components';
 interface ChildType {
     child: number;
 }
+const Layout = styled.section`
+    display: grid;
+    grid-template-areas: 'nav top top top' 'nav main main main';
+`;
 const NavLayout = styled.section`
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     height: 100vh;
@@ -17,7 +21,7 @@ const LogoImg = styled.img`
     height: 50px;
 `;
 const NavList = styled.ul`
-    width: 15rem;
+    width: 17rem;
     border-radius: 10px;
     flex-basis: 80%;
     display: flex;
@@ -26,7 +30,7 @@ const NavList = styled.ul`
 `;
 const NavLi = styled.li<ChildType>`
     border-radius: 10px;
-    width: 200px;
+    width: 100%;
     height: 45px;
     text-align: left;
     font-size: 1.2rem;
@@ -51,4 +55,4 @@ const IconImg = styled.img`
     margin-left: 20px;
     vertical-align: middle;
 `;
-export { NavLayout, LogOutButton, NavList, LogoImg, NavLi, IconImg };
+export { Layout, NavLayout, LogOutButton, NavList, LogoImg, NavLi, IconImg };

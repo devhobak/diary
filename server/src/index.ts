@@ -10,7 +10,7 @@ const passport = require('passport'); // 여기와
 const passportConfig = require('./api/auth/passport'); // 여기
 
 const app: Express = express();
-const port = 3000;
+const port = 4000;
 
 // create MySQL database pool
 MySQLConnector.init();

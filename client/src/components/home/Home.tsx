@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 import Navbar from '../common/Layout/Navbar';
 import Calendar from './calendar/Calendar';
-import { HomeLayout } from './style/style';
-import Top from './Top';
+
+import Top from '../common/Layout/Top';
+import { Layout } from '../common/Layout/style/navbar';
 
 export default function Home() {
     return (
         <>
-            <HomeLayout>
+            <Layout>
                 <Navbar />
                 <Top />
                 <Calendar />
-            </HomeLayout>
+            </Layout>
         </>
     );
 }

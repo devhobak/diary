@@ -10,8 +10,9 @@ const TopLayout = styled.section`
 `;
 const CalendarLayout = styled.section`
     position: relative;
+    width: 100rem;
     height: 75rem;
-    grid-area: calendar;
+    grid-area: main;
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     margin: 10px auto;
     text-align: center;
@@ -30,7 +31,6 @@ const CalendarHead = styled.div`
     justify-content: center;
     align-items: center;
     font-size: ${({ theme }) => theme.fontSize.defaultSize};
-    //margin-bottom: 10px;
     padding-top: 10px;
     gap: 10px;
 `;
