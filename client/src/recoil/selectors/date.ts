@@ -1,6 +1,12 @@
 import { selector } from 'recoil';
 import { curDateState } from '../atoms/calendarState';
-import { startOfMonth, endOfMonth, startOfWeek, endOfWeek } from 'date-fns';
+import {
+    startOfMonth,
+    endOfMonth,
+    startOfWeek,
+    endOfWeek,
+    format,
+} from 'date-fns';
 import { getPeriod, getFormat } from '../../utils/getPeriod';
 const formatCurDataState = selector({
     key: 'formatCurData',
@@ -24,4 +30,12 @@ const formatCurDataState = selector({
         return { curMonthDay: forMatDay, prevNextMonthday: day };
     },
 });
-export { formatCurDataState };
+const formatCurDay = selector({
+    key: 'formatCurDay ',
+    get: ({ get }) => {
+        const curDate = get(curDateState);
+
+        return format(curDate, 'yyyy-MM-dd');
+    },
+});
+export { formatCurDataState, formatCurDay };

@@ -47,7 +47,7 @@ const FileLabel = styled.label`
         content: '';
         width: 8rem;
         height: 8rem;
-        background-color: #f9c00c;
+        background-color: ${({ theme }) => theme.color.inputBoxColor};
         border-radius: 50%;
         left: 50%;
         top: 40%;
@@ -84,7 +84,9 @@ const RecordButton = styled.button<ProsType>`
 `;
 const Filep = styled.p`
     position: absolute;
-    bottom: 20px;
+    top: 80%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     color: #8b8687;
 `;
 const FileContainer = styled.div`
@@ -99,19 +101,19 @@ const FileContainer = styled.div`
 `;
 const FileDelete = styled.img`
     position: absolute;
-    top: -10%;
-    right: -10%;
+    top: -5%;
+    right: -5%;
     width: 15px;
 `;
 const FileImg = styled.img`
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: 100%;
+    height: 100%;
     top: 50%;
     left: 50%;
     border-radius: 10px;
     transform: translate(-50%, -50%);
-    object-fit: cover;
+    object-fit: contain;
 `;
 export {
     RecordInput,

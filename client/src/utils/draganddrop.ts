@@ -19,7 +19,8 @@ const drop = (
             let data: FileList;
             if (e.dataTransfer) {
                 data = e.dataTransfer.files;
-                let accept = data[0].name.split('.')[1];
+                let accept = data[0].type.split('/')[1];
+                console.log(accept);
                 if (
                     !['jpeg', 'png', 'jpg', 'JPG', 'PNG', 'JPEG'].includes(
                         accept
