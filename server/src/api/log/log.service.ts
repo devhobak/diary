@@ -34,3 +34,13 @@ export const getLogByMonth = async (
 ) => {
   return execute<ILog[]>(LogQueries.GetLogByMonth, [user_id, year, month]);
 };
+/**
+ * updates log information based on the id provided
+ */
+export const updateLog = async (log: ILog) => {
+  const result = await execute<{ affectedRows: number }>(
+    LogQueries.UpdateLogById,
+    [log.content_title, log.content_main, log.id]
+  );
+  return result.affectedRows > 0;
+};
