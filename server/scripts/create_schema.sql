@@ -2,9 +2,10 @@ CREATE DATABASE diary_system;
 
 CREATE TABLE `diary_system`.`user` (
 	`id` INT NOT NULL AUTO_INCREMENT,
+    `email` VARCHAR(50) UNIQUE NOT NULL,
     `username` VARCHAR(20) UNIQUE NOT NULL,
-    `password` VARCHAR(20) NOT NULL,
-    `id_admin` TINYINT(1) NOT NULL,
+    `password` VARCHAR(100) NOT NULL,
+    `isAdmin` TINYINT(1) NOT NULL,
     PRIMARY KEY (`id`));
 
 CREATE TABLE `diary_system`.`record` (
