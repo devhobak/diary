@@ -19,3 +19,4 @@ export interface IGetLogByMonthReq
     year: ILog["year"];
     month: ILog["month"];
   }> {}
+export interface IUpdateLogReq extends Request<{ id: ILog["id"] }, any, ILog> {}

@@ -1,5 +1,10 @@
 import { RequestHandler, Response } from "express";
-import { IAddLogReq, IGetLogByDayReq, IGetLogByMonthReq } from "./log.model";
+import {
+  IAddLogReq,
+  IGetLogByDayReq,
+  IGetLogByMonthReq,
+  IUpdateLogReq,
+} from "./log.model";
 import * as LogService from "./log.service";
 
 /**
@@ -69,6 +74,36 @@ export const getLogByMonth = async (req: IGetLogByMonthReq, res: Response) => {
     );
     res.status(500).json({
       message: "There was an error when fetching log",
+    });
+  }
+};
+/**
+ * Updates existing log record
+ *
+ * @param req Express Request
+ * @param res Express Response
+ */
+// @ts-ignore
+export const updateLogById: RequestHandler = async (
+  req: IUpdateLogReq,
+  res: Response
+) => {
+  try {
+    const result = await LogService.updateLog({
+      ...req.body,
+      id: req.params.id,
+    });
+
+    res.status(200).json({
+      result,
+    });
+  } catch (error) {
+    console.error(
+      "[logs.controller][updateLogById][Error] ",
+      typeof error === "object" ? JSON.stringify(error) : error
+    );
+    res.status(500).json({
+      message: "There was an error when updating log",
     });
   }
 };

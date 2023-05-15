@@ -6,4 +6,7 @@ export const LogQueries = {
       SELECT * FROM diary_system.record WHERE user_id = ? and DATE(datetime) = ?;`,
   GetLogByMonth: `
       SELECT * FROM diary_system.record WHERE user_id = ? and YEAR(datetime) = ? and MONTH(datetime) = ?;`,
+  UpdateLogById: `
+      UPDATE diary_system.record
+      SET content_title = ?, content_main = ? WHERE id = ?`,
 };
