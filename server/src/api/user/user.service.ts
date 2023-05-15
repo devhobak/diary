@@ -24,6 +24,7 @@ export const insertUser = async (user: IUser) => {
   const result = await execute<{ affectedRows: number }>(UserQueries.AddUser, [
     user.username,
     hashedPassword,
+    user.email,
   ]);
   return result.affectedRows > 0;
 };

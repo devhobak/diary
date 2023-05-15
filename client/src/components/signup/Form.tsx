@@ -54,7 +54,7 @@ export default function Form() {
                 <Input
                     type={password.rePw ? 'password' : 'text'}
                     placeholder="비밀번호확인"
-                    name="rePassword"
+                    name="repassword"
                     find="Lock"
                 ></Input>
                 <PwImg

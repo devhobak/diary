@@ -9,14 +9,26 @@ const drop = (
     console.log(typeof el);
     console.log(el);
     let files: FileList[] = [];
+
     if (el instanceof HTMLLabelElement) {
         el.addEventListener('drop', (e: DragEvent) => {
+            el.classList.remove('drop');
             e.preventDefault();
             e.stopPropagation();
+
             let data: FileList;
             if (e.dataTransfer) {
                 data = e.dataTransfer.files;
+                let accept = data[0].name.split('.')[1];
+                if (
+                    !['jpeg', 'png', 'jpg', 'JPG', 'PNG', 'JPEG'].includes(
+                        accept
+                    )
+                ) {
+                    return;
+                }
                 files = [...files, data];
+                console.log(files);
             }
             reader.addEventListener('load', () => {
                 setFiles(reader.result);
@@ -59,4 +71,13 @@ const SelectFile = (
     });
     if (e.target.files !== null) reader.readAsDataURL(e.target.files[0]);
 };
-export { SelectFile, onDragOver, drop };
+const DeleteFile = (
+    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
+    setFiles: React.Dispatch<
+        React.SetStateAction<string | undefined | null | ArrayBuffer>
+    >
+) => {
+    setFiles(null);
+    e.preventDefault();
+};
+export { SelectFile, onDragOver, drop, DeleteFile };
