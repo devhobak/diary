@@ -40,6 +40,7 @@ export default function Record(props: PropType): JSX.Element {
         setColor(e.target.value);
         console.log(color);
     };
+    const selectDay = useRecoilValue(selectDateState);
     const modalClose = (date: string, idx?: number) => {
         setTimeout(() => {
             setClose(false);
@@ -80,6 +81,7 @@ export default function Record(props: PropType): JSX.Element {
         return (
             <RecordBackground isClose={modal}>
                 <RecordSection isClose={modal} color={color}>
+
                     <h2 className="ir">일상기록1</h2>
                     <Date>{selectDay.date}</Date>
                     <CloseButton
