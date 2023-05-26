@@ -32,10 +32,11 @@ const DiaryTitle = styled.div`
     font-size: 1.5rem;
     text-align: left;
     margin-top: 15px;
+    background-color: #fff;
 `;
 const DiaryTextarea = styled.div<Type>`
     width: 48.2rem;
-    height: ${(props) => (props.type ? '20rem' : '40rem')};
+    height: ${(props) => (props.type ? '25rem' : '40rem')};
     background: url('assets/Light.png') no-repeat 440px 10px;
     padding: 16px 50px 16px 16px;
     border-radius: 12px;
@@ -43,12 +44,14 @@ const DiaryTextarea = styled.div<Type>`
     font-size: 1.2rem;
     text-align: left;
     margin-top: 15px;
+    background-color: #fff;
 `;
 const DiaryImgDiv = styled.div`
     width: 48.2rem;
-    height: 20rem;
+    height: 22rem;
     border-radius: 12px;
     border: 1px solid #dfdfe6;
+    background-color: #fff;
 `;
 const EditButton = styled.button`
     width: 8rem;

@@ -14,8 +14,10 @@ import {
     RecordSection,
     CloseButton,
     Date,
+    ColorInput,
 } from './style/Record';
 import { modalState } from '../../../recoil/atoms/modalState';
+import { ColorState } from '../../../recoil/atoms/recordState';
 interface GetDataType {
     user_id: number;
     datetime: string;
@@ -32,7 +34,12 @@ export default function Record(props: PropType): JSX.Element {
     const fullDate = format(curDate, 'yyyy-MM-dd');
     const [dateValue, setDate] = useRecoilState(dateState);
     const [modal, setClose] = useRecoilState(modalState);
+    const [color, setColor] = useRecoilState(ColorState);
     const selectDay = useRecoilValue(selectDateState);
+    const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setColor(e.target.value);
+        console.log(color);
+    };
     const modalClose = (date: string, idx?: number) => {
         setTimeout(() => {
             setClose(false);
@@ -45,7 +52,7 @@ export default function Record(props: PropType): JSX.Element {
     if (selectDay.date === fullDate) {
         return (
             <RecordBackground isClose={modal}>
-                <RecordSection isClose={modal}>
+                <RecordSection isClose={modal} color={color}>
                     <h2 className="ir">일상기록</h2>
                     <Date>{selectDay.date}</Date>
                     <CloseButton
@@ -55,6 +62,12 @@ export default function Record(props: PropType): JSX.Element {
                             modalClose(selectDay.date, props.idx);
                         }}
                     />
+                    <ColorInput
+                        type="color"
+                        onChange={(e) => {
+                            handleColor(e);
+                        }}
+                    ></ColorInput>
                     {todayRecord ? (
                         <Diary data={props.data} type="today" />
                     ) : (
@@ -66,7 +79,7 @@ export default function Record(props: PropType): JSX.Element {
     } else {
         return (
             <RecordBackground isClose={modal}>
-                <RecordSection isClose={modal}>
+                <RecordSection isClose={modal} color={color}>
                     <h2 className="ir">일상기록1</h2>
                     <Date>{selectDay.date}</Date>
                     <CloseButton
