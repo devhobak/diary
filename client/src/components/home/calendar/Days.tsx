@@ -13,6 +13,7 @@ import {
 } from '../../../recoil/atoms/calendarState';
 import { useEffect } from 'react';
 import { formatCurDataState } from '../../../recoil/selectors/date';
+import { modalState } from '../../../recoil/atoms/modalState';
 interface GetDataType {
     user_id: number;
     datetime: string;
@@ -31,6 +32,8 @@ export default function Days(props: DayType) {
     const formatDate = useRecoilValue(formatCurDataState);
     const curDate = useRecoilValue(curDateState);
     const resetDate = useResetRecoilState(dateState);
+    const [modal, setModal] = useRecoilState(modalState);
+
     useEffect(() => {
         formatDate.curMonthDay.forEach((item, idx) => {
             setDate((prev) => [...prev, { date: item, modal: false }]);
@@ -44,12 +47,10 @@ export default function Days(props: DayType) {
         []
     );
     const modalUp = (item: string) => {
-        let arr = [...date];
+        setModal(true);
         console.log(item);
         date.map((day, idx) => {
             if (day.date === item) {
-                arr.splice(idx, 1, { date: item, modal: true });
-                setDate(arr);
                 setSelectDate(date[idx]);
             }
         });

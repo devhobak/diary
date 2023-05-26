@@ -15,6 +15,7 @@ import {
     CloseButton,
     Date,
 } from './style/Record';
+import { modalState } from '../../../recoil/atoms/modalState';
 interface GetDataType {
     user_id: number;
     datetime: string;
@@ -23,30 +24,28 @@ interface GetDataType {
     content_image: string;
 }
 interface PropType {
-    idx: number;
+    idx?: number;
     data?: GetDataType[];
 }
 export default function Record(props: PropType): JSX.Element {
     const curDate = useRecoilValue(curDateState);
     const fullDate = format(curDate, 'yyyy-MM-dd');
     const [dateValue, setDate] = useRecoilState(dateState);
-    const [close, setClose] = useState(false);
+    const [modal, setClose] = useRecoilState(modalState);
     const selectDay = useRecoilValue(selectDateState);
-    const modalClose = (date: string, idx: number) => {
-        setClose(true);
-        let arr = [...dateValue];
-        arr.splice(idx, 1, { date: date, modal: false });
+    const modalClose = (date: string, idx?: number) => {
         setTimeout(() => {
-            setDate(arr);
+            setClose(false);
         }, 400);
     };
+
     const todayRecord = props.data?.filter(
         (item) => item.datetime.split('T')[0] === selectDay.date
     ).length;
     if (selectDay.date === fullDate) {
         return (
-            <RecordBackground isClose={close}>
-                <RecordSection isClose={close}>
+            <RecordBackground isClose={modal}>
+                <RecordSection isClose={modal}>
                     <h2 className="ir">일상기록</h2>
                     <Date>{selectDay.date}</Date>
                     <CloseButton
@@ -66,8 +65,8 @@ export default function Record(props: PropType): JSX.Element {
         );
     } else {
         return (
-            <RecordBackground isClose={close}>
-                <RecordSection isClose={close}>
+            <RecordBackground isClose={modal}>
+                <RecordSection isClose={modal}>
                     <h2 className="ir">일상기록1</h2>
                     <Date>{selectDay.date}</Date>
                     <CloseButton

@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { format } from 'date-fns';
 import { CalendarLayout } from './style/calendar';
 import Days from './Days';
@@ -7,13 +8,15 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { curDateState, dateState } from '../../../recoil/atoms/calendarState';
 import { useQuery } from 'react-query';
 import { getRecord } from '../../../apis/api/Record';
-import { recordState } from '../../../recoil/atoms/recordState';
 import { AxiosError } from 'axios';
+import { modalState } from '../../../recoil/atoms/modalState';
 export default function Calendar() {
     const curDate = useRecoilValue(curDateState);
     const curMonth = format(curDate, 'MMMM');
     const curYear = format(curDate, 'yyyy');
     const date = useRecoilValue(dateState);
+    const [close, setClose] = useState(false);
+    const modal = useRecoilValue(modalState);
     const days = [
         'Sunday',
         'Monday',
@@ -56,13 +59,7 @@ export default function Calendar() {
             <h2 className="ir">달력</h2>
             <Month curMonth={curMonth} curYear={curYear} />
             {{ isLoading } ? <Days days={days} data={data} /> : <></>}
-            {date.map((item, idx) => {
-                return item.modal ? (
-                    <Record data={data} key={idx} idx={idx} />
-                ) : (
-                    <p key={idx}></p>
-                );
-            })}
+            {modal ? <Record data={data} /> : <></>}
         </CalendarLayout>
     );
 }

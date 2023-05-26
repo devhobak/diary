@@ -38,11 +38,10 @@ export default function InputSection(props: PropType) {
         let arr = [...date];
         date.map((item, idx) => {
             if (item.date === selectDate.date) {
-                arr.splice(idx, 1, { date: selectDate.date, modal: false });
+                props.setClose(true);
                 setTimeout(() => {
-                    props.setClose(true);
                     setDate(arr);
-                }, 500);
+                }, 100);
             }
         });
     };
