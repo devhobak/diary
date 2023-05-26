@@ -92,7 +92,6 @@ export default function InputSection(props: PropType) {
                     </FileLabel>
                 )}
 
-                <RecordButton find="submit">사진 첨부하기</RecordButton>
                 <RecordButton find="confirm" type="submit" onClick={ModalClose}>
                     완료
                 </RecordButton>

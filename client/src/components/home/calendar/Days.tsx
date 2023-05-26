@@ -14,6 +14,7 @@ import {
 import { useEffect } from 'react';
 import { formatCurDataState } from '../../../recoil/selectors/date';
 import { modalState } from '../../../recoil/atoms/modalState';
+import { ColorState } from '../../../recoil/atoms/recordState';
 interface GetDataType {
     user_id: number;
     datetime: string;
@@ -33,7 +34,7 @@ export default function Days(props: DayType) {
     const curDate = useRecoilValue(curDateState);
     const resetDate = useResetRecoilState(dateState);
     const [modal, setModal] = useRecoilState(modalState);
-
+    const color = useRecoilValue(ColorState);
     useEffect(() => {
         formatDate.curMonthDay.forEach((item, idx) => {
             setDate((prev) => [...prev, { date: item, modal: false }]);
@@ -72,7 +73,10 @@ export default function Days(props: DayType) {
                             {dup?.map((date) => {
                                 if (date === item) {
                                     return (
-                                        <StateRecord key={idx}></StateRecord>
+                                        <StateRecord
+                                            key={idx}
+                                            color={color}
+                                        ></StateRecord>
                                     );
                                 }
                             })}

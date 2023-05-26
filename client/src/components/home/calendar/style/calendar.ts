@@ -1,7 +1,9 @@
 import styled from 'styled-components';
 interface PropType {
     title?: string;
+    color?: string;
 }
+
 const TopLayout = styled.section`
     grid-area: top;
     height: 4rem;
@@ -60,13 +62,14 @@ const DaySpan = styled.p`
     padding: 3px;
     border-radius: 10px;
 `;
-const StateRecord = styled.div`
+const StateRecord = styled.div<PropType>`
     position: absolute;
     bottom: 10px;
     width: 5rem;
     height: 1rem;
-    background-color: ${({ theme }) => theme.color.inputBoxColor};
+    background-color: ${(props) => props.color};
     border-radius: 10px;
+    border: 1px solid #dbdbdb;
 `;
 export {
     TopLayout,
