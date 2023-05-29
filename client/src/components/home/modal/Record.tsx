@@ -3,7 +3,6 @@ import InputSection from './InputSection';
 import closeImg from '../../../assets/close.png';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import {
-    dateState,
     curDateState,
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
@@ -14,15 +13,14 @@ import {
     RecordSection,
     CloseButton,
     Date,
-    ColorInput,
     EditButton,
 } from './style/Record';
-
 import { modalState } from '../../../recoil/atoms/modalState';
 import { ColorState } from '../../../recoil/atoms/recordState';
 import Edit from './Edit';
 
 interface GetDataType {
+    id: number;
     user_id: number;
     datetime: string;
     content_title: string;
@@ -37,23 +35,17 @@ export default function Record(props: PropType): JSX.Element {
     const curDate = useRecoilValue(curDateState);
     const fullDate = format(curDate, 'yyyy-MM-dd');
     const [modal, setClose] = useRecoilState(modalState);
-    const [color, setColor] = useRecoilState(ColorState);
+    const color = useRecoilValue(ColorState);
     const selectDay = useRecoilValue(selectDateState);
     const [edit, setEdit] = useState(false);
-    const [slide, setSlide] = useState();
+    const [editpost, setEditPost] = useState(0);
     let diary = props.data;
     let diaryArr: GetDataType[] = [];
-    console.log(diary);
     diary?.map((item: GetDataType) => {
         if (item.datetime.split('T')[0] === selectDay.date) {
             diaryArr.push(item);
         }
     });
-    console.log(diaryArr);
-    const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setColor(e.target.value);
-        console.log(color);
-    };
     const modalClose = (date: string, idx?: number) => {
         setTimeout(() => {
             setClose(false);
@@ -79,21 +71,19 @@ export default function Record(props: PropType): JSX.Element {
                             modalClose(selectDay.date, props.idx);
                         }}
                     />
-                    <ColorInput
-                        type="color"
-                        onChange={(e) => {
-                            handleColor(e);
-                        }}
-                    ></ColorInput>
                     {todayRecord ? (
                         <>
                             <EditButton onClick={handleEdit}>
                                 수정하기
                             </EditButton>
                             {edit ? (
-                                <Edit data={diaryArr} />
+                                <Edit data={diaryArr} editpost={editpost} />
                             ) : (
-                                <Diary data={diaryArr} type="today" />
+                                <Diary
+                                    data={diaryArr}
+                                    type="today"
+                                    setEditPost={setEditPost}
+                                />
                             )}
                         </>
                     ) : (
@@ -115,7 +105,7 @@ export default function Record(props: PropType): JSX.Element {
                             modalClose(selectDay.date, props.idx);
                         }}
                     />
-                    <Diary data={diaryArr} />
+                    <Diary data={diaryArr} setEditPost={setEditPost} />
                 </RecordSection>
             </RecordBackground>
         );

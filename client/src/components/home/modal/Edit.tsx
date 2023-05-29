@@ -12,6 +12,7 @@ import {
     FileImg,
     FileContainer,
     FileDelete,
+    ColorInput,
 } from './style/inputSection';
 import deleteImg from '../../../assets/close.png';
 import { SelectFile, drop, DeleteFile } from '../../../utils/draganddrop';
@@ -20,9 +21,11 @@ import {
     dateState,
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
-import useRecord from '../../../hooks/useRecord';
 import { modalState } from '../../../recoil/atoms/modalState';
+import { ColorState } from '../../../recoil/atoms/recordState';
+import useEditRecord from '../../../hooks/useEditRecord';
 interface GetDataType {
+    id: number;
     user_id: number;
     datetime: string;
     content_title: string;
@@ -30,7 +33,8 @@ interface GetDataType {
     content_image: string;
 }
 interface PropsType {
-    data?: GetDataType[];
+    data: GetDataType[];
+    editpost: number;
 }
 //id 와 데이터 전달
 export default function Edit(props: PropsType) {
@@ -40,14 +44,14 @@ export default function Edit(props: PropsType) {
     let selectDate = useRecoilValue(selectDateState);
     let [date, setDate] = useRecoilState(dateState);
     let [modal, setClose] = useRecoilState(modalState);
+    let [color, setColor] = useRecoilState(ColorState);
     useEffect(() => {
         drop(dropSection.current, setFiles);
         console.log(files);
     }, [files]);
-    let { onSubmit } = useRecord();
     const ModalClose = () => {
         let arr = [...date];
-        date.map((item, idx) => {
+        date.map((item) => {
             if (item.date === selectDate.date) {
                 setTimeout(() => {
                     setClose(false);
@@ -56,22 +60,33 @@ export default function Edit(props: PropsType) {
             }
         });
     };
+    const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setColor(e.target.value);
+        console.log(color);
+    };
+    const { onSubmit } = useEditRecord(props.data[props.editpost].id);
     return (
         <RecordInputSection>
             <h3 className="ir">오늘의 일상</h3>
             <RecordForm onSubmit={onSubmit}>
                 <InputLabel htmlFor="daily">오늘의 일상</InputLabel>
+                <ColorInput
+                    type="color"
+                    onChange={(e) => {
+                        handleColor(e);
+                    }}
+                ></ColorInput>
                 <RecordInput
                     id="daily"
                     type="text"
                     name="content_title"
-                    placeholder="제목을 입력해주세요"
+                    defaultValue={props.data[props.editpost].content_title}
                 ></RecordInput>
                 <InputLabel htmlFor="record">기록</InputLabel>
                 <Recordarea
                     id="record"
                     name="content_main"
-                    placeholder="일상을 기록해주세요"
+                    defaultValue={props.data[props.editpost].content_main}
                 ></Recordarea>
                 {typeof files === 'string' ? (
                     <ImgLabel ref={dropSection}>

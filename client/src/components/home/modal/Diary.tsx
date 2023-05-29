@@ -14,6 +14,7 @@ import {
     NextBtn,
     PrevBtn,
 } from './style/diary';
+import { EditButton } from './style/Record';
 interface GetDataType {
     user_id: number;
     datetime: string;
@@ -24,6 +25,7 @@ interface GetDataType {
 interface ProsType {
     data: GetDataType[];
     type?: string;
+    setEditPost: React.Dispatch<React.SetStateAction<number>>;
 }
 export default function Diary(props: ProsType) {
     console.log(props.data);
@@ -39,51 +41,54 @@ export default function Diary(props: ProsType) {
     return (
         <DiarySection>
             <h3 className="ir">오늘의 일상</h3>
-
             <DiaryList>
                 {props.data?.map((item: GetDataType, idx: number) => {
+                    let other = 500 * idx - nextclick * 500 + prevClick * 500;
+                    if (first === 0) {
+                        props.setEditPost(0);
+                    } else if (other === 0) {
+                        props.setEditPost(idx);
+                    }
                     return (
-                        <Diaryli
-                            key={idx}
-                            first={first}
-                            idx={500 * idx - nextclick * 500 + prevClick * 500}
-                        >
-                            {first !== 0 ? (
-                                <PrevBtn
-                                    src={prev}
-                                    alt="이전버튼"
-                                    onClick={clickPrev}
-                                />
-                            ) : (
-                                <></>
-                            )}
-                            {props.data.length - 1 !== idx ? (
-                                <NextBtn
-                                    src={next}
-                                    alt="다음버튼"
-                                    onClick={clickNext}
-                                />
-                            ) : (
-                                <></>
-                            )}
-                            <DiaryLabel>일상</DiaryLabel>
-                            <DiaryTitle>{item.content_title}</DiaryTitle>
-                            <DiaryLabel>기록</DiaryLabel>
-                            {item.content_image ? (
-                                <>
-                                    <DiaryImgDiv>
-                                        <img src="" alt="기록한 이미지" />
-                                    </DiaryImgDiv>
-                                    <DiaryTextarea type="image">
+                        <>
+                            <Diaryli key={idx} first={first} idx={other}>
+                                {first !== 0 ? (
+                                    <PrevBtn
+                                        src={prev}
+                                        alt="이전버튼"
+                                        onClick={clickPrev}
+                                    />
+                                ) : (
+                                    <></>
+                                )}
+                                {props.data.length - 1 !== idx ? (
+                                    <NextBtn
+                                        src={next}
+                                        alt="다음버튼"
+                                        onClick={clickNext}
+                                    />
+                                ) : (
+                                    <></>
+                                )}
+                                <DiaryLabel>일상</DiaryLabel>
+                                <DiaryTitle>{item.content_title}</DiaryTitle>
+                                <DiaryLabel>기록</DiaryLabel>
+                                {item.content_image ? (
+                                    <>
+                                        <DiaryImgDiv>
+                                            <img src="" alt="기록한 이미지" />
+                                        </DiaryImgDiv>
+                                        <DiaryTextarea type="image">
+                                            {item.content_main}
+                                        </DiaryTextarea>
+                                    </>
+                                ) : (
+                                    <DiaryTextarea>
                                         {item.content_main}
                                     </DiaryTextarea>
-                                </>
-                            ) : (
-                                <DiaryTextarea>
-                                    {item.content_main}
-                                </DiaryTextarea>
-                            )}
-                        </Diaryli>
+                                )}
+                            </Diaryli>
+                        </>
                     );
                 })}
             </DiaryList>

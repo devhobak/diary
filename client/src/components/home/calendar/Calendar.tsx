@@ -31,6 +31,7 @@ export default function Calendar() {
         month: format(curDate, 'MM'),
     };
     interface PostDataType {
+        id: number;
         user_id: number;
         datetime: string;
         content_title: string;

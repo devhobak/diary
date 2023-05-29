@@ -12,6 +12,7 @@ import {
     FileImg,
     FileContainer,
     FileDelete,
+    ColorInput,
 } from './style/inputSection';
 import deleteImg from '../../../assets/close.png';
 import { SelectFile, drop, DeleteFile } from '../../../utils/draganddrop';
@@ -22,12 +23,14 @@ import {
 } from '../../../recoil/atoms/calendarState';
 import useRecord from '../../../hooks/useRecord';
 import { modalState } from '../../../recoil/atoms/modalState';
+import { ColorState } from '../../../recoil/atoms/recordState';
 export default function InputSection() {
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
     let selectDate = useRecoilValue(selectDateState);
     let [date, setDate] = useRecoilState(dateState);
     let [modal, setClose] = useRecoilState(modalState);
+    const [color, setColor] = useRecoilState(ColorState);
     useEffect(() => {
         drop(dropSection.current, setFiles);
         console.log(files);
@@ -44,11 +47,21 @@ export default function InputSection() {
             }
         });
     };
+    const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setColor(e.target.value);
+        console.log(color);
+    };
     return (
         <RecordInputSection>
             <h3 className="ir">오늘의 일상</h3>
             <RecordForm onSubmit={onSubmit}>
                 <InputLabel htmlFor="daily">오늘의 일상</InputLabel>
+                <ColorInput
+                    type="color"
+                    onChange={(e) => {
+                        handleColor(e);
+                    }}
+                ></ColorInput>
                 <RecordInput
                     id="daily"
                     type="text"

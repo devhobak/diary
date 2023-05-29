@@ -1,7 +1,5 @@
 import { Api } from '../instance';
-interface GetRecordType {
-    date: string[];
-}
+
 interface ParamType {
     year: string;
     month: string;
@@ -17,6 +15,7 @@ interface PostDataType {
     content_image: FormDataEntryValue;
 }
 interface GetDataType {
+    id: number;
     user_id: number;
     datetime: string;
     content_title: string;

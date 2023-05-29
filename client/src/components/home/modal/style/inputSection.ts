@@ -118,7 +118,10 @@ const FileImg = styled.img`
     transform: translate(-50%, -50%);
     object-fit: contain;
 `;
-
+const ColorInput = styled.input`
+    display: block;
+    margin-bottom: 25px;
+`;
 export {
     RecordInput,
     RecordInputSection,
@@ -132,4 +135,5 @@ export {
     FileImg,
     FileContainer,
     FileDelete,
+    ColorInput,
 };

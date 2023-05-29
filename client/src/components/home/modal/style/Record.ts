@@ -56,26 +56,16 @@ const Date = styled.div`
     text-align: left;
     margin-bottom: 10px;
 `;
-const ColorInput = styled.input`
-    display: block;
-    margin-bottom: 25px;
-`;
 const EditButton = styled.button`
     width: 8rem;
     height: 2.5rem;
     position: absolute;
     right: 30px;
+    top: 90px;
     border-radius: 15px;
     border: 0;
     background-color: ${({ theme }) => theme.color.inputBoxColor};
     font-size: 10px;
     z-index: 1000;
 `;
-export {
-    RecordBackground,
-    RecordSection,
-    CloseButton,
-    Date,
-    ColorInput,
-    EditButton,
-};
+export { RecordBackground, RecordSection, CloseButton, Date, EditButton };
