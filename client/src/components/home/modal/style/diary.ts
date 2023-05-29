@@ -2,6 +2,8 @@ import Slider from 'react-slick';
 import styled from 'styled-components';
 interface Type {
     type?: string;
+    idx?: number;
+    first?: number;
 }
 const SliderStyle = styled(Slider)`
     .slick-list {
@@ -11,16 +13,37 @@ const SliderStyle = styled(Slider)`
     }
 `;
 const DiarySection = styled.section`
+    /* display: flex;
+    // flex-direction: column;
+    justify-content: center;
+    gap: 15px; */
+    //overflow: hidden;
+    position: relative;
+`;
+const DiaryList = styled.ul`
+    width: 500px;
+    height: 700px;
     display: flex;
-    flex-direction: column;
+    // flex-direction: column;
     justify-content: center;
     gap: 15px;
+    position: relative;
+    overflow-x: hidden;
+`;
+const Diaryli = styled.li<Type>`
+    position: absolute;
+    left: ${(props) => props.idx}px;
+    transition: all 0.5s;
+    &:first-child {
+        position: absolute;
+        left: ${(props) => props.first}px;
+    }
 `;
 const DiaryLabel = styled.p`
     text-align: left;
     font-size: 1.6rem;
     font-weight: 700;
-    margin-top: 15px;
+    margin-top: 30px;
 `;
 const DiaryTitle = styled.div`
     width: 48.2rem;
@@ -53,14 +76,13 @@ const DiaryImgDiv = styled.div`
     border: 1px solid #dfdfe6;
     background-color: #fff;
 `;
-const EditButton = styled.button`
-    width: 8rem;
-    height: 2.5rem;
-    border-radius: 15px;
-    border: 0;
-    background-color: ${({ theme }) => theme.color.inputBoxColor};
-    font-size: 10px;
-    margin-right: 20px;
+const PrevBtn = styled.img`
+    position: absolute;
+    left: 0px;
+`;
+const NextBtn = styled.img`
+    position: absolute;
+    right: 0px;
 `;
 export {
     DiarySection,
@@ -69,5 +91,8 @@ export {
     DiaryLabel,
     DiaryImgDiv,
     SliderStyle,
-    EditButton,
+    DiaryList,
+    Diaryli,
+    PrevBtn,
+    NextBtn,
 };

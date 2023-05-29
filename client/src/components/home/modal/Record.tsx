@@ -15,9 +15,13 @@ import {
     CloseButton,
     Date,
     ColorInput,
+    EditButton,
 } from './style/Record';
+
 import { modalState } from '../../../recoil/atoms/modalState';
 import { ColorState } from '../../../recoil/atoms/recordState';
+import Edit from './Edit';
+
 interface GetDataType {
     user_id: number;
     datetime: string;
@@ -32,10 +36,20 @@ interface PropType {
 export default function Record(props: PropType): JSX.Element {
     const curDate = useRecoilValue(curDateState);
     const fullDate = format(curDate, 'yyyy-MM-dd');
-    const [dateValue, setDate] = useRecoilState(dateState);
     const [modal, setClose] = useRecoilState(modalState);
     const [color, setColor] = useRecoilState(ColorState);
     const selectDay = useRecoilValue(selectDateState);
+    const [edit, setEdit] = useState(false);
+    const [slide, setSlide] = useState();
+    let diary = props.data;
+    let diaryArr: GetDataType[] = [];
+    console.log(diary);
+    diary?.map((item: GetDataType) => {
+        if (item.datetime.split('T')[0] === selectDay.date) {
+            diaryArr.push(item);
+        }
+    });
+    console.log(diaryArr);
     const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setColor(e.target.value);
         console.log(color);
@@ -45,7 +59,10 @@ export default function Record(props: PropType): JSX.Element {
             setClose(false);
         }, 400);
     };
-
+    const handleEdit = () => {
+        setEdit(true);
+        console.log(edit);
+    };
     const todayRecord = props.data?.filter(
         (item) => item.datetime.split('T')[0] === selectDay.date
     ).length;
@@ -69,9 +86,18 @@ export default function Record(props: PropType): JSX.Element {
                         }}
                     ></ColorInput>
                     {todayRecord ? (
-                        <Diary data={props.data} type="today" />
+                        <>
+                            <EditButton onClick={handleEdit}>
+                                수정하기
+                            </EditButton>
+                            {edit ? (
+                                <Edit data={diaryArr} />
+                            ) : (
+                                <Diary data={diaryArr} type="today" />
+                            )}
+                        </>
                     ) : (
-                        <InputSection setClose={setClose} />
+                        <InputSection />
                     )}
                 </RecordSection>
             </RecordBackground>
@@ -89,7 +115,7 @@ export default function Record(props: PropType): JSX.Element {
                             modalClose(selectDay.date, props.idx);
                         }}
                     />
-                    <Diary data={props.data} />
+                    <Diary data={diaryArr} />
                 </RecordSection>
             </RecordBackground>
         );

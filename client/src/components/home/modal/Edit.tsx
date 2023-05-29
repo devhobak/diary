@@ -22,7 +22,19 @@ import {
 } from '../../../recoil/atoms/calendarState';
 import useRecord from '../../../hooks/useRecord';
 import { modalState } from '../../../recoil/atoms/modalState';
-export default function InputSection() {
+interface GetDataType {
+    user_id: number;
+    datetime: string;
+    content_title: string;
+    content_main: string;
+    content_image: string;
+}
+interface PropsType {
+    data?: GetDataType[];
+}
+//id 와 데이터 전달
+export default function Edit(props: PropsType) {
+    console.log(props.data);
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
     let selectDate = useRecoilValue(selectDateState);

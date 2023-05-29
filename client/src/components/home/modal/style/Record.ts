@@ -54,10 +54,28 @@ const CloseButton = styled.img`
 const Date = styled.div`
     font-size: 2.4rem;
     text-align: left;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
 `;
 const ColorInput = styled.input`
     display: block;
     margin-bottom: 25px;
 `;
-export { RecordBackground, RecordSection, CloseButton, Date, ColorInput };
+const EditButton = styled.button`
+    width: 8rem;
+    height: 2.5rem;
+    position: absolute;
+    right: 30px;
+    border-radius: 15px;
+    border: 0;
+    background-color: ${({ theme }) => theme.color.inputBoxColor};
+    font-size: 10px;
+    z-index: 1000;
+`;
+export {
+    RecordBackground,
+    RecordSection,
+    CloseButton,
+    Date,
+    ColorInput,
+    EditButton,
+};

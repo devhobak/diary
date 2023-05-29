@@ -22,6 +22,6 @@ const recordState = atom<RecordType>({
 });
 const ColorState = atom({
     key: 'ColorState',
-    default: 'pink',
+    default: '#ffff',
 });
 export { recordState, ColorState };
