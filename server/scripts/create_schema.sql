@@ -15,6 +15,7 @@ CREATE TABLE `diary_system`.`record` (
     `content_title` TEXT(50) NOT NULL,
     `content_main` LONGTEXT NOT NULL,
     `content_image` LONGBLOB,
+    `color` BINARY(3) NOT NULL,
     PRIMARY KEY(`id`));
 
 CREATE TABLE `diary_system`.`tag` (

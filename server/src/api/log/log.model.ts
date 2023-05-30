@@ -8,6 +8,7 @@ export interface ILog {
   content_title: string;
   content_main: string;
   content_image: string;
+  color: string;
 }
 
 export interface IAddLogReq extends Request<any, any, ILog> {}
