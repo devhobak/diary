@@ -10,6 +10,7 @@ export const insertLog = async (log: ILog) => {
     log.user_id,
     log.content_title,
     log.content_main,
+    log.color,
   ]);
   return result.affectedRows > 0;
 };
@@ -38,7 +39,7 @@ export const getLogByMonth = async (
 export const updateLog = async (log: ILog) => {
   const result = await execute<{ affectedRows: number }>(
     LogQueries.UpdateLogById,
-    [log.content_title, log.content_main, log.id]
+    [log.content_title, log.content_main, log.color, log.id]
   );
   return result.affectedRows > 0;
 };
