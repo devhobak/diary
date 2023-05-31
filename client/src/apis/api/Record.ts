@@ -13,6 +13,7 @@ interface PostDataType {
     content_title: FormDataEntryValue;
     content_main: FormDataEntryValue;
     content_image: FormDataEntryValue;
+    content_color: FormDataEntryValue;
 }
 interface GetDataType {
     id: number;
@@ -21,6 +22,7 @@ interface GetDataType {
     content_title: string;
     content_main: string;
     content_image: string;
+    content_color: string;
 }
 interface LogType {
     log: GetDataType[];
@@ -46,6 +48,7 @@ const postRecord = async ({
     content_title,
     content_main,
     content_image,
+    content_color,
 }: PostDataType): Promise<PostRecordType> => {
     try {
         const res = await Api.post<PostRecordType>('api/log', {
@@ -54,6 +57,7 @@ const postRecord = async ({
             content_title: content_title,
             content_main: content_main,
             content_image: content_image,
+            color: content_color,
         });
         return res.data;
     } catch (err) {

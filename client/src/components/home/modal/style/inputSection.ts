@@ -118,9 +118,13 @@ const FileImg = styled.img`
     transform: translate(-50%, -50%);
     object-fit: contain;
 `;
+
 const ColorInput = styled.input`
     display: block;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
+    width: 30px;
+    height: 30px;
+    padding: 0;
 `;
 export {
     RecordInput,

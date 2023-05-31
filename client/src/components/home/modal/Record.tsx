@@ -26,6 +26,7 @@ interface GetDataType {
     content_title: string;
     content_main: string;
     content_image: string;
+    content_color: string;
 }
 interface PropType {
     idx?: number;
@@ -39,6 +40,7 @@ export default function Record(props: PropType): JSX.Element {
     const selectDay = useRecoilValue(selectDateState);
     const [edit, setEdit] = useState(false);
     const [editpost, setEditPost] = useState(0);
+
     let diary = props.data;
     let diaryArr: GetDataType[] = [];
     diary?.map((item: GetDataType) => {

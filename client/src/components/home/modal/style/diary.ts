@@ -1,17 +1,9 @@
-import Slider from 'react-slick';
 import styled from 'styled-components';
 interface Type {
     type?: string;
     idx?: number;
     first?: number;
 }
-const SliderStyle = styled(Slider)`
-    .slick-list {
-        width: 50rem;
-        text-align: right;
-        margin-right: 20px;
-    }
-`;
 const DiarySection = styled.section`
     /* display: flex;
     // flex-direction: column;
@@ -90,7 +82,6 @@ export {
     DiaryTextarea,
     DiaryLabel,
     DiaryImgDiv,
-    SliderStyle,
     DiaryList,
     Diaryli,
     PrevBtn,

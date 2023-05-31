@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import prev from '../../../assets/chevron-left.png';
@@ -14,13 +14,15 @@ import {
     NextBtn,
     PrevBtn,
 } from './style/diary';
-import { EditButton } from './style/Record';
+import { useSetRecoilState } from 'recoil';
+import { ColorState } from '../../../recoil/atoms/recordState';
 interface GetDataType {
     user_id: number;
     datetime: string;
     content_title: string;
     content_main: string;
     content_image: string;
+    content_color: string;
 }
 interface ProsType {
     data: GetDataType[];
@@ -28,7 +30,6 @@ interface ProsType {
     setEditPost: React.Dispatch<React.SetStateAction<number>>;
 }
 export default function Diary(props: ProsType) {
-    console.log(props.data);
     const [nextclick, setNextClick] = useState(0);
     const [prevClick, setPrevClick] = useState(0);
     const clickNext = () => {
@@ -38,6 +39,9 @@ export default function Diary(props: ProsType) {
         setPrevClick((prev) => prev + 1);
     };
     let first = 0 - nextclick * 500 + prevClick * 500;
+    let setColor = useSetRecoilState(ColorState);
+    console.log(props.data);
+
     return (
         <DiarySection>
             <h3 className="ir">오늘의 일상</h3>
@@ -49,6 +53,8 @@ export default function Diary(props: ProsType) {
                     } else if (other === 0) {
                         props.setEditPost(idx);
                     }
+                    setColor(props.data[idx].content_color);
+
                     return (
                         <>
                             <Diaryli key={idx} first={first} idx={other}>

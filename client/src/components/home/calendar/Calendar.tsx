@@ -37,6 +37,7 @@ export default function Calendar() {
         content_title: string;
         content_main: string;
         content_image: string;
+        content_color: string;
     }
     interface LogType {
         log: PostDataType[];
