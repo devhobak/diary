@@ -12,35 +12,46 @@ import {
     FileLabel,
     SubmitButton,
     FileContainer,
+    DateP,
 } from './style/inputSection';
 import useRecord from '../../hooks/useRecord';
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { formatCurDay } from '../../recoil/selectors/date';
+import { curDateState } from '../../recoil/atoms/calendarState';
 
 export default function InputSection() {
-    let { onSubmit } = useRecord();
+    let { onSubmit, setFile } = useRecord();
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
+    let [day, setDay] = useRecoilState(curDateState);
+    let date = useRecoilValue(formatCurDay);
     useEffect(() => {
-        drop(dropSection.current, setFiles);
+        drop(dropSection.current, setFiles, setFile);
         console.log(files);
     }, [files]);
+    useEffect(() => {
+        setDay(new Date());
+    }, []);
     return (
         <WriteSection>
             <h2 className="ir">게시물 작성</h2>
+            <DateP>{date}</DateP>
             <WriteForm onSubmit={onSubmit}>
                 {typeof files === 'string' ? (
                     <ImageLabel ref={dropSection}>
                         <input
                             type="file"
                             className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles)}
-                            name="content_image"
+                            onChange={(e) => SelectFile(e, setFiles, setFile)}
                         ></input>
                         <FileContainer>
                             <FileImg src={files} alt="이미지" />
                             <FileDelete
                                 src={deleteImg}
                                 alt="사진삭제"
-                                onClick={(e) => DeleteFile(e, setFiles)}
+                                onClick={(e) =>
+                                    DeleteFile(e, setFiles, setFile)
+                                }
                             />
                         </FileContainer>
                     </ImageLabel>
@@ -49,7 +60,7 @@ export default function InputSection() {
                         <input
                             type="file"
                             className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles)}
+                            onChange={(e) => SelectFile(e, setFiles, setFile)}
                         ></input>
                         <Filep>
                             Drop your file here to upload or select from storage

@@ -4,10 +4,9 @@ const drop = (
     el: HTMLLabelElement | null,
     setFiles: React.Dispatch<
         React.SetStateAction<string | undefined | null | ArrayBuffer>
-    >
+    >,
+    setS3file: React.Dispatch<React.SetStateAction<File | undefined>>
 ): void => {
-    console.log(typeof el);
-    console.log(el);
     let files: FileList[] = [];
 
     if (el instanceof HTMLLabelElement) {
@@ -19,6 +18,9 @@ const drop = (
             let data: FileList;
             if (e.dataTransfer) {
                 data = e.dataTransfer.files;
+
+                setS3file(e.dataTransfer.files[0]);
+
                 let accept = data[0].type.split('/')[1];
                 console.log(accept);
                 if (
@@ -64,19 +66,24 @@ const SelectFile = (
     e: React.ChangeEvent<HTMLInputElement>,
     setFiles: React.Dispatch<
         React.SetStateAction<string | undefined | null | ArrayBuffer>
-    >
+    >,
+    setS3file: React.Dispatch<React.SetStateAction<File | undefined>>
 ) => {
     console.log(e.target.files);
     reader.addEventListener('load', () => {
         setFiles(reader.result);
     });
-    if (e.target.files !== null) reader.readAsDataURL(e.target.files[0]);
+    if (e.target.files !== null) {
+        reader.readAsDataURL(e.target.files[0]);
+        setS3file(e.target.files[0]);
+    }
 };
 const DeleteFile = (
     e: React.MouseEvent<HTMLImageElement, MouseEvent>,
     setFiles: React.Dispatch<
         React.SetStateAction<string | undefined | null | ArrayBuffer>
-    >
+    >,
+    setS3file: React.Dispatch<React.SetStateAction<File | undefined>>
 ) => {
     setFiles(null);
     e.preventDefault();

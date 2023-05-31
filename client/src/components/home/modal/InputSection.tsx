@@ -32,10 +32,12 @@ export default function InputSection() {
     let [modal, setClose] = useRecoilState(modalState);
     const [color, setColor] = useRecoilState(ColorState);
     useEffect(() => {
-        drop(dropSection.current, setFiles);
+        drop(dropSection.current, setFiles, setFile);
         console.log(files);
     }, [files]);
-    let { onSubmit } = useRecord();
+
+    let { onSubmit, setFile } = useRecord();
+
     const ModalClose = () => {
         let arr = [...date];
         date.map((item, idx) => {
@@ -57,10 +59,13 @@ export default function InputSection() {
             <RecordForm onSubmit={onSubmit}>
                 <InputLabel htmlFor="daily">오늘의 일상</InputLabel>
                 <ColorInput
+                    id="color"
                     type="color"
                     onChange={(e) => {
                         handleColor(e);
                     }}
+                    name="content_color"
+                    defaultValue="#ffffff"
                 ></ColorInput>
                 <RecordInput
                     id="daily"
@@ -79,15 +84,16 @@ export default function InputSection() {
                         <input
                             type="file"
                             className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles)}
-                            name="content_image"
+                            onChange={(e) => SelectFile(e, setFiles, setFile)}
                         ></input>
                         <FileContainer>
                             <FileImg src={files} alt="이미지" />
                             <FileDelete
                                 src={deleteImg}
                                 alt="사진삭제"
-                                onClick={(e) => DeleteFile(e, setFiles)}
+                                onClick={(e) =>
+                                    DeleteFile(e, setFiles, setFile)
+                                }
                             />
                         </FileContainer>
                     </ImgLabel>
@@ -96,7 +102,7 @@ export default function InputSection() {
                         <input
                             type="file"
                             className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles)}
+                            onChange={(e) => SelectFile(e, setFiles, setFile)}
                         ></input>
                         <Filep>
                             Drop your file here to upload or select from storage

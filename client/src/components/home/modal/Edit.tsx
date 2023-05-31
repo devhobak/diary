@@ -46,9 +46,11 @@ export default function Edit(props: PropsType) {
     let [modal, setClose] = useRecoilState(modalState);
     let [color, setColor] = useRecoilState(ColorState);
     useEffect(() => {
-        drop(dropSection.current, setFiles);
+        drop(dropSection.current, setFiles, setFile);
         console.log(files);
     }, [files]);
+
+    const { onSubmit, setFile } = useEditRecord(props.data[props.editpost].id);
     const ModalClose = () => {
         let arr = [...date];
         date.map((item) => {
@@ -64,7 +66,7 @@ export default function Edit(props: PropsType) {
         setColor(e.target.value);
         console.log(color);
     };
-    const { onSubmit } = useEditRecord(props.data[props.editpost].id);
+
     return (
         <RecordInputSection>
             <h3 className="ir">오늘의 일상</h3>
@@ -93,7 +95,7 @@ export default function Edit(props: PropsType) {
                         <input
                             type="file"
                             className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles)}
+                            onChange={(e) => SelectFile(e, setFiles, setFile)}
                             name="content_image"
                         ></input>
                         <FileContainer>
@@ -101,7 +103,9 @@ export default function Edit(props: PropsType) {
                             <FileDelete
                                 src={deleteImg}
                                 alt="사진삭제"
-                                onClick={(e) => DeleteFile(e, setFiles)}
+                                onClick={(e) =>
+                                    DeleteFile(e, setFiles, setFile)
+                                }
                             />
                         </FileContainer>
                     </ImgLabel>
@@ -110,7 +114,7 @@ export default function Edit(props: PropsType) {
                         <input
                             type="file"
                             className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles)}
+                            onChange={(e) => SelectFile(e, setFiles, setFile)}
                         ></input>
                         <Filep>
                             Drop your file here to upload or select from storage

@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import useEditMutation from './useEditMutation';
 export default function useEditRecord(id: number) {
     const { mutate } = useEditMutation('edit', id);
+    const [file, setFile] = useState<File>();
     const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -13,5 +15,5 @@ export default function useEditRecord(id: number) {
             mutate({ content_title, content_main });
         }
     };
-    return { onSubmit };
+    return { onSubmit, file, setFile };
 }

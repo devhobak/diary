@@ -11,6 +11,11 @@ const WriteSection = styled.section`
     border-radius: 10px;
     padding: 30px;
 `;
+const DateP = styled.p`
+    font-size: 25px;
+    font-weight: 700;
+    position: absolute;
+`;
 const WriteDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -108,4 +113,5 @@ export {
     FileLabel,
     SubmitButton,
     FileContainer,
+    DateP,
 };
