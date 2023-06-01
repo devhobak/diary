@@ -24,28 +24,24 @@ export default function useRecord() {
             let url = await uploadFile();
             await formData.append('content_image', url);
             console.log(url);
-            const data = Object.fromEntries(formData);
-            const {
+        }
+        const data = Object.fromEntries(formData);
+        const { content_title, content_main, content_image, content_color } =
+            data;
+        console.log(content_image);
+        console.log(data, curDate);
+        console.log(datetime);
+
+        if (content_title && content_main) {
+            //post 호출
+            mutate({
+                user_id,
+                datetime,
                 content_title,
                 content_main,
                 content_image,
-                content_color,
-            } = data;
-            console.log(content_image);
-            console.log(data, curDate);
-            console.log(datetime);
-
-            if (content_title && content_main) {
-                //post 호출
-                mutate({
-                    user_id,
-                    datetime,
-                    content_title,
-                    content_main,
-                    content_image,
-                    content_color: 'dbdbdb',
-                });
-            }
+                content_color: 'dbdbdb',
+            });
         }
     };
     return { onSubmit, file, setFile };
