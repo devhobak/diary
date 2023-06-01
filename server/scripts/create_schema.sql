@@ -14,7 +14,7 @@ CREATE TABLE `diary_system`.`record` (
     `datetime` DATETIME NOT NULL,
     `content_title` TEXT(50) NOT NULL,
     `content_main` LONGTEXT NOT NULL,
-    `content_image` LONGBLOB,
+    `content_image` VARCHAR(500),
     `color` BINARY(3) NOT NULL,
     PRIMARY KEY(`id`));
 
