@@ -28,9 +28,10 @@ export default function useRecord() {
         const data = Object.fromEntries(formData);
         const { content_title, content_main, content_image, content_color } =
             data;
+        const color = String(content_color).split('#')[1];
         console.log(content_image);
         console.log(data, curDate);
-        console.log(datetime);
+        console.log(color);
 
         if (content_title && content_main) {
             //post 호출
@@ -40,7 +41,7 @@ export default function useRecord() {
                 content_title,
                 content_main,
                 content_image,
-                content_color: 'dbdbdb',
+                color: color,
             });
         }
     };

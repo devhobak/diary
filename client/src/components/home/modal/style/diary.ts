@@ -3,23 +3,28 @@ interface Type {
     type?: string;
     idx?: number;
     first?: number;
+    color?: string;
 }
-const DiarySection = styled.section`
-    /* display: flex;
-    // flex-direction: column;
-    justify-content: center;
-    gap: 15px; */
-    //overflow: hidden;
-    position: relative;
+const DiarySection = styled.section<Type>`
+    position: absolute;
+    //  width: 54.4rem;
+    // height: 73rem;
+    // border-radius: 15px;
+    //padding: 60px 30px;
+    //top: 50%;
+    //left: 50%;
+    //transform: translate(-50%, -50%);
+    //z-index: -10;
+    //padding: 60px 30px;
 `;
 const DiaryList = styled.ul`
     width: 500px;
     height: 700px;
     display: flex;
-    // flex-direction: column;
     justify-content: center;
     gap: 15px;
     position: relative;
+    padding-left: 20px;
     overflow-x: hidden;
 `;
 const Diaryli = styled.li<Type>`

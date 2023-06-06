@@ -8,7 +8,7 @@ interface PostDataType {
     content_title: FormDataEntryValue;
     content_main: FormDataEntryValue;
     content_image: FormDataEntryValue;
-    content_color: FormDataEntryValue | string;
+    color: FormDataEntryValue | string;
 }
 export default function useRecordMutation(key: string) {
     const queryClient = useQueryClient();
