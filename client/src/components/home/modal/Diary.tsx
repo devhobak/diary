@@ -14,24 +14,26 @@ import {
     NextBtn,
     PrevBtn,
 } from './style/diary';
-import { useSetRecoilState } from 'recoil';
-import { ColorState } from '../../../recoil/atoms/recordState';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 interface GetDataType {
     user_id: number;
     datetime: string;
     content_title: string;
     content_main: string;
     content_image: string;
-    content_color: string;
+    color: string;
 }
 interface ProsType {
     data: GetDataType[];
     type?: string;
-    setEditPost: React.Dispatch<React.SetStateAction<number>>;
+    //setPositionPost: React.Dispatch<React.SetStateAction<number>>;
 }
 export default function Diary(props: ProsType) {
     const [nextclick, setNextClick] = useState(0);
     const [prevClick, setPrevClick] = useState(0);
+    const setPositionPost = useSetRecoilState(positionState);
+    const positionPost = useRecoilValue(positionState);
     const clickNext = () => {
         setNextClick((prev) => prev + 1);
     };
@@ -39,21 +41,23 @@ export default function Diary(props: ProsType) {
         setPrevClick((prev) => prev + 1);
     };
     let first = 0 - nextclick * 500 + prevClick * 500;
-    let setColor = useSetRecoilState(ColorState);
+    let [color, setColor] = useRecoilState(ColorState);
+
     console.log(props.data);
 
     return (
-        <DiarySection>
+        <DiarySection color={props.data[positionPost].color}>
             <h3 className="ir">오늘의 일상</h3>
             <DiaryList>
                 {props.data?.map((item: GetDataType, idx: number) => {
                     let other = 500 * idx - nextclick * 500 + prevClick * 500;
                     if (first === 0) {
-                        props.setEditPost(0);
+                        setPositionPost(0);
                     } else if (other === 0) {
-                        props.setEditPost(idx);
+                        setPositionPost(idx);
                     }
-                    setColor(props.data[idx].content_color);
+
+                    //setColor(props.data[idx].color);
 
                     return (
                         <>
@@ -82,7 +86,15 @@ export default function Diary(props: ProsType) {
                                 {item.content_image ? (
                                     <>
                                         <DiaryImgDiv>
-                                            <img src="" alt="기록한 이미지" />
+                                            <img
+                                                style={{
+                                                    width: '90%',
+                                                    height: '90%',
+                                                    objectFit: 'cover',
+                                                }}
+                                                src={item.content_image}
+                                                alt="기록한 이미지"
+                                            />
                                         </DiaryImgDiv>
                                         <DiaryTextarea type="image">
                                             {item.content_main}

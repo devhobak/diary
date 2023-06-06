@@ -16,20 +16,22 @@ import { formatCurDataState } from '../../../recoil/selectors/date';
 import { modalState } from '../../../recoil/atoms/modalState';
 import { ColorState } from '../../../recoil/atoms/recordState';
 interface GetDataType {
+    id: number;
     user_id: number;
     datetime: string;
     content_title: string;
     content_main: string;
     content_image: string;
+    color: string;
 }
 interface DayType {
     days: string[];
-    data?: GetDataType[];
+    data: GetDataType[];
 }
 
 export default function Days(props: DayType) {
     const [date, setDate] = useRecoilState(dateState);
-    const [selectDate, setSelectDate] = useRecoilState(selectDateState);
+    const [selectDay, setSelectDate] = useRecoilState(selectDateState);
     const formatDate = useRecoilValue(formatCurDataState);
     const curDate = useRecoilValue(curDateState);
     const resetDate = useResetRecoilState(dateState);
@@ -42,11 +44,13 @@ export default function Days(props: DayType) {
         return () => resetDate();
     }, [curDate]);
     let datetime = props.data?.map((data) => data.datetime.split('T')[0]);
+
     let dup = datetime?.reduce(
         (arr: string[], cur: string) =>
             arr.includes(cur) ? arr : [...arr, cur],
         []
     );
+
     const modalUp = (item: string) => {
         setModal(true);
         console.log(item);
@@ -70,12 +74,13 @@ export default function Days(props: DayType) {
                     return formatDate.prevNextMonthday.includes(item) ? (
                         <DayLi key={idx} onClick={() => modalUp(item)}>
                             {item.split('-')[2]}
-                            {dup?.map((date) => {
+                            {dup?.map((date, index) => {
                                 if (date === item) {
+                                    console.log(index);
                                     return (
                                         <StateRecord
-                                            key={idx}
-                                            color={color}
+                                            key={index}
+                                            color={`#${props.data[index].color}`}
                                         ></StateRecord>
                                     );
                                 }

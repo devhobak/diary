@@ -6,7 +6,7 @@ export const LogQueries = {
       SELECT id, user_id, datetime, content_title, content_main, HEX(color) as color
       FROM diary_system.record WHERE user_id = ? and DATE(datetime) = ?;`,
     GetLogByMonth: `
-      SELECT id, user_id, datetime, content_title, content_main, HEX(color) as color
+      SELECT id, user_id, datetime, content_title, content_main, HEX(color) as color,content_image
       FROM diary_system.record 
       WHERE user_id = ? and YEAR(datetime) = ? and MONTH(datetime) = ?;`,
     UpdateLogById: `

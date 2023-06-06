@@ -24,4 +24,8 @@ const ColorState = atom({
     key: 'ColorState',
     default: '#ffff',
 });
-export { recordState, ColorState };
+const positionState = atom({
+    key: 'positionState',
+    default: 0,
+});
+export { recordState, ColorState, positionState };

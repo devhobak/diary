@@ -13,6 +13,7 @@ import {
     SubmitButton,
     FileContainer,
     DateP,
+    Color,
 } from './style/inputSection';
 import useRecord from '../../hooks/useRecord';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -37,6 +38,11 @@ export default function InputSection() {
             <h2 className="ir">게시물 작성</h2>
             <DateP>{date}</DateP>
             <WriteForm onSubmit={onSubmit}>
+                <Color
+                    type="color"
+                    name="content_color"
+                    defaultValue="#ffffff"
+                ></Color>
                 {typeof files === 'string' ? (
                     <ImageLabel ref={dropSection}>
                         <input

@@ -11,6 +11,11 @@ const WriteSection = styled.section`
     border-radius: 10px;
     padding: 30px;
 `;
+const Color = styled.input`
+    position: absolute;
+    top: 60px;
+    left: 30px;
+`;
 const DateP = styled.p`
     font-size: 25px;
     font-weight: 700;
@@ -114,4 +119,5 @@ export {
     SubmitButton,
     FileContainer,
     DateP,
+    Color,
 };

@@ -22,7 +22,7 @@ import {
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
 import { modalState } from '../../../recoil/atoms/modalState';
-import { ColorState } from '../../../recoil/atoms/recordState';
+import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import useEditRecord from '../../../hooks/useEditRecord';
 interface GetDataType {
     id: number;
@@ -34,7 +34,7 @@ interface GetDataType {
 }
 interface PropsType {
     data: GetDataType[];
-    editpost: number;
+    //positionPost: number;
 }
 //id 와 데이터 전달
 export default function Edit(props: PropsType) {
@@ -45,12 +45,13 @@ export default function Edit(props: PropsType) {
     let [date, setDate] = useRecoilState(dateState);
     let [modal, setClose] = useRecoilState(modalState);
     let [color, setColor] = useRecoilState(ColorState);
+    const [positionPost, setPositionPost] = useRecoilState(positionState);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
         console.log(files);
     }, [files]);
 
-    const { onSubmit, setFile } = useEditRecord(props.data[props.editpost].id);
+    const { onSubmit, setFile } = useEditRecord(props.data[positionPost].id);
     const ModalClose = () => {
         let arr = [...date];
         date.map((item) => {
@@ -82,15 +83,15 @@ export default function Edit(props: PropsType) {
                     id="daily"
                     type="text"
                     name="content_title"
-                    defaultValue={props.data[props.editpost].content_title}
+                    defaultValue={props.data[positionPost].content_title}
                 ></RecordInput>
                 <InputLabel htmlFor="record">기록</InputLabel>
                 <Recordarea
                     id="record"
                     name="content_main"
-                    defaultValue={props.data[props.editpost].content_main}
+                    defaultValue={props.data[positionPost].content_main}
                 ></Recordarea>
-                {typeof files === 'string' ? (
+                {props.data[positionPost].content_image ? (
                     <ImgLabel ref={dropSection}>
                         <input
                             type="file"
@@ -99,7 +100,10 @@ export default function Edit(props: PropsType) {
                             name="content_image"
                         ></input>
                         <FileContainer>
-                            <FileImg src={files} alt="이미지" />
+                            <FileImg
+                                src={props.data[positionPost].content_image}
+                                alt="이미지"
+                            />
                             <FileDelete
                                 src={deleteImg}
                                 alt="사진삭제"

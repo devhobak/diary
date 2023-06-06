@@ -37,7 +37,7 @@ export default function Calendar() {
         content_title: string;
         content_main: string;
         content_image: string;
-        content_color: string;
+        color: string;
     }
     interface LogType {
         log: PostDataType[];
@@ -60,8 +60,8 @@ export default function Calendar() {
         <CalendarLayout>
             <h2 className="ir">달력</h2>
             <Month curMonth={curMonth} curYear={curYear} />
-            {{ isLoading } ? <Days days={days} data={data} /> : <></>}
-            {modal ? <Record data={data} /> : <></>}
+            {{ isLoading } && data ? <Days days={days} data={data} /> : <></>}
+            {modal && data ? <Record data={data} /> : <></>}
         </CalendarLayout>
     );
 }
