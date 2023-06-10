@@ -41,7 +41,7 @@ export default function InputSection() {
     const ModalClose = () => {
         let arr = [...date];
         date.map((item, idx) => {
-            if (item.date === selectDate.date) {
+            if (item.date === selectDate) {
                 setTimeout(() => {
                     setClose(false);
                     setDate(arr);

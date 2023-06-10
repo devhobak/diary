@@ -55,20 +55,26 @@ const DayLi = styled.li<PropType>`
     text-align: left;
     padding: 10px;
 `;
-const DaySpan = styled.p`
+const DayOfLi = styled.li`
     width: 120px;
     height: 20px;
     background-color: ${({ theme }) => theme.color.inputBoxColor};
     padding: 3px;
     border-radius: 10px;
 `;
+const StateDiv = styled.div`
+    display: flex;
+
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1px;
+`;
 const StateRecord = styled.div<PropType>`
-    position: absolute;
-    bottom: 10px;
-    width: 5rem;
+    //display: inline-block;
+    width: 1.5rem;
     height: 1rem;
     background-color: ${(props) => props.color};
-    border-radius: 10px;
+    border-radius: 20px;
     border: 1px solid #dbdbdb;
 `;
 export {
@@ -77,7 +83,8 @@ export {
     DayUI,
     DayLi,
     DaySection,
-    DaySpan,
+    DayOfLi,
     CalendarHead,
     StateRecord,
+    StateDiv,
 };

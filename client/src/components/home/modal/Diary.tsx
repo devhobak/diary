@@ -13,6 +13,7 @@ import {
     Diaryli,
     NextBtn,
     PrevBtn,
+    DiaryImg,
 } from './style/diary';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { ColorState, positionState } from '../../../recoil/atoms/recordState';
@@ -27,7 +28,6 @@ interface GetDataType {
 interface ProsType {
     data: GetDataType[];
     type?: string;
-    //setPositionPost: React.Dispatch<React.SetStateAction<number>>;
 }
 export default function Diary(props: ProsType) {
     const [nextclick, setNextClick] = useState(0);
@@ -41,72 +41,62 @@ export default function Diary(props: ProsType) {
         setPrevClick((prev) => prev + 1);
     };
     let first = 0 - nextclick * 500 + prevClick * 500;
-    let [color, setColor] = useRecoilState(ColorState);
-
-    console.log(props.data);
+    let other: number;
+    useEffect(() => {
+        if (first === 0) {
+            setPositionPost(0);
+        } else if (other === 0) {
+            setPositionPost((other + nextclick * 500 - prevClick * 500) / 500);
+        }
+    }, [nextclick, prevClick]);
 
     return (
         <DiarySection color={props.data[positionPost].color}>
             <h3 className="ir">오늘의 일상</h3>
             <DiaryList>
                 {props.data?.map((item: GetDataType, idx: number) => {
-                    let other = 500 * idx - nextclick * 500 + prevClick * 500;
-                    if (first === 0) {
-                        setPositionPost(0);
-                    } else if (other === 0) {
-                        setPositionPost(idx);
-                    }
-
-                    //setColor(props.data[idx].color);
-
+                    other = 500 * idx - nextclick * 500 + prevClick * 500;
                     return (
-                        <>
-                            <Diaryli key={idx} first={first} idx={other}>
-                                {first !== 0 ? (
-                                    <PrevBtn
-                                        src={prev}
-                                        alt="이전버튼"
-                                        onClick={clickPrev}
-                                    />
-                                ) : (
-                                    <></>
-                                )}
-                                {props.data.length - 1 !== idx ? (
-                                    <NextBtn
-                                        src={next}
-                                        alt="다음버튼"
-                                        onClick={clickNext}
-                                    />
-                                ) : (
-                                    <></>
-                                )}
-                                <DiaryLabel>일상</DiaryLabel>
-                                <DiaryTitle>{item.content_title}</DiaryTitle>
-                                <DiaryLabel>기록</DiaryLabel>
-                                {item.content_image ? (
-                                    <>
-                                        <DiaryImgDiv>
-                                            <img
-                                                style={{
-                                                    width: '90%',
-                                                    height: '90%',
-                                                    objectFit: 'cover',
-                                                }}
-                                                src={item.content_image}
-                                                alt="기록한 이미지"
-                                            />
-                                        </DiaryImgDiv>
-                                        <DiaryTextarea type="image">
-                                            {item.content_main}
-                                        </DiaryTextarea>
-                                    </>
-                                ) : (
-                                    <DiaryTextarea>
+                        <Diaryli key={idx} first={first} idx={other}>
+                            {first !== 0 ? (
+                                <PrevBtn
+                                    src={prev}
+                                    alt="이전버튼"
+                                    onClick={clickPrev}
+                                />
+                            ) : (
+                                <></>
+                            )}
+                            {props.data.length - 1 !== idx ? (
+                                <NextBtn
+                                    src={next}
+                                    alt="다음버튼"
+                                    onClick={clickNext}
+                                />
+                            ) : (
+                                <></>
+                            )}
+                            <DiaryLabel>일상</DiaryLabel>
+                            <DiaryTitle>{item.content_title}</DiaryTitle>
+                            <DiaryLabel>기록</DiaryLabel>
+                            {item.content_image ? (
+                                <>
+                                    <DiaryImgDiv>
+                                        <DiaryImg
+                                            src={item.content_image}
+                                            alt="기록한 이미지"
+                                        />
+                                    </DiaryImgDiv>
+                                    <DiaryTextarea type="image">
                                         {item.content_main}
                                     </DiaryTextarea>
-                                )}
-                            </Diaryli>
-                        </>
+                                </>
+                            ) : (
+                                <DiaryTextarea>
+                                    {item.content_main}
+                                </DiaryTextarea>
+                            )}
+                        </Diaryli>
                     );
                 })}
             </DiaryList>

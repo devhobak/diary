@@ -55,7 +55,7 @@ export default function Edit(props: PropsType) {
     const ModalClose = () => {
         let arr = [...date];
         date.map((item) => {
-            if (item.date === selectDate.date) {
+            if (item.date === selectDate) {
                 setTimeout(() => {
                     setClose(false);
                     setDate(arr);

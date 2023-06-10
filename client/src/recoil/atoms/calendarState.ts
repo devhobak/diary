@@ -12,7 +12,7 @@ const curDateState = atom({
 });
 const selectDateState = atom({
     key: 'selecDateState',
-    default: { date: '', modal: false },
+    default: '',
 });
 const dateState = atom<DateType[]>({
     key: 'dateState',

@@ -2,8 +2,9 @@ import {
     DayUI,
     DayLi,
     DaySection,
-    DaySpan,
+    DayOfLi,
     StateRecord,
+    StateDiv,
 } from './style/calendar';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import {
@@ -12,9 +13,11 @@ import {
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
 import { useEffect } from 'react';
-import { formatCurDataState } from '../../../recoil/selectors/date';
+import {
+    formatCurDataState,
+    formatCurDay,
+} from '../../../recoil/selectors/date';
 import { modalState } from '../../../recoil/atoms/modalState';
-import { ColorState } from '../../../recoil/atoms/recordState';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -32,31 +35,29 @@ interface DayType {
 export default function Days(props: DayType) {
     const [date, setDate] = useRecoilState(dateState);
     const [selectDay, setSelectDate] = useRecoilState(selectDateState);
+    const CurDay = useRecoilValue(formatCurDay);
     const formatDate = useRecoilValue(formatCurDataState);
     const curDate = useRecoilValue(curDateState);
     const resetDate = useResetRecoilState(dateState);
     const [modal, setModal] = useRecoilState(modalState);
-    const color = useRecoilValue(ColorState);
     useEffect(() => {
         formatDate.curMonthDay.forEach((item, idx) => {
             setDate((prev) => [...prev, { date: item, modal: false }]);
         });
         return () => resetDate();
     }, [curDate]);
-    let datetime = props.data?.map((data) => data.datetime.split('T')[0]);
-
-    let dup = datetime?.reduce(
-        (arr: string[], cur: string) =>
-            arr.includes(cur) ? arr : [...arr, cur],
-        []
-    );
-
+    let datetime = props.data?.filter((data) => data.datetime.split('T')[0]);
     const modalUp = (item: string) => {
-        setModal(true);
-        console.log(item);
-        date.map((day, idx) => {
-            if (day.date === item) {
-                setSelectDate(date[idx]);
+        console.log(CurDay);
+        datetime.map((day) => {
+            if (day.datetime.split('T')[0] === item) {
+                setModal(true);
+                setSelectDate(day.datetime.split('T')[0]);
+            }
+            if (item === CurDay) {
+                setModal(true);
+                //console.log(CurDay);
+                setSelectDate(CurDay);
             }
         });
     };
@@ -64,9 +65,9 @@ export default function Days(props: DayType) {
         <DaySection>
             <DayUI>
                 {props.days.map((item, idx) => (
-                    <DaySpan key={idx}>
+                    <DayOfLi key={idx}>
                         <p key={idx}>{item}</p>
-                    </DaySpan>
+                    </DayOfLi>
                 ))}
             </DayUI>
             <DayUI title="">
@@ -74,17 +75,18 @@ export default function Days(props: DayType) {
                     return formatDate.prevNextMonthday.includes(item) ? (
                         <DayLi key={idx} onClick={() => modalUp(item)}>
                             {item.split('-')[2]}
-                            {dup?.map((date, index) => {
-                                if (date === item) {
-                                    console.log(index);
-                                    return (
-                                        <StateRecord
-                                            key={index}
-                                            color={`#${props.data[index].color}`}
-                                        ></StateRecord>
-                                    );
-                                }
-                            })}
+                            <StateDiv>
+                                {datetime?.map((date, index) => {
+                                    if (date.datetime.split('T')[0] === item) {
+                                        return (
+                                            <StateRecord
+                                                key={index}
+                                                color={`#${props.data[index].color}`}
+                                            ></StateRecord>
+                                        );
+                                    }
+                                })}
+                            </StateDiv>
                         </DayLi>
                     ) : (
                         <DayLi key={idx} title="disabled">

@@ -42,6 +42,11 @@ const DiaryLabel = styled.p`
     font-weight: 700;
     margin-top: 30px;
 `;
+const DiaryImg = styled.img`
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+`;
 const DiaryTitle = styled.div`
     width: 48.2rem;
     height: 5.6rem;
@@ -54,7 +59,7 @@ const DiaryTitle = styled.div`
     margin-top: 15px;
     background-color: #fff;
 `;
-const DiaryTextarea = styled.div<Type>`
+const DiaryTextarea = styled.p<Type>`
     width: 48.2rem;
     height: ${(props) => (props.type ? '25rem' : '40rem')};
     background: url('assets/Light.png') no-repeat 440px 10px;
@@ -65,6 +70,7 @@ const DiaryTextarea = styled.div<Type>`
     text-align: left;
     margin-top: 15px;
     background-color: #fff;
+    white-space: pre-line;
 `;
 const DiaryImgDiv = styled.div`
     width: 48.2rem;
@@ -91,4 +97,5 @@ export {
     Diaryli,
     PrevBtn,
     NextBtn,
+    DiaryImg,
 };

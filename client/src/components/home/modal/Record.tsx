@@ -36,16 +36,14 @@ export default function Record(props: PropType): JSX.Element {
     const curDate = useRecoilValue(curDateState);
     const fullDate = format(curDate, 'yyyy-MM-dd');
     const [modal, setClose] = useRecoilState(modalState);
-    const color = useRecoilValue(ColorState);
     const selectDay = useRecoilValue(selectDateState);
     const [edit, setEdit] = useState(false);
     const [positionPost, setPositionPost] = useRecoilState(positionState);
-    // const [positionPost, setPositionPost] = useState(0);
-    console.log(positionPost);
+    const color = useRecoilValue(ColorState);
     let diary = props.data;
     let diaryArr: GetDataType[] = [];
     diary?.map((item: GetDataType) => {
-        if (item.datetime.split('T')[0] === selectDay.date) {
+        if (item.datetime.split('T')[0] === selectDay) {
             diaryArr.push(item);
         }
     });
@@ -58,24 +56,21 @@ export default function Record(props: PropType): JSX.Element {
         setEdit(true);
         console.log(edit);
     };
-
+    console.log(diaryArr);
     const todayRecord = props.data?.filter(
-        (item) => item.datetime.split('T')[0] === selectDay.date
+        (item) => item.datetime.split('T')[0] === selectDay
     ).length;
-    if (selectDay.date === fullDate) {
+    if (selectDay === fullDate) {
         return (
             <RecordBackground isClose={modal}>
-                <RecordSection
-                    isClose={modal}
-                    color={`#${diaryArr[positionPost].color}`}
-                >
+                <RecordSection isClose={modal} color={color}>
                     <h2 className="ir">일상기록</h2>
-                    <Date>{selectDay.date}</Date>
+                    <Date>{selectDay}</Date>
                     <CloseButton
                         src={closeImg}
                         alt="모달 닫는 버튼"
                         onClick={() => {
-                            modalClose(selectDay.date, props.idx);
+                            modalClose(selectDay, props.idx);
                         }}
                     />
                     {todayRecord ? (
@@ -103,12 +98,12 @@ export default function Record(props: PropType): JSX.Element {
                     color={`#${diaryArr[positionPost].color}`}
                 >
                     <h2 className="ir">일상기록1</h2>
-                    <Date>{selectDay.date}</Date>
+                    <Date>{selectDay}</Date>
                     <CloseButton
                         src={closeImg}
                         alt="모달 닫는 버튼"
                         onClick={() => {
-                            modalClose(selectDay.date, props.idx);
+                            modalClose(selectDay, props.idx);
                         }}
                     />
                     <Diary data={diaryArr} />
