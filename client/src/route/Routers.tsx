@@ -6,6 +6,7 @@ import LoginPage from '../pages/LoginPage';
 import SignupPage from '../pages/SignupPage';
 import WritePage from '../pages/WritePage';
 import ViewPage from '../pages/ViewPage';
+import MyPage from '../pages/MyPage';
 
 export default function Routers() {
     return (
@@ -15,6 +16,7 @@ export default function Routers() {
             <Route path="/home" element={<HomePage />} />
             <Route path="/record" element={<ViewPage />} />
             <Route path="/write" element={<WritePage />} />
+            <Route path="/myPage" element={<MyPage />} />
         </Routes>
     );
 }
