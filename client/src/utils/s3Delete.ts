@@ -1,13 +1,12 @@
 import AWS from 'aws-sdk';
 
-export default function s3Delete(imageFile: File) {
+export default function s3Delete(imageFile: string) {
     const config = {
         bucketName: process.env.REACT_APP_BUCKET_NAME,
         region: process.env.REACT_APP_REGION,
         accessKeyId: process.env.REACT_APP_ACCESS,
         secretAccessKey: process.env.REACT_APP_SECRET,
     };
-    console.log(config);
     AWS.config.update({
         region: config.region,
         accessKeyId: config.accessKeyId,
@@ -16,7 +15,7 @@ export default function s3Delete(imageFile: File) {
     const s3_params = {
         ACL: 'public-read',
         Bucket: config.bucketName,
-        Key: `upload/${imageFile.name}`,
+        Key: `upload/${imageFile}`,
         Body: imageFile,
     };
 

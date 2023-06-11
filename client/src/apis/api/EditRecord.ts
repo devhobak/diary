@@ -2,6 +2,8 @@ import { Api } from '../instance';
 interface EditType {
     content_title: FormDataEntryValue;
     content_main: FormDataEntryValue;
+    content_image: FormDataEntryValue;
+    color: FormDataEntryValue;
 }
 const EditPatch = async (
     { ...data }: EditType,
@@ -11,6 +13,8 @@ const EditPatch = async (
         const res = await Api.patch<boolean>(`/api/log/${id}`, {
             content_title: data.content_title,
             content_main: data.content_main,
+            content_image: data.content_image,
+            color: data.color,
         });
         return await res.data;
     } catch (err) {

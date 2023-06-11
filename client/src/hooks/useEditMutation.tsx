@@ -3,6 +3,8 @@ import { EditPatch } from '../apis/api/EditRecord';
 interface EditDataType {
     content_title: FormDataEntryValue;
     content_main: FormDataEntryValue;
+    content_image: FormDataEntryValue;
+    color: string;
 }
 export default function useEditMutation(key: string, id: number) {
     const queryClient = useQueryClient();
