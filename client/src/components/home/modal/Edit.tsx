@@ -31,6 +31,7 @@ interface GetDataType {
     content_title: string;
     content_main: string;
     content_image: string;
+    color: string;
 }
 interface PropsType {
     data: GetDataType[];
@@ -45,13 +46,22 @@ export default function Edit(props: PropsType) {
     let [date, setDate] = useRecoilState(dateState);
     let [modal, setClose] = useRecoilState(modalState);
     let [color, setColor] = useRecoilState(ColorState);
+    let [image, setImage] = useState<string>();
+    let [dispalyImage, setDisplayImage] = useState<string>();
     const [positionPost, setPositionPost] = useRecoilState(positionState);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
         console.log(files);
+        //setDisplayImage(String(files));
     }, [files]);
-
-    const { onSubmit, setFile } = useEditRecord(props.data[positionPost].id);
+    useEffect(() => {
+        setDisplayImage(props.data[positionPost].content_image);
+        console.log(dispalyImage);
+    }, []);
+    const { onSubmit, setFile } = useEditRecord(
+        props.data[positionPost].id,
+        image
+    );
     const ModalClose = () => {
         let arr = [...date];
         date.map((item) => {
@@ -67,6 +77,11 @@ export default function Edit(props: PropsType) {
         setColor(e.target.value);
         console.log(color);
     };
+    const DeletImage = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
+        DeleteFile(e, setFiles, setFile);
+        setImage(props.data[positionPost].content_image);
+        setDisplayImage(undefined);
+    };
 
     return (
         <RecordInputSection>
@@ -78,6 +93,8 @@ export default function Edit(props: PropsType) {
                     onChange={(e) => {
                         handleColor(e);
                     }}
+                    defaultValue={`#${props.data[positionPost].color}`}
+                    name="content_color"
                 ></ColorInput>
                 <RecordInput
                     id="daily"
@@ -91,7 +108,7 @@ export default function Edit(props: PropsType) {
                     name="content_main"
                     defaultValue={props.data[positionPost].content_main}
                 ></Recordarea>
-                {props.data[positionPost].content_image ? (
+                {dispalyImage || files ? (
                     <ImgLabel ref={dropSection}>
                         <input
                             type="file"
@@ -101,15 +118,13 @@ export default function Edit(props: PropsType) {
                         ></input>
                         <FileContainer>
                             <FileImg
-                                src={props.data[positionPost].content_image}
+                                src={dispalyImage || String(files)}
                                 alt="이미지"
                             />
                             <FileDelete
                                 src={deleteImg}
                                 alt="사진삭제"
-                                onClick={(e) =>
-                                    DeleteFile(e, setFiles, setFile)
-                                }
+                                onClick={(e) => DeletImage(e)}
                             />
                         </FileContainer>
                     </ImgLabel>
