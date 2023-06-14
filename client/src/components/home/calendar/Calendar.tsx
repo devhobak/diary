@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { format } from 'date-fns';
-import { CalendarLayout } from './style/calendar';
+import { CalendarLayout, MonthCalendar } from './style/calendar';
 import Days from './Days';
 import Month from './Month';
 import Record from '../modal/Record';
@@ -10,8 +10,21 @@ import { useQuery } from 'react-query';
 import { getRecord } from '../../../apis/api/Record';
 import { AxiosError } from 'axios';
 import { modalState } from '../../../recoil/atoms/modalState';
+interface PostDataType {
+    id: number;
+    user_id: number;
+    datetime: string;
+    content_title: string;
+    content_main: string;
+    content_image: string;
+    color: string;
+}
+interface LogType {
+    log: PostDataType[];
+}
 export default function Calendar() {
-    const curDate = useRecoilValue(curDateState);
+    // const curDate = useRecoilValue(curDateState);
+    const [curDate, setCurDate] = useRecoilState(curDateState);
     const curMonth = format(curDate, 'MMMM');
     const curYear = format(curDate, 'yyyy');
     const date = useRecoilValue(dateState);
@@ -26,22 +39,11 @@ export default function Calendar() {
         'Friday',
         'Saturday',
     ];
-    const GetMonth = {
+    let GetMonth = {
         year: format(curDate, 'yyyy'),
         month: format(curDate, 'MM'),
     };
-    interface PostDataType {
-        id: number;
-        user_id: number;
-        datetime: string;
-        content_title: string;
-        content_main: string;
-        content_image: string;
-        color: string;
-    }
-    interface LogType {
-        log: PostDataType[];
-    }
+
     //const [record, setRecord] = useRecoilState(recordState);
     const { data, isLoading } = useQuery<LogType, AxiosError, PostDataType[]>(
         ['record', GetMonth],
@@ -56,9 +58,21 @@ export default function Calendar() {
             },
         }
     );
+    const monthChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        GetMonth.year = e.target.value.split('-')[0];
+        GetMonth.month = e.target.value.split('-')[1];
+        setCurDate(new Date(`${GetMonth.year}-${GetMonth.month}`));
+    };
     return (
         <CalendarLayout>
             <h2 className="ir">달력</h2>
+            <MonthCalendar
+                type="month"
+                data-placeholder={`${GetMonth.year}-${GetMonth.month}`}
+                onChange={(e) => {
+                    monthChange(e);
+                }}
+            ></MonthCalendar>
             <Month curMonth={curMonth} curYear={curYear} />
             {{ isLoading } && data ? <Days days={days} data={data} /> : <></>}
             {modal && data ? <Record data={data} /> : <></>}

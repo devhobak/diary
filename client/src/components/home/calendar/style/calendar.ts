@@ -19,6 +19,7 @@ const CalendarLayout = styled.section`
     margin: 10px auto;
     text-align: center;
     border-radius: 10px;
+    padding: 30px;
 `;
 const DaySection = styled.section`
     width: 50%;
@@ -77,6 +78,18 @@ const StateRecord = styled.div<PropType>`
     border-radius: 20px;
     border: 1px solid #dbdbdb;
 `;
+const MonthCalendar = styled.input`
+    position: absolute;
+    top: 30px;
+    left: 50px;
+    border-radius: 10px;
+    border: 1px solid ${({ theme }) => theme.color.inputBoxColor};
+    padding: 10px;
+    &::before {
+        content: attr(data-placeholder);
+        width: 100%;
+    }
+`;
 export {
     TopLayout,
     CalendarLayout,
@@ -87,4 +100,5 @@ export {
     CalendarHead,
     StateRecord,
     StateDiv,
+    MonthCalendar,
 };
