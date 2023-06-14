@@ -63,7 +63,10 @@ export default function Record(props: PropType): JSX.Element {
     if (selectDay === fullDate) {
         return (
             <RecordBackground isClose={modal}>
-                <RecordSection isClose={modal} color={color}>
+                <RecordSection
+                    isClose={modal}
+                    color={`#${diaryArr[positionPost].color}`}
+                >
                     <h2 className="ir">일상기록</h2>
                     <Date>{selectDay}</Date>
                     <CloseButton

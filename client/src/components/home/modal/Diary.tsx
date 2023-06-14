@@ -41,13 +41,16 @@ export default function Diary(props: ProsType) {
         setPrevClick((prev) => prev + 1);
     };
     let first = 0 - nextclick * 500 + prevClick * 500;
-    let other: number;
+    //let other: number;
     useEffect(() => {
-        if (first === 0) {
-            setPositionPost(0);
-        } else if (other === 0) {
-            setPositionPost((other + nextclick * 500 - prevClick * 500) / 500);
-        }
+        props.data?.map((item: GetDataType, idx: number) => {
+            let other = 500 * idx - nextclick * 500 + prevClick * 500;
+            if (first === 0) {
+                setPositionPost(0);
+            } else if (other === 0) {
+                setPositionPost(idx);
+            }
+        });
     }, [nextclick, prevClick]);
 
     return (
@@ -55,7 +58,7 @@ export default function Diary(props: ProsType) {
             <h3 className="ir">오늘의 일상</h3>
             <DiaryList>
                 {props.data?.map((item: GetDataType, idx: number) => {
-                    other = 500 * idx - nextclick * 500 + prevClick * 500;
+                    let other = 500 * idx - nextclick * 500 + prevClick * 500;
                     return (
                         <Diaryli key={idx} first={first} idx={other}>
                             {first !== 0 ? (
