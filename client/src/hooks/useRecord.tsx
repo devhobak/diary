@@ -4,15 +4,19 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { formatCurDay } from '../recoil/selectors/date';
 import { curDateState } from '../recoil/atoms/calendarState';
 import s3upload from '../utils/s3upload';
+import { confirmState } from '../recoil/atoms/modalState';
 export default function useRecord() {
     let setDate = useSetRecoilState(curDateState);
     let [file, setFile] = useState<File>();
+    let [type, setType] = useState('');
+    let setConfirmState = useSetRecoilState(confirmState);
     useEffect(() => {
         setDate(new Date());
     }, []);
 
     let curDate = useRecoilValue(formatCurDay);
-    let { mutate } = useRecordMutation('postRecord');
+    let { mutate } = useRecordMutation('postRecord', setType);
+
     let onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const user_id = 1;
@@ -43,7 +47,10 @@ export default function useRecord() {
                 content_image,
                 color: color,
             });
+        } else {
+            setConfirmState(true);
+            setType('fail');
         }
     };
-    return { onSubmit, file, setFile };
+    return { onSubmit, file, setFile, type };
 }

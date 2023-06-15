@@ -2,9 +2,17 @@ import { useState } from 'react';
 import useEditMutation from './useEditMutation';
 import s3upload from '../utils/s3upload';
 import s3Delete from '../utils/s3Delete';
-export default function useEditRecord(id: number, deletImage?: string) {
-    const { mutate } = useEditMutation('edit', id);
+import { useSetRecoilState } from 'recoil';
+import { confirmState } from '../recoil/atoms/modalState';
+export default function useEditRecord(
+    id: number,
+    displayImage: string,
+    deletImage?: string
+) {
+    const [type, setType] = useState<string>('');
     const [file, setFile] = useState<File>();
+    const { mutate } = useEditMutation('edit', id, setType);
+    const setConfirmModal = useSetRecoilState(confirmState);
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         //const formData = new FormData(e.currentTarget);
         e.preventDefault();
@@ -18,6 +26,8 @@ export default function useEditRecord(id: number, deletImage?: string) {
             let url = await uploadFile();
             await formData.append('content_image', url);
             console.log(url);
+        } else {
+            formData.append('content_image', displayImage);
         }
         const data = Object.fromEntries(formData);
         console.log(e);
@@ -27,11 +37,14 @@ export default function useEditRecord(id: number, deletImage?: string) {
         console.log(color);
         if (content_title && content_main) {
             mutate({ content_title, content_main, content_image, color });
-        }
-        //삭제된 이미지 있다면 삭제하기
-        if (deletImage) {
-            s3Delete(deletImage);
+            //삭제된 이미지 있다면 삭제하기
+            if (deletImage) {
+                s3Delete(deletImage);
+            }
+        } else {
+            setConfirmModal(true);
+            setType('fail');
         }
     };
-    return { onSubmit, file, setFile };
+    return { onSubmit, file, setFile, type };
 }

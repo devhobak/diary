@@ -19,13 +19,16 @@ import useRecord from '../../hooks/useRecord';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { formatCurDay } from '../../recoil/selectors/date';
 import { curDateState } from '../../recoil/atoms/calendarState';
+import { confirmState } from '../../recoil/atoms/modalState';
+import Modal from '../modal/Modal';
 
 export default function InputSection() {
-    let { onSubmit, setFile } = useRecord();
+    let { onSubmit, setFile, type } = useRecord();
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
     let [day, setDay] = useRecoilState(curDateState);
     let date = useRecoilValue(formatCurDay);
+    let [confirmModal, setConfirmModal] = useRecoilState(confirmState);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
         console.log(files);
@@ -33,6 +36,9 @@ export default function InputSection() {
     useEffect(() => {
         setDay(new Date());
     }, []);
+    const handleConfirm = () => {
+        //setConfirmModal(true);
+    };
     return (
         <WriteSection>
             <h2 className="ir">게시물 작성</h2>
@@ -83,8 +89,11 @@ export default function InputSection() {
                         name="content_main"
                         placeholder="일상을 기록해주세요"
                     ></WriteContents>
-                    <SubmitButton type="submit">완료</SubmitButton>
+                    <SubmitButton type="submit" onClick={handleConfirm}>
+                        완료
+                    </SubmitButton>
                 </WriteDiv>
+                {confirmModal ? <Modal type={type} page="write" /> : <></>}
             </WriteForm>
         </WriteSection>
     );
