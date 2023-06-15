@@ -1,6 +1,8 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { postRecord } from '../apis/api/Record';
+import { useRecoilState } from 'recoil';
+import { confirmState } from '../recoil/atoms/modalState';
 //{variable.user_id,variable.content_title,variable.content_content,variable.content_image}
 interface PostDataType {
     user_id: number;
@@ -10,17 +12,24 @@ interface PostDataType {
     content_image: FormDataEntryValue;
     color: FormDataEntryValue | string;
 }
-export default function useRecordMutation(key: string) {
+export default function useRecordMutation(
+    key: string,
+    setType: React.Dispatch<React.SetStateAction<string>>
+) {
     const queryClient = useQueryClient();
+    const [confirmModal, setConfirmModal] = useRecoilState(confirmState);
     return useMutation(key, (variable: PostDataType) => postRecord(variable), {
         onSuccess(data) {
             console.log(data);
+            setConfirmModal(true);
+            setType('confirm');
             queryClient.invalidateQueries(['record'], {
                 refetchInactive: true,
             });
         },
         onError(err) {
             console.log(err);
+            setType('error');
         },
     });
 }

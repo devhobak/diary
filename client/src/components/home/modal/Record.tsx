@@ -39,7 +39,7 @@ export default function Record(props: PropType): JSX.Element {
     const selectDay = useRecoilValue(selectDateState);
     const [edit, setEdit] = useState(false);
     const [positionPost, setPositionPost] = useRecoilState(positionState);
-    const color = useRecoilValue(ColorState);
+    const [color, setColor] = useRecoilState(ColorState);
     let diary = props.data;
     let diaryArr: GetDataType[] = [];
     diary?.map((item: GetDataType) => {
@@ -50,7 +50,8 @@ export default function Record(props: PropType): JSX.Element {
     const modalClose = (date: string, idx?: number) => {
         setTimeout(() => {
             setClose(false);
-        }, 400);
+            setColor('#ffff');
+        }, 200);
     };
     const handleEdit = () => {
         setEdit(true);
@@ -63,10 +64,7 @@ export default function Record(props: PropType): JSX.Element {
     if (selectDay === fullDate) {
         return (
             <RecordBackground isClose={modal}>
-                <RecordSection
-                    isClose={modal}
-                    color={`#${diaryArr[positionPost].color}`}
-                >
+                <RecordSection isClose={modal} color={color}>
                     <h2 className="ir">일상기록</h2>
                     <Date>{selectDay}</Date>
                     <CloseButton

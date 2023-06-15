@@ -22,8 +22,9 @@ import {
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
 import useRecord from '../../../hooks/useRecord';
-import { modalState } from '../../../recoil/atoms/modalState';
+import { confirmState, modalState } from '../../../recoil/atoms/modalState';
 import { ColorState } from '../../../recoil/atoms/recordState';
+import Modal from '../../modal/Modal';
 export default function InputSection() {
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
@@ -31,23 +32,30 @@ export default function InputSection() {
     let [date, setDate] = useRecoilState(dateState);
     let [modal, setClose] = useRecoilState(modalState);
     const [color, setColor] = useRecoilState(ColorState);
+    const [confirmModal, setConfirmModal] = useRecoilState(confirmState);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
         console.log(files);
+        console.log(confirmModal);
     }, [files]);
 
-    let { onSubmit, setFile } = useRecord();
+    let { onSubmit, setFile, type } = useRecord();
 
     const ModalClose = () => {
-        let arr = [...date];
-        date.map((item, idx) => {
-            if (item.date === selectDate) {
-                setTimeout(() => {
-                    setClose(false);
-                    setDate(arr);
-                }, 100);
-            }
-        });
+        // setTimeout(() => {
+        //     setClose(false);
+        // });
+        //setConfirmModal(true);
+        // let arr = [...date];
+        // date.map((item, idx) => {
+        //     if (item.date === selectDate) {
+        //         setTimeout(() => {
+        //             setClose(false);
+        //             setDate(arr);
+        //             console.log(date);
+        //         }, 100);
+        //     }
+        // });
     };
     const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setColor(e.target.value);
@@ -110,9 +118,10 @@ export default function InputSection() {
                     </FileLabel>
                 )}
 
-                <RecordButton find="confirm" type="submit" onClick={ModalClose}>
+                <RecordButton find="confirm" onClick={ModalClose} type="submit">
                     완료
                 </RecordButton>
+                {confirmModal ? <Modal type={type} page="home" /> : <></>}
             </RecordForm>
         </RecordInputSection>
     );

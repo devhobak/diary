@@ -4,5 +4,8 @@ const modalState = atom({
     key: 'modalState',
     default: false,
 });
-
-export { modalState };
+const confirmState = atom({
+    key: 'confirmModalState',
+    default: false,
+});
+export { modalState, confirmState };

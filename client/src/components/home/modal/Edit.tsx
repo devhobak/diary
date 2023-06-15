@@ -21,9 +21,10 @@ import {
     dateState,
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
-import { modalState } from '../../../recoil/atoms/modalState';
+import { confirmState, modalState } from '../../../recoil/atoms/modalState';
 import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import useEditRecord from '../../../hooks/useEditRecord';
+import Modal from '../../modal/Modal';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -47,8 +48,9 @@ export default function Edit(props: PropsType) {
     let [modal, setClose] = useRecoilState(modalState);
     let [color, setColor] = useRecoilState(ColorState);
     let [image, setImage] = useState<string>();
-    let [dispalyImage, setDisplayImage] = useState<string>();
+    let [dispalyImage, setDisplayImage] = useState<string>('');
     const [positionPost, setPositionPost] = useRecoilState(positionState);
+    const [confirmModal, setConfirmModal] = useRecoilState(confirmState);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
         console.log(files);
@@ -58,20 +60,22 @@ export default function Edit(props: PropsType) {
         setDisplayImage(props.data[positionPost].content_image);
         console.log(dispalyImage);
     }, []);
-    const { onSubmit, setFile } = useEditRecord(
+    const { onSubmit, setFile, type } = useEditRecord(
         props.data[positionPost].id,
+        dispalyImage,
         image
     );
     const ModalClose = () => {
-        let arr = [...date];
-        date.map((item) => {
-            if (item.date === selectDate) {
-                setTimeout(() => {
-                    setClose(false);
-                    setDate(arr);
-                }, 100);
-            }
-        });
+        // let arr = [...date];
+        // date.map((item) => {
+        //     if (item.date === selectDate) {
+        //         setTimeout(() => {
+        //             setClose(false);
+        //             setDate(arr);
+        //         }, 100);
+        //     }
+        // });
+        //setConfirmModal(true);
     };
     const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setColor(e.target.value);
@@ -80,7 +84,7 @@ export default function Edit(props: PropsType) {
     const DeletImage = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
         DeleteFile(e, setFiles, setFile);
         setImage(props.data[positionPost].content_image);
-        setDisplayImage(undefined);
+        setDisplayImage('');
     };
 
     return (
@@ -113,7 +117,6 @@ export default function Edit(props: PropsType) {
                         <input
                             type="file"
                             className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles, setFile)}
                             name="content_image"
                         ></input>
                         <FileContainer>
@@ -144,6 +147,7 @@ export default function Edit(props: PropsType) {
                 <RecordButton find="confirm" type="submit" onClick={ModalClose}>
                     완료
                 </RecordButton>
+                {confirmModal ? <Modal type={type} page="home" /> : <></>}
             </RecordForm>
         </RecordInputSection>
     );
