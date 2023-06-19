@@ -3,6 +3,7 @@ import {
   IAddLogReq,
   IGetLogByDayReq,
   IGetLogByMonthReq,
+  IGetLogsListReq,
   IUpdateLogReq,
 } from "./log.model";
 import * as LogService from "./log.service";
@@ -77,6 +78,32 @@ export const getLogByMonth = async (req: IGetLogByMonthReq, res: Response) => {
     });
   }
 };
+
+/**Get log record list (pagination)
+ *
+ *@param req Express Request
+ *@param res Express Response
+ */
+export const getLogsList = async (req: IGetLogsListReq, res: Response) => {
+  try {
+    const limit = 5;
+    const log = await LogService.getLogsList(
+      req.params.user_id,
+      (req.query.cursor ?? "999999") as string,
+      limit
+    );
+    res.status(200).json({ log });
+  } catch (error) {
+    console.error(
+      "[log.controller][getLogsList][Error]",
+      typeof error === "object" ? JSON.stringify(error) : error
+    );
+    res.status(500).json({
+      message: "There was an error when fetching log",
+    });
+  }
+};
+
 /**
  * Updates existing log record
  *
