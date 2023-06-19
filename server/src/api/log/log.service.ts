@@ -34,6 +34,18 @@ export const getLogByMonth = async (
 ) => {
   return execute<ILog[]>(LogQueries.GetLogByMonth, [user_id, year, month]);
 };
+
+/**
+ * gets logs list(pagination)
+ */
+export const getLogsList = async (
+  user_id: ILog["user_id"],
+  cursor: ILog["cursor"],
+  limit: ILog["limit"]
+) => {
+  return execute<ILog[]>(LogQueries.GetLogsList, [user_id, cursor, limit]);
+};
+
 /**
  * updates log information based on the id provided
  */
