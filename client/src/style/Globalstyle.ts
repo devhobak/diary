@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
  }
 body{
     background-color: #D6ECFA;
+    padding-top: 50px;
 }
   button{
     cursor: pointer;

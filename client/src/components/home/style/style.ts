@@ -7,7 +7,7 @@ const NavLayout = styled.section`
 const CalendarLayout = styled.section`
     width: 70%;
     grid-area: 'calendar';
-    margin: 0 auto;
+    margin: 0px auto;
     text-align: center;
 `;
 const DaySection = styled.section`

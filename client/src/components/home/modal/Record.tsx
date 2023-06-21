@@ -18,6 +18,7 @@ import {
 import { modalState } from '../../../recoil/atoms/modalState';
 import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import Edit from './Edit';
+import { useMediaQuery } from 'react-responsive';
 
 interface GetDataType {
     id: number;
@@ -40,6 +41,8 @@ export default function Record(props: PropType): JSX.Element {
     const [edit, setEdit] = useState(false);
     const [positionPost, setPositionPost] = useRecoilState(positionState);
     const [color, setColor] = useRecoilState(ColorState);
+    const isMobile = useMediaQuery({ maxWidth: 980 });
+    console.log(isMobile);
     let diary = props.data;
     let diaryArr: GetDataType[] = [];
     diary?.map((item: GetDataType) => {
@@ -64,7 +67,11 @@ export default function Record(props: PropType): JSX.Element {
     if (selectDay === fullDate) {
         return (
             <RecordBackground isClose={modal}>
-                <RecordSection isClose={modal} color={color}>
+                <RecordSection
+                    isClose={modal}
+                    color={color ?? `#${diaryArr[positionPost].color}`}
+                    view={isMobile}
+                >
                     <h2 className="ir">일상기록</h2>
                     <Date>{selectDay}</Date>
                     <CloseButton
@@ -97,6 +104,7 @@ export default function Record(props: PropType): JSX.Element {
                 <RecordSection
                     isClose={modal}
                     color={`#${diaryArr[positionPost].color}`}
+                    view={isMobile}
                 >
                     <h2 className="ir">일상기록1</h2>
                     <Date>{selectDay}</Date>

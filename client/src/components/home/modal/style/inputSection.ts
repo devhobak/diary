@@ -3,30 +3,38 @@ interface ProsType {
     find: string;
 }
 const RecordInputSection = styled.section`
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    //justify-content: center;
     align-items: center;
 `;
 
 const RecordForm = styled.form`
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     gap: 15px;
 `;
 const RecordInput = styled.input`
-    width: 48.2rem;
-    height: 5.6rem;
-    background: url('assets/Light.png') no-repeat 440px;
+    // width: 48.2rem;
+    // height: 5.6rem;
+    width: 100%;
+    height: 8%;
+    background: url('assets/Light.png') no-repeat 95%;
     padding: 16px 50px 16px 16px;
     border-radius: 12px;
     border: 1px solid #dfdfe6;
     background-color: #fff;
 `;
 const Recordarea = styled.textarea`
-    width: 48.2rem;
-    height: 20rem;
-    background: url('assets/Light.png') no-repeat 440px 10px;
+    //width: 48.2rem;
+    // height: 20rem;
+    width: 100%;
+    height: 70%;
+    background: url('assets/Light.png') no-repeat 95% 5%;
     padding: 16px 50px 16px 16px;
     border-radius: 12px;
     border: 1px solid #dfdfe6;
@@ -79,7 +87,7 @@ const ImgLabel = styled.label`
     padding: 51px 111px;
 `;
 const RecordButton = styled.button<ProsType>`
-    height: 4.8rem;
+    height: 10%;
     border-radius: 6px;
     border: 1px solid #dbdbdb;
     background: ${(props) => (props.find === 'submit' ? '#F9C00C' : '#ffff')};
@@ -123,7 +131,7 @@ const ColorInput = styled.input`
     display: block;
     margin-bottom: 15px;
     width: 30px;
-    height: 30px;
+    height: 10%;
     padding: 0;
 `;
 export {

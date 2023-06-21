@@ -22,8 +22,8 @@ export default function Month(props: MonthType) {
             <h3 className="ir">년도,달 파트</h3>
             <CalendarHead>
                 <img src={prevIcon} alt="이전달이동" onClick={DownClick} />
-                <p style={{ width: '70px' }}>{props.curMonth}</p>
-                <p style={{ width: '60px' }}>{props.curYear}</p>
+                <p style={{ width: '15%' }}>{props.curMonth}</p>
+                <p style={{ width: '15%' }}>{props.curYear}</p>
                 <img src={nextIcon} alt="다음달이동" onClick={UpClick} />
             </CalendarHead>
         </section>

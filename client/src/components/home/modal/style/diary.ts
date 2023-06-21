@@ -4,9 +4,11 @@ interface Type {
     idx?: number;
     first?: number;
     color?: string;
+    view?: boolean;
 }
 const DiarySection = styled.section<Type>`
-    position: absolute;
+    width: ${(props) => (props.view ? '100%' : '54rem')};
+    height: ${(props) => (props.view ? '100%' : '73rem')};
     //  width: 54.4rem;
     // height: 73rem;
     // border-radius: 15px;
@@ -18,16 +20,19 @@ const DiarySection = styled.section<Type>`
     //padding: 60px 30px;
 `;
 const DiaryList = styled.ul`
-    width: 500px;
-    height: 700px;
+    //width: 500px;
+    //height: 700px;
+    width: 100%;
+    height: 100%;
     display: flex;
     justify-content: center;
     gap: 15px;
     position: relative;
-    padding-left: 20px;
     overflow-x: hidden;
 `;
 const Diaryli = styled.li<Type>`
+    width: 100%;
+    height: 100%;
     position: absolute;
     left: ${(props) => props.idx}px;
     transition: all 0.5s;
@@ -43,26 +48,30 @@ const DiaryLabel = styled.p`
     margin-top: 30px;
 `;
 const DiaryImg = styled.img`
-    width: 90%;
-    height: 90%;
+    width: 50%;
+    height: 100%;
     object-fit: cover;
 `;
 const DiaryTitle = styled.div`
-    width: 48.2rem;
-    height: 5.6rem;
-    background: url('assets/Light.png') no-repeat 440px;
+    // width: 48.2rem;
+    // height: 5.6rem;
+    width: 100%;
+    height: 8%;
+    background: url('assets/Light.png') no-repeat 95%;
     padding: 16px 50px 16px 16px;
     border-radius: 12px;
     border: 1px solid #dfdfe6;
     font-size: 1.5rem;
     text-align: left;
-    margin-top: 15px;
+    //margin-top: 15px;
     background-color: #fff;
 `;
 const DiaryTextarea = styled.p<Type>`
-    width: 48.2rem;
-    height: ${(props) => (props.type ? '25rem' : '40rem')};
-    background: url('assets/Light.png') no-repeat 440px 10px;
+    // width: 48.2rem;
+    height: ${(props) => (props.type ? '30%' : '55%')};
+    width: 100%;
+    //height: 55%;
+    background: url('assets/Light.png') no-repeat 95% 5%;
     padding: 16px 50px 16px 16px;
     border-radius: 12px;
     border: 1px solid #dfdfe6;
@@ -73,8 +82,8 @@ const DiaryTextarea = styled.p<Type>`
     white-space: pre-line;
 `;
 const DiaryImgDiv = styled.div`
-    width: 48.2rem;
-    height: 22rem;
+    width: 100%;
+    height: 35%;
     border-radius: 12px;
     border: 1px solid #dfdfe6;
     background-color: #fff;
