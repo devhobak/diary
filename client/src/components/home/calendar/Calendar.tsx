@@ -10,6 +10,8 @@ import { useQuery } from 'react-query';
 import { getRecord } from '../../../apis/api/Record';
 import { AxiosError } from 'axios';
 import { modalState } from '../../../recoil/atoms/modalState';
+import { useMediaQuery } from 'react-responsive';
+
 interface PostDataType {
     id: number;
     user_id: number;
@@ -27,24 +29,28 @@ export default function Calendar() {
     const [curDate, setCurDate] = useRecoilState(curDateState);
     const curMonth = format(curDate, 'MMMM');
     const curYear = format(curDate, 'yyyy');
-    const date = useRecoilValue(dateState);
-    const [close, setClose] = useState(false);
     const modal = useRecoilValue(modalState);
+    const isMobile = useMediaQuery({ maxWidth: 980 });
     const days = [
-        'Sunday',
-        'Monday',
-        'Tuesday',
-        'Wendnesday',
-        'Thursday',
-        'Friday',
-        'Saturday',
+        // 'Sunday',
+        // 'Monday',
+        // 'Tuesday',
+        // 'Wendnesday',
+        // 'Thursday',
+        // 'Friday',
+        // 'Saturday',
+        '일',
+        '월',
+        '화',
+        '수',
+        '목',
+        '금',
+        '토',
     ];
     let GetMonth = {
         year: format(curDate, 'yyyy'),
         month: format(curDate, 'MM'),
     };
-
-    //const [record, setRecord] = useRecoilState(recordState);
     const { data, isLoading } = useQuery<LogType, AxiosError, PostDataType[]>(
         ['record', GetMonth],
         () => getRecord(GetMonth),
@@ -64,9 +70,10 @@ export default function Calendar() {
         setCurDate(new Date(`${GetMonth.year}-${GetMonth.month}`));
     };
     return (
-        <CalendarLayout>
+        <CalendarLayout view={isMobile}>
             <h2 className="ir">달력</h2>
             <MonthCalendar
+                view={isMobile}
                 type="month"
                 data-placeholder={`${GetMonth.year}-${GetMonth.month}`}
                 onChange={(e) => {

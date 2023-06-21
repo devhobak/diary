@@ -4,15 +4,12 @@ import Calendar from './calendar/Calendar';
 
 import Top from '../common/Layout/Top';
 import { Layout } from '../common/Layout/style/navbar';
+import ViewLayout from '../common/Layout/ViewLayout';
 
 export default function Home() {
     return (
-        <>
-            <Layout>
-                <Navbar />
-                <Top />
-                <Calendar />
-            </Layout>
-        </>
+        <ViewLayout>
+            <Calendar />
+        </ViewLayout>
     );
 }

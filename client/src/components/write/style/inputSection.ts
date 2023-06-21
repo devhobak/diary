@@ -1,46 +1,57 @@
 import styled from 'styled-components';
-
-const WriteSection = styled.section`
-    grid-area: main;
-    width: 100rem;
+interface ViewType {
+    view: boolean;
+}
+const WriteSection = styled.section<ViewType>`
     position: relative;
-    height: 75rem;
+    width: ${(props) => (props.view ? '90%' : '65vw')};
+    height: ${(props) => (props.view ? '87%' : '90vh')};
+    //height: 100%;
+    grid-area: main;
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
-    margin: 0px auto;
+    margin: ${(props) => (props.view ? '10px' : '10px')} auto;
     text-align: center;
     border-radius: 10px;
-    padding: 30px;
+    padding: ${(props) => (props.view ? '10px' : '30px')};
+    overflow-y: scroll;
 `;
 const Color = styled.input`
     position: absolute;
-    top: 60px;
-    left: 30px;
+    top: 9%;
 `;
 const DateP = styled.p`
     font-size: 25px;
     font-weight: 700;
-    position: absolute;
+    text-align: left;
+    //position: absolute;
 `;
-const WriteDiv = styled.div`
+const WriteDiv = styled.div<ViewType>`
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    width: 50%;
+    gap: 3%;
+    width: ${(props) => (props.view ? '100%' : '50%')};
+    height: 100%;
+    flex-direction: ${(props) => (props.view ? 'center' : '')};
+    align-items: ${(props) => (props.view ? 'center' : '')};
 `;
-const WriteForm = styled.form`
+const WriteForm = styled.form<ViewType>`
     width: 100%;
+    height: ${(props) => (props.view ? '100%' : '80%')};
     display: flex;
-    justify-content: center;
-    align-items: center;
+    flex-direction: ${(props) => (props.view ? 'column' : 'row')};
+    //justify-content: center;
+    //align-items: center;
     gap: 20px;
+    margin-top: ${(props) => (props.view ? '12%' : '8%')};
 `;
-const FileLabel = styled.label`
+const FileLabel = styled.label<ViewType>`
     position: relative;
-    width: 50%;
+    width: ${(props) => (props.view ? '100%' : '50%')};
     border: 1px dashed #8b8687;
     border-radius: 12px;
-    height: 50rem;
     padding: 51px 111px;
+    height: ${(props) => (props.view ? '10%' : '92%')};
+
     &::before {
         position: absolute;
         display: block;
@@ -68,22 +79,24 @@ const FileLabel = styled.label`
         border: 2px dashed #8b8687;
     }
 `;
-const ImageLabel = styled.label`
-    width: 50%;
+const ImageLabel = styled.label<ViewType>`
+    width: ${(props) => (props.view ? '50%' : '50%')};
     border: 1px dashed #8b8687;
     border-radius: 12px;
-    height: 50rem;
+    height: 92%;
 `;
 const WriteTitle = styled.input`
     display: block;
-    height: 5rem;
+    width: 100%;
     border: 1px solid #dbdbdb;
     border-radius: 10px;
     padding: 20px;
+    height: 8%;
 `;
 const WriteContents = styled.textarea`
+    width: 100%;
     display: block;
-    height: 50rem;
+    height: 70%;
     border-radius: 10px;
     padding: 20px;
     resize: none;
@@ -92,6 +105,7 @@ const ImageFile = styled.input`
     display: block;
 `;
 const SubmitButton = styled.button`
+    width: 100%;
     border: 0;
     height: 50px;
     border-radius: 15px;
@@ -99,8 +113,8 @@ const SubmitButton = styled.button`
 `;
 const FileContainer = styled.div`
     position: relative;
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 92%;
     top: 50%;
     left: 50%;
     border-radius: 10px;

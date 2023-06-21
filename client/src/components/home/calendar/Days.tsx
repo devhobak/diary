@@ -5,6 +5,7 @@ import {
     DayOfLi,
     StateRecord,
     StateDiv,
+    DayOfUI,
 } from './style/calendar';
 import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import {
@@ -18,6 +19,7 @@ import {
     formatCurDay,
 } from '../../../recoil/selectors/date';
 import { modalState } from '../../../recoil/atoms/modalState';
+import { useMediaQuery } from 'react-responsive';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -40,6 +42,7 @@ export default function Days(props: DayType) {
     const curDate = useRecoilValue(curDateState);
     const resetDate = useResetRecoilState(dateState);
     const [modal, setModal] = useRecoilState(modalState);
+    const isMobile = useMediaQuery({ maxWidth: 390 });
     useEffect(() => {
         formatDate.curMonthDay.forEach((item, idx) => {
             setDate((prev) => [...prev, { date: item, modal: false }]);
@@ -63,17 +66,21 @@ export default function Days(props: DayType) {
     };
     return (
         <DaySection>
-            <DayUI>
+            <DayOfUI>
                 {props.days.map((item, idx) => (
-                    <DayOfLi key={idx}>
+                    <DayOfLi key={idx} view={isMobile}>
                         <p key={idx}>{item}</p>
                     </DayOfLi>
                 ))}
-            </DayUI>
+            </DayOfUI>
             <DayUI title="">
                 {formatDate.curMonthDay.map((item, idx) => {
                     return formatDate.prevNextMonthday.includes(item) ? (
-                        <DayLi key={idx} onClick={() => modalUp(item)}>
+                        <DayLi
+                            key={idx}
+                            onClick={() => modalUp(item)}
+                            view={isMobile}
+                        >
                             {item.split('-')[2]}
                             <StateDiv>
                                 {datetime?.map((date, index) => {
@@ -89,7 +96,7 @@ export default function Days(props: DayType) {
                             </StateDiv>
                         </DayLi>
                     ) : (
-                        <DayLi key={idx} title="disabled">
+                        <DayLi key={idx} title="disabled" view={isMobile}>
                             {item.split('-')[2]}
                         </DayLi>
                     );
