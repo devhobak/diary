@@ -5,6 +5,7 @@ import diaryImg from '../../../assets/Chat.png';
 import settimtImg from '../../../assets/Setting.png';
 import logoutImg from '../../../assets/Logout.png';
 import writeImg from '../../../assets/Light.png';
+import { useMediaQuery } from 'react-responsive';
 import {
     NavLayout,
     LogOutButton,
@@ -13,6 +14,7 @@ import {
     NavLi,
     IconImg,
 } from './style/navbar';
+
 import { useLocation, useNavigate } from 'react-router';
 
 export default function Navbar() {
@@ -21,11 +23,12 @@ export default function Navbar() {
     let pathArr = ['/home', '/record', '/write', '/myPage'];
     let p = pathArr.indexOf(url.pathname) + 1;
     let [position, setPosition] = useState(p);
+    const isMobile = useMediaQuery({ maxWidth: 980 });
     return (
-        <NavLayout>
-            <LogoImg src={logoImg} alt="로고" />
-            <NavList>
+        <NavLayout view={isMobile}>
+            <NavList view={isMobile}>
                 <NavLi
+                    view={isMobile}
                     onClick={() => {
                         navigate('/home');
                         setPosition(1);
@@ -36,6 +39,7 @@ export default function Navbar() {
                     달력
                 </NavLi>
                 <NavLi
+                    view={isMobile}
                     onClick={() => {
                         navigate('/record');
                         setPosition(2);
@@ -46,6 +50,7 @@ export default function Navbar() {
                     일상 기록
                 </NavLi>
                 <NavLi
+                    view={isMobile}
                     onClick={() => {
                         navigate('/write');
                         setPosition(3);
@@ -56,6 +61,7 @@ export default function Navbar() {
                     일기 작성
                 </NavLi>
                 <NavLi
+                    view={isMobile}
                     onClick={() => {
                         navigate('/myPage');
                         setPosition(4);
@@ -66,10 +72,6 @@ export default function Navbar() {
                     마이 페이지
                 </NavLi>
             </NavList>
-            <LogOutButton>
-                <IconImg src={logoutImg} alt="로그아웃버튼아이콘" />
-                Logout
-            </LogOutButton>
         </NavLayout>
     );
 }

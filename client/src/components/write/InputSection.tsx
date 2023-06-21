@@ -21,6 +21,7 @@ import { formatCurDay } from '../../recoil/selectors/date';
 import { curDateState } from '../../recoil/atoms/calendarState';
 import { confirmState } from '../../recoil/atoms/modalState';
 import Modal from '../modal/Modal';
+import { useMediaQuery } from 'react-responsive';
 
 export default function InputSection() {
     let { onSubmit, setFile, type } = useRecord();
@@ -29,6 +30,7 @@ export default function InputSection() {
     let [day, setDay] = useRecoilState(curDateState);
     let date = useRecoilValue(formatCurDay);
     let [confirmModal, setConfirmModal] = useRecoilState(confirmState);
+    const isMobile = useMediaQuery({ maxWidth: 980 });
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
         console.log(files);
@@ -40,17 +42,17 @@ export default function InputSection() {
         //setConfirmModal(true);
     };
     return (
-        <WriteSection>
+        <WriteSection view={isMobile}>
             <h2 className="ir">게시물 작성</h2>
             <DateP>{date}</DateP>
-            <WriteForm onSubmit={onSubmit}>
+            <WriteForm onSubmit={onSubmit} view={isMobile}>
                 <Color
                     type="color"
                     name="content_color"
                     defaultValue="#ffffff"
                 ></Color>
                 {typeof files === 'string' ? (
-                    <ImageLabel ref={dropSection}>
+                    <ImageLabel ref={dropSection} view={isMobile}>
                         <input
                             type="file"
                             className="visually-hidden"
@@ -68,7 +70,7 @@ export default function InputSection() {
                         </FileContainer>
                     </ImageLabel>
                 ) : (
-                    <FileLabel ref={dropSection}>
+                    <FileLabel ref={dropSection} view={isMobile}>
                         <input
                             type="file"
                             className="visually-hidden"
@@ -79,7 +81,7 @@ export default function InputSection() {
                         </Filep>
                     </FileLabel>
                 )}
-                <WriteDiv>
+                <WriteDiv view={isMobile}>
                     <WriteTitle
                         type="text"
                         name="content_title"

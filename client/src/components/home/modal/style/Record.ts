@@ -19,6 +19,7 @@ const fadeOut = keyframes`
 `;
 interface CloseType {
     isClose: boolean;
+    view?: boolean;
     color?: string;
 }
 
@@ -33,8 +34,11 @@ const RecordBackground = styled.div<CloseType>`
 `;
 const RecordSection = styled.section<CloseType>`
     position: relative;
-    width: 54.4rem;
-    height: 73rem;
+    // width: 54.4rem;
+    // height: 73rem;
+    width: ${(props) => (props.view ? '90%' : '43%')};
+    height: 90%;
+    overflow-y: scroll;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -60,8 +64,7 @@ const EditButton = styled.button`
     width: 8rem;
     height: 2.5rem;
     position: absolute;
-    right: 30px;
-    top: 90px;
+    right: 60px;
     border-radius: 15px;
     border: 0;
     background-color: ${({ theme }) => theme.color.inputBoxColor};

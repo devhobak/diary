@@ -17,6 +17,7 @@ import {
 } from './style/diary';
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import { ColorState, positionState } from '../../../recoil/atoms/recordState';
+import { useMediaQuery } from 'react-responsive';
 interface GetDataType {
     user_id: number;
     datetime: string;
@@ -34,17 +35,18 @@ export default function Diary(props: ProsType) {
     const [prevClick, setPrevClick] = useState(0);
     const setPositionPost = useSetRecoilState(positionState);
     const positionPost = useRecoilValue(positionState);
+    const isMobile = useMediaQuery({ maxWidth: 980 });
     const clickNext = () => {
         setNextClick((prev) => prev + 1);
     };
     const clickPrev = () => {
         setPrevClick((prev) => prev + 1);
     };
-    let first = 0 - nextclick * 500 + prevClick * 500;
+    let first = 0 - nextclick * 1000 + prevClick * 1000;
     //let other: number;
     useEffect(() => {
         props.data?.map((item: GetDataType, idx: number) => {
-            let other = 500 * idx - nextclick * 500 + prevClick * 500;
+            let other = 1000 * idx - nextclick * 1000 + prevClick * 1000;
             if (first === 0) {
                 setPositionPost(0);
             } else if (other === 0) {
@@ -54,11 +56,12 @@ export default function Diary(props: ProsType) {
     }, [nextclick, prevClick]);
 
     return (
-        <DiarySection color={props.data[positionPost].color}>
+        <DiarySection color={props.data[positionPost].color} view={isMobile}>
             <h3 className="ir">오늘의 일상</h3>
             <DiaryList>
                 {props.data?.map((item: GetDataType, idx: number) => {
-                    let other = 500 * idx - nextclick * 500 + prevClick * 500;
+                    let other =
+                        1000 * idx - nextclick * 1000 + prevClick * 1000;
                     return (
                         <Diaryli key={idx} first={first} idx={other}>
                             {first !== 0 ? (

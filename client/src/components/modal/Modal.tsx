@@ -30,8 +30,7 @@ export default function Modal(props: ModalType) {
         }
         if (props.type !== 'error') {
             setModal(false);
-        }
-        if (props.page === 'write') {
+        } else if (props.page === 'write') {
             navigate('/home');
         }
     };

@@ -1,18 +1,20 @@
 import styled from 'styled-components';
-
-const ViewSection = styled.section`
+interface ViewType {
+    view: boolean;
+}
+const ViewSection = styled.section<ViewType>`
     grid-area: main;
-    width: 100rem;
+    width: ${(props) => (props.view ? '90%' : '65vw')};
+    height: ${(props) => (props.view ? '80vh' : '90vh')};
     position: relative;
-    height: 75rem;
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     margin: 10px auto;
     text-align: center;
     border-radius: 10px;
     padding: 30px;
 `;
-const ViewUl = styled.ul`
-    height: 600px;
+const ViewUl = styled.ul<ViewType>`
+    height: ${(props) => (props.view ? '87%' : '100%')};
     overflow-y: scroll;
     display: flex;
     flex-direction: column;
@@ -39,18 +41,22 @@ const ViewContent = styled.div`
     width: 50%;
 `;
 const ViewPageNation = styled.div`
+    position: absolute;
+    bottom: 0px;
     width: 50%;
+    padding: 10px;
     margin: 0 auto;
 `;
 const Page = styled.div`
-    position: fixed;
-    bottom: 60px;
+    // position: absolute;
+    // bottom: 0px;
     width: 3rem;
     height: 3rem;
     border: 1px solid pink;
     border-radius: 50%;
     font-size: 1.5rem;
     padding-top: 5px;
+    margin: 0 auto;
     cursor: pointer;
 `;
 export {

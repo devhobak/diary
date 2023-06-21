@@ -9,12 +9,14 @@ import {
     ViewPageNation,
     Page,
 } from './style/RecordList';
+import { useMediaQuery } from 'react-responsive';
 
 export default function RecrodList() {
+    const isMobile = useMediaQuery({ maxWidth: 980 });
     return (
-        <ViewSection>
+        <ViewSection view={isMobile}>
             <h2 className="ir">일상기록</h2>
-            <ViewUl>
+            <ViewUl view={isMobile}>
                 <ViewLi>
                     <ViewDate>날짜</ViewDate>
                     <ViewImg src="" alt="게시한 이미지" />
