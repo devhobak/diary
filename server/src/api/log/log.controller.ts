@@ -86,11 +86,9 @@ export const getLogByMonth = async (req: IGetLogByMonthReq, res: Response) => {
  */
 export const getLogsList = async (req: IGetLogsListReq, res: Response) => {
   try {
-    const limit = 5;
     const log = await LogService.getLogsList(
       req.params.user_id,
-      (req.query.cursor ?? "999999") as string,
-      limit
+      Number(req.query.page)
     );
     res.status(200).json({ log });
   } catch (error) {
