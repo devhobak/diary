@@ -9,8 +9,8 @@ export interface ILog {
   content_main: string;
   content_image: string;
   color: string;
-  cursor: string;
-  limit: number;
+  page: number;
+  totalCount: number;
 }
 
 export interface IAddLogReq extends Request<any, any, ILog> {}
@@ -25,7 +25,6 @@ export interface IGetLogByMonthReq
 export interface IGetLogsListReq
   extends Request<{
     user_id: ILog["user_id"];
-    cursor: ILog["cursor"];
-    limit: ILog["limit"];
+    page: ILog["page"];
   }> {}
 export interface IUpdateLogReq extends Request<{ id: ILog["id"] }, any, ILog> {}

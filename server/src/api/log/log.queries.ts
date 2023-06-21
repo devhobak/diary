@@ -10,12 +10,15 @@ export const LogQueries = {
         FROM diary_system.record 
         WHERE user_id = ? and YEAR(datetime) = ? and MONTH(datetime) = ?;`,
   GetLogsList: `
-        SELECT id, user_id, datetime, content_title, content_main, HEX(color), content_image,  DATE_FORMAT(datetime, '%y%m%d') as nextCursor
+        SELECT id, user_id, datetime, content_title, content_main, HEX(color) as color,content_image
         FROM record 
         WHERE user_id = ?
-        HAVING nextCursor < ?
         ORDER BY datetime DESC
-        LIMIT ?;`,
+        LIMIT ?, ?;`,
+  GetLogsListCount: `
+        SELECT count(*) as totalCount
+        FROM record
+        WHERE user_id = ?;`,
   UpdateLogById: `
         UPDATE diary_system.record
         SET content_title = ?, content_main = ?, color = UNHEX(?), content_image = ?

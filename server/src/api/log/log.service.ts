@@ -40,10 +40,23 @@ export const getLogByMonth = async (
  */
 export const getLogsList = async (
   user_id: ILog["user_id"],
-  cursor: ILog["cursor"],
-  limit: ILog["limit"]
+  page: ILog["page"]
 ) => {
-  return execute<ILog[]>(LogQueries.GetLogsList, [user_id, cursor, limit]);
+  const limit = 5;
+  const [totalCount] = await execute<ILog[]>(LogQueries.GetLogsListCount, [
+    user_id,
+  ]);
+  const logList = await execute<ILog[]>(LogQueries.GetLogsList, [
+    user_id,
+    (page - 1) * 5,
+    page * limit,
+  ]);
+  const maxPage = Math.ceil(totalCount?.totalCount / limit);
+  const prevPage = page === 1 ? null : `/${user_id}/list?page=${page - 1}`;
+  const nextPage = page >= maxPage ? null : `/${user_id}/list?page=${page + 1}`;
+  const pageInfo = { ...totalCount, page, limit, prevPage, nextPage, logList };
+
+  return pageInfo;
 };
 
 /**
