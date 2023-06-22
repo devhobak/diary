@@ -73,7 +73,7 @@ const DayOfUI = styled.ul`
 `;
 const DayLi = styled.li<ViewType>`
     position: relative;
-    //background-color: ${(props) => (props.title ? '#FAFAFA' : '#ffff')};
+    background-color: ${(props) => props.color};
     //width: 120px;
     width: ${(props) => (props.view ? '11%' : '12%')};
     height: ${(props) => (props.view ? '15%' : '20%')};

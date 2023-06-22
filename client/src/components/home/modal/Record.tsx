@@ -61,6 +61,7 @@ export default function Record(props: PropType): JSX.Element {
         console.log(edit);
     };
     console.log(diaryArr);
+    //선택한 날짜의 데이터를 저장함.
     const todayRecord = props.data?.filter(
         (item) => item.datetime.split('T')[0] === selectDay
     ).length;
@@ -69,7 +70,7 @@ export default function Record(props: PropType): JSX.Element {
             <RecordBackground isClose={modal}>
                 <RecordSection
                     isClose={modal}
-                    color={color ?? `#${diaryArr[positionPost].color}`}
+                    color={color ?? `#${diaryArr[0].color}`}
                     view={isMobile}
                 >
                     <h2 className="ir">일상기록</h2>
@@ -103,7 +104,7 @@ export default function Record(props: PropType): JSX.Element {
             <RecordBackground isClose={modal}>
                 <RecordSection
                     isClose={modal}
-                    color={`#${diaryArr[positionPost].color}`}
+                    color={`#${diaryArr[0].color}`}
                     view={isMobile}
                 >
                     <h2 className="ir">일상기록1</h2>
