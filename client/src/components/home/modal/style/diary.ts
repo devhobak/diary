@@ -7,8 +7,10 @@ interface Type {
     view?: boolean;
 }
 const DiarySection = styled.section<Type>`
-    width: ${(props) => (props.view ? '100%' : '54rem')};
-    height: ${(props) => (props.view ? '100%' : '73rem')};
+    // width: ${(props) => (props.view ? '100%' : '54rem')};
+    // height: ${(props) => (props.view ? '100%' : '73rem')};
+    width: 100%;
+    height: 100%;
     //  width: 54.4rem;
     // height: 73rem;
     // border-radius: 15px;
@@ -65,6 +67,7 @@ const DiaryTitle = styled.div`
     text-align: left;
     //margin-top: 15px;
     background-color: #fff;
+    margin-top: 15px;
 `;
 const DiaryTextarea = styled.p<Type>`
     // width: 48.2rem;

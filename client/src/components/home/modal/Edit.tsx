@@ -88,67 +88,76 @@ export default function Edit(props: PropsType) {
     };
 
     return (
-        <RecordInputSection>
-            <h3 className="ir">오늘의 일상</h3>
-            <RecordForm onSubmit={onSubmit}>
-                <InputLabel htmlFor="daily">오늘의 일상</InputLabel>
-                <ColorInput
-                    type="color"
-                    onChange={(e) => {
-                        handleColor(e);
-                    }}
-                    defaultValue={`#${props.data[positionPost].color}`}
-                    name="content_color"
-                ></ColorInput>
-                <RecordInput
-                    id="daily"
-                    type="text"
-                    name="content_title"
-                    defaultValue={props.data[positionPost].content_title}
-                ></RecordInput>
-                <InputLabel htmlFor="record">기록</InputLabel>
-                <Recordarea
-                    id="record"
-                    name="content_main"
-                    defaultValue={props.data[positionPost].content_main}
-                ></Recordarea>
-                {dispalyImage || files ? (
-                    <ImgLabel ref={dropSection}>
-                        <input
-                            type="file"
-                            className="visually-hidden"
-                            name="content_image"
-                        ></input>
-                        <FileContainer>
-                            <FileImg
-                                src={dispalyImage || String(files)}
-                                alt="이미지"
-                            />
-                            <FileDelete
-                                src={deleteImg}
-                                alt="사진삭제"
-                                onClick={(e) => DeletImage(e)}
-                            />
-                        </FileContainer>
-                    </ImgLabel>
-                ) : (
-                    <FileLabel ref={dropSection}>
-                        <input
-                            type="file"
-                            className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles, setFile)}
-                        ></input>
-                        <Filep>
-                            Drop your file here to upload or select from storage
-                        </Filep>
-                    </FileLabel>
-                )}
+        <>
+            <RecordInputSection>
+                <h3 className="ir">오늘의 일상</h3>
+                <RecordForm onSubmit={onSubmit}>
+                    <InputLabel htmlFor="daily">오늘의 일상</InputLabel>
+                    <ColorInput
+                        type="color"
+                        onChange={(e) => {
+                            handleColor(e);
+                        }}
+                        defaultValue={`#${props.data[positionPost].color}`}
+                        name="content_color"
+                    ></ColorInput>
+                    <RecordInput
+                        id="daily"
+                        type="text"
+                        name="content_title"
+                        defaultValue={props.data[positionPost].content_title}
+                    ></RecordInput>
+                    <InputLabel htmlFor="record">기록</InputLabel>
+                    <Recordarea
+                        id="record"
+                        name="content_main"
+                        defaultValue={props.data[positionPost].content_main}
+                    ></Recordarea>
+                    {dispalyImage || files ? (
+                        <ImgLabel ref={dropSection}>
+                            <input
+                                type="file"
+                                className="visually-hidden"
+                                name="content_image"
+                            ></input>
+                            <FileContainer>
+                                <FileImg
+                                    src={dispalyImage || String(files)}
+                                    alt="이미지"
+                                />
+                                <FileDelete
+                                    src={deleteImg}
+                                    alt="사진삭제"
+                                    onClick={(e) => DeletImage(e)}
+                                />
+                            </FileContainer>
+                        </ImgLabel>
+                    ) : (
+                        <FileLabel ref={dropSection}>
+                            <input
+                                type="file"
+                                className="visually-hidden"
+                                onChange={(e) =>
+                                    SelectFile(e, setFiles, setFile)
+                                }
+                            ></input>
+                            <Filep>
+                                Drop your file here to upload or select from
+                                storage
+                            </Filep>
+                        </FileLabel>
+                    )}
 
-                <RecordButton find="confirm" type="submit" onClick={ModalClose}>
-                    완료
-                </RecordButton>
-                {confirmModal ? <Modal type={type} page="home" /> : <></>}
-            </RecordForm>
-        </RecordInputSection>
+                    <RecordButton
+                        find="confirm"
+                        type="submit"
+                        onClick={ModalClose}
+                    >
+                        완료
+                    </RecordButton>
+                </RecordForm>
+            </RecordInputSection>
+            {confirmModal ? <Modal type={type} page="home" /> : <></>}
+        </>
     );
 }

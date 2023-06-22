@@ -87,7 +87,7 @@ const ImgLabel = styled.label`
     padding: 51px 111px;
 `;
 const RecordButton = styled.button<ProsType>`
-    height: 10%;
+    height: 70px;
     border-radius: 6px;
     border: 1px solid #dbdbdb;
     background: ${(props) => (props.find === 'submit' ? '#F9C00C' : '#ffff')};
@@ -131,7 +131,7 @@ const ColorInput = styled.input`
     display: block;
     margin-bottom: 15px;
     width: 30px;
-    height: 10%;
+    height: 60px;
     padding: 0;
 `;
 export {

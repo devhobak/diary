@@ -36,7 +36,8 @@ const RecordSection = styled.section<CloseType>`
     position: relative;
     // width: 54.4rem;
     // height: 73rem;
-    width: ${(props) => (props.view ? '90%' : '43%')};
+    width: ${(props) => (props.view ? '90%' : '54rem')};
+    height: ${(props) => (props.view ? '100%' : '73rem')};
     height: 90%;
     overflow-y: scroll;
     position: absolute;
