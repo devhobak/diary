@@ -3,6 +3,7 @@ import { ConfirmModal, ModalBox, ModalButton, ModalMessage } from './style';
 import { useRecoilState } from 'recoil';
 import { confirmState, modalState } from '../../recoil/atoms/modalState';
 import { useNavigate } from 'react-router';
+import { useMediaQuery } from 'react-responsive';
 interface ModalType {
     type: string;
     page: string;
@@ -11,6 +12,7 @@ export default function Modal(props: ModalType) {
     let text: string;
     let [modal, setModal] = useRecoilState(modalState);
     let [confirmModal, setFirmModal] = useRecoilState(confirmState);
+    const isMobile = useMediaQuery({ maxWidth: 980 });
     const navigate = useNavigate();
     if (props.type === 'confirm') {
         text = '글이 등록되었습니다';
@@ -35,9 +37,9 @@ export default function Modal(props: ModalType) {
         }
     };
     return (
-        <ConfirmModal page={props.page}>
+        <ConfirmModal page={props.page} view={isMobile}>
             <h3 className="ir">확인모달</h3>
-            <ModalBox confirmModal={confirmModal}>
+            <ModalBox confirmModal={confirmModal} view={isMobile}>
                 <ModalMessage>{text}</ModalMessage>
                 {/* <ModalButton onClick={ModalConfirm}>취소</ModalButton> */}
                 <ModalButton onClick={ModalConfirm} type="button">
