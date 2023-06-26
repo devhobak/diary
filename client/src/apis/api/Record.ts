@@ -41,6 +41,15 @@ const getRecord = async ({ year, month }: ParamType): Promise<LogType> => {
         return Promise.reject(err);
     }
 };
+const getTodayRecord = async (today: string): Promise<LogType> => {
+    try {
+        //http://localhost:5000/api/log/1/day/2023-04-15
+        const res = await Api.get<LogType>('api/log/1/day/' + today);
+        return res.data;
+    } catch (err) {
+        return Promise.reject(err);
+    }
+};
 //나중에 instance 변경하기
 const postRecord = async ({
     user_id,
@@ -64,4 +73,4 @@ const postRecord = async ({
         return Promise.reject(err);
     }
 };
-export { getRecord, postRecord };
+export { getRecord, postRecord, getTodayRecord };
