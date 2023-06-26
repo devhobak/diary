@@ -49,10 +49,19 @@ export default function Days(props: DayType) {
         });
         return () => resetDate();
     }, [curDate]);
-    let datetime = props.data?.filter((data) => data.datetime.split('T')[0]);
+    let data = props.data;
+    let yearMonth = props.data.map((item) => item.datetime.split('T')[0]);
+    let recordColor = formatDate.curMonthDay.map((item, idex) => {
+        if (yearMonth.includes(item)) {
+            return `#${data[yearMonth.indexOf(item)].color}`;
+        } else {
+            return '#ffff';
+        }
+    });
+    console.log(recordColor);
     const modalUp = (item: string) => {
         console.log(CurDay);
-        datetime.map((day) => {
+        data.map((day) => {
             if (day.datetime.split('T')[0] === item) {
                 setModal(true);
                 setSelectDate(day.datetime.split('T')[0]);
@@ -80,20 +89,9 @@ export default function Days(props: DayType) {
                             key={idx}
                             onClick={() => modalUp(item)}
                             view={isMobile}
+                            color={recordColor[idx]}
                         >
                             {item.split('-')[2]}
-                            <StateDiv>
-                                {datetime?.map((date, index) => {
-                                    if (date.datetime.split('T')[0] === item) {
-                                        return (
-                                            <StateRecord
-                                                key={index}
-                                                color={`#${props.data[index].color}`}
-                                            ></StateRecord>
-                                        );
-                                    }
-                                })}
-                            </StateDiv>
                         </DayLi>
                     ) : (
                         <DayLi key={idx} title="disabled" view={isMobile}>

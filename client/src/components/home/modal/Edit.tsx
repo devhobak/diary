@@ -83,7 +83,7 @@ export default function Edit(props: PropsType) {
     };
     const DeletImage = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
         DeleteFile(e, setFiles, setFile);
-        setImage(props.data[positionPost].content_image);
+        setImage(props.data[0].content_image);
         setDisplayImage('');
     };
 
@@ -98,20 +98,20 @@ export default function Edit(props: PropsType) {
                         onChange={(e) => {
                             handleColor(e);
                         }}
-                        defaultValue={`#${props.data[positionPost].color}`}
+                        defaultValue={`#${props.data[0].color}`}
                         name="content_color"
                     ></ColorInput>
                     <RecordInput
                         id="daily"
                         type="text"
                         name="content_title"
-                        defaultValue={props.data[positionPost].content_title}
+                        defaultValue={props.data[0].content_title}
                     ></RecordInput>
                     <InputLabel htmlFor="record">기록</InputLabel>
                     <Recordarea
                         id="record"
                         name="content_main"
-                        defaultValue={props.data[positionPost].content_main}
+                        defaultValue={props.data[0].content_main}
                     ></Recordarea>
                     {dispalyImage || files ? (
                         <ImgLabel ref={dropSection}>
