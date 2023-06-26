@@ -3,14 +3,14 @@ export const LogQueries = {
         INSERT INTO diary_system.record (user_id, datetime, content_title, content_main, color, content_image) 
         VALUES (?, now(), ?, ?, UNHEX(?), ?);`,
   GetLogByDay: `
-        SELECT id, user_id, datetime, content_title, content_main, HEX(color) as color
+        SELECT id, user_id, DATE_FORMAT(datetime, "%Y-%m-%d %H:%i:%s") as datetime, content_title, content_main, HEX(color) as color
         FROM diary_system.record WHERE user_id = ? and DATE(datetime) = ?;`,
   GetLogByMonth: `
-        SELECT id, user_id, datetime, content_title, content_main, HEX(color) as color,content_image
+        SELECT id, user_id, DATE_FORMAT(datetime, "%Y-%m-%d %H:%i:%s") as datetime, content_title, content_main, HEX(color) as color,content_image
         FROM diary_system.record 
         WHERE user_id = ? and YEAR(datetime) = ? and MONTH(datetime) = ?;`,
   GetLogsList: `
-        SELECT id, user_id, datetime, content_title, content_main, HEX(color) as color,content_image
+        SELECT id, user_id, DATE_FORMAT(datetime, "%Y-%m-%d %H:%i:%s") as datetime, content_title, content_main, HEX(color) as color,content_image
         FROM record 
         WHERE user_id = ?
         ORDER BY datetime DESC
