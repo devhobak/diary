@@ -50,8 +50,7 @@ export default function Days(props: DayType) {
         return () => resetDate();
     }, [curDate]);
     let data = props.data;
-    console.log(data);
-    let yearMonth = props.data.map((item) => item.datetime.split(' ')[0]);
+    let yearMonth = props.data.map((item) => item.datetime.split('T')[0]);
     let recordColor = formatDate.curMonthDay.map((item, idex) => {
         if (yearMonth.includes(item)) {
             return `#${data[yearMonth.indexOf(item)].color}`;
@@ -63,9 +62,9 @@ export default function Days(props: DayType) {
     const modalUp = (item: string) => {
         console.log(CurDay);
         data.map((day) => {
-            if (day.datetime.split(' ')[0] === item) {
+            if (day.datetime.split('T')[0] === item) {
                 setModal(true);
-                setSelectDate(day.datetime.split(' ')[0]);
+                setSelectDate(day.datetime.split('T')[0]);
             }
             if (item === CurDay) {
                 setModal(true);

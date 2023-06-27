@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import InputSection from './InputSection';
 import closeImg from '../../../assets/close.png';
-import { useRecoilValue, useRecoilState, useSetRecoilState } from 'recoil';
+import { useRecoilValue, useRecoilState } from 'recoil';
 import {
     curDateState,
     selectDateState,
@@ -16,7 +16,7 @@ import {
     EditButton,
 } from './style/Record';
 import { modalState } from '../../../recoil/atoms/modalState';
-import { ColorState } from '../../../recoil/atoms/recordState';
+import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import Edit from './Edit';
 import { useMediaQuery } from 'react-responsive';
 
@@ -39,13 +39,14 @@ export default function Record(props: PropType): JSX.Element {
     const [modal, setClose] = useRecoilState(modalState);
     const selectDay = useRecoilValue(selectDateState);
     const [edit, setEdit] = useState(false);
+    const [positionPost, setPositionPost] = useRecoilState(positionState);
     const [color, setColor] = useRecoilState(ColorState);
     const isMobile = useMediaQuery({ maxWidth: 980 });
-
+    console.log(isMobile);
     let diary = props.data;
     let diaryArr: GetDataType[] = [];
     diary?.map((item: GetDataType) => {
-        if (item.datetime.split(' ')[0] === selectDay) {
+        if (item.datetime.split('T')[0] === selectDay) {
             diaryArr.push(item);
         }
     });
@@ -62,7 +63,7 @@ export default function Record(props: PropType): JSX.Element {
     console.log(diaryArr);
     //선택한 날짜의 데이터를 저장함.
     const todayRecord = props.data?.filter(
-        (item) => item.datetime.split(' ')[0] === selectDay
+        (item) => item.datetime.split('T')[0] === selectDay
     ).length;
     if (selectDay === fullDate) {
         return (

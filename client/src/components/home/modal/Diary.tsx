@@ -9,7 +9,7 @@ import {
     Diaryli,
     DiaryImg,
 } from './style/diary';
-import { ColorState } from '../../../recoil/atoms/recordState';
+import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import { useMediaQuery } from 'react-responsive';
 interface GetDataType {
     user_id: number;

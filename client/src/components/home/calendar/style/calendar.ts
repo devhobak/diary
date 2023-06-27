@@ -19,7 +19,7 @@ const CalendarLayout = styled.section<ViewType>`
     width: ${(props) => (props.view ? '90%' : '65vw')};
     //height: ${(props) => (props.view ? '82vh' : '92vh')};
     //height: calc (100% + 82.09px);
-    height: ${(props) => (props.view ? '87%' : '91vh')};
+    height: ${(props) => (props.view ? '87%' : '90vh')};
     grid-area: main;
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     margin: ${(props) => (props.view ? '10px' : '10px')} auto;
@@ -46,10 +46,9 @@ const CalendarHead = styled.div`
 const DayOfLi = styled.li<ViewType>`
     width: ${(props) => (props.view ? '11%' : '12%')};
     height: 20px;
-    //background-color: ${({ theme }) => theme.color.inputBoxColor};
+    background-color: ${({ theme }) => theme.color.inputBoxColor};
     padding: 3px;
-    border: 1px solid #fafafa;
-    // border-radius: 10px;
+    border-radius: 10px;
 `;
 const DayUI = styled.ul`
     //width: 100rem;
@@ -64,8 +63,7 @@ const DayUI = styled.ul`
 `;
 const DayOfUI = styled.ul`
     width: 100%;
-    // height: 10%;
-    //height: 20%;
+    height: 10%;
     flex-wrap: wrap;
     display: flex;
     gap: 10px;
@@ -79,9 +77,8 @@ const DayLi = styled.li<ViewType>`
     //width: 120px;
     width: ${(props) => (props.view ? '11%' : '12%')};
     height: ${(props) => (props.view ? '15%' : '20%')};
-
     border: 1px solid ${({ theme }) => theme.color.inputBoxColor};
-    // border-radius: 10px;
+    border-radius: 10px;
     text-align: left;
     padding: 10px;
 `;
@@ -102,16 +99,17 @@ const StateRecord = styled.div<PropType>`
     border: 1px solid #dbdbdb;
 `;
 const MonthCalendar = styled.input<ViewType>`
-    //  position: relative;
-    //  top: 10px;
-    //  left: ${(props) => (props.view ? '-35%' : '-40%')};
+    position: relative;
+    top: 10px;
+    left: ${(props) => (props.view ? '-35%' : '-40%')};
     //left: -40px;
     //margin-left: 20px;
-    // border-radius: 10px;
+    border-radius: 10px;
     border: 1px solid ${({ theme }) => theme.color.inputBoxColor};
     padding: 10px;
     width: 100px;
     height: 20px;
+    text-align: left;
 
     &::before {
         content: attr(data-placeholder);

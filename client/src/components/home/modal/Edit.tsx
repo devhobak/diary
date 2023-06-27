@@ -22,7 +22,7 @@ import {
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
 import { confirmState, modalState } from '../../../recoil/atoms/modalState';
-import { ColorState } from '../../../recoil/atoms/recordState';
+import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import useEditRecord from '../../../hooks/useEditRecord';
 import Modal from '../../modal/Modal';
 interface GetDataType {
@@ -49,7 +49,7 @@ export default function Edit(props: PropsType) {
     let [color, setColor] = useRecoilState(ColorState);
     let [image, setImage] = useState<string>();
     let [dispalyImage, setDisplayImage] = useState<string>('');
-
+    const [positionPost, setPositionPost] = useRecoilState(positionState);
     const [confirmModal, setConfirmModal] = useRecoilState(confirmState);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
@@ -57,11 +57,11 @@ export default function Edit(props: PropsType) {
         //setDisplayImage(String(files));
     }, [files]);
     useEffect(() => {
-        setDisplayImage(props.data[0].content_image);
+        setDisplayImage(props.data[positionPost].content_image);
         console.log(dispalyImage);
     }, []);
     const { onSubmit, setFile, type } = useEditRecord(
-        props.data[0].id,
+        props.data[positionPost].id,
         dispalyImage,
         image
     );
