@@ -46,7 +46,7 @@ export default function Record(props: PropType): JSX.Element {
     let diary = props.data;
     let diaryArr: GetDataType[] = [];
     diary?.map((item: GetDataType) => {
-        if (item.datetime.split('T')[0] === selectDay) {
+        if (item.datetime.split(' ')[0] === selectDay) {
             diaryArr.push(item);
         }
     });
@@ -63,7 +63,7 @@ export default function Record(props: PropType): JSX.Element {
     console.log(diaryArr);
     //선택한 날짜의 데이터를 저장함.
     const todayRecord = props.data?.filter(
-        (item) => item.datetime.split('T')[0] === selectDay
+        (item) => item.datetime.split(' ')[0] === selectDay
     ).length;
     if (selectDay === fullDate) {
         return (
