@@ -1,36 +1,54 @@
 import React from 'react';
 import {
-    ViewSection,
     ViewUl,
     ViewImg,
     ViewLi,
     ViewDate,
+    ViewTitle,
     ViewContent,
-    ViewPageNation,
-    Page,
+    ViewNoImg,
+    Content,
 } from './style/RecordList';
 import { useMediaQuery } from 'react-responsive';
-
-export default function RecrodList() {
+interface GetViewListType {
+    totalCount: number;
+    page: number;
+    limit: number;
+    prevPage: string;
+    nextPage: string;
+    logList: GetRecordType[];
+}
+interface GetRecordType {
+    id: number;
+    user_id: number;
+    datetime: string;
+    content_title: string;
+    content_main: string;
+    color: string;
+    content_image: string;
+}
+interface ProsType {
+    data: GetViewListType;
+}
+export default function RecrodList(props: ProsType) {
     const isMobile = useMediaQuery({ maxWidth: 980 });
     return (
-        <ViewSection view={isMobile}>
-            <h2 className="ir">일상기록</h2>
-            <ViewUl view={isMobile}>
-                <ViewLi>
-                    <ViewDate>날짜</ViewDate>
-                    <ViewImg src="" alt="게시한 이미지" />
-                    <ViewContent>기록들기록들기록들</ViewContent>
+        <ViewUl view={isMobile}>
+            {props.data.logList.map((item, index) => (
+                <ViewLi key={index}>
+                    <ViewDate>{item.datetime.split(' ')[0]}</ViewDate>
+                    {item.content_image ? (
+                        <ViewImg src={item.content_image} alt="게시한 이미지" />
+                    ) : (
+                        <ViewNoImg color={`#${item.color}`}></ViewNoImg>
+                    )}
+
+                    <Content>
+                        <ViewTitle>{item.content_title}</ViewTitle>
+                        <ViewContent>{item.content_main}</ViewContent>
+                    </Content>
                 </ViewLi>
-                <ViewLi>
-                    <ViewDate>날짜</ViewDate>
-                    <ViewImg src="" alt="게시한 이미지" />
-                    <ViewContent>기록들기록들기록들</ViewContent>
-                </ViewLi>
-            </ViewUl>
-            <ViewPageNation>
-                <Page>1</Page>
-            </ViewPageNation>
-        </ViewSection>
+            ))}
+        </ViewUl>
     );
 }
