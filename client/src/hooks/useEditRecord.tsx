@@ -27,14 +27,17 @@ export default function useEditRecord(
             await formData.append('content_image', url);
             console.log(url);
         } else {
-            formData.append('content_image', displayImage);
+            if (displayImage !== 'null') {
+                formData.append('content_image', displayImage);
+            }
         }
         const data = Object.fromEntries(formData);
         console.log(e);
         const { content_title, content_main, content_image, content_color } =
             data;
         color = String(content_color).split('#')[1];
-        console.log(color);
+        console.log(data);
+        //처음 글이없는 상태에서 수정하면 이미지가 출력
         if (content_title && content_main) {
             mutate({ content_title, content_main, content_image, color });
             //삭제된 이미지 있다면 삭제하기

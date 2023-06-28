@@ -57,7 +57,9 @@ export default function Edit(props: PropsType) {
         //setDisplayImage(String(files));
     }, [files]);
     useEffect(() => {
-        setDisplayImage(props.data[positionPost].content_image);
+        if (props.data[positionPost].content_image) {
+            setDisplayImage(props.data[0].content_image);
+        }
         console.log(dispalyImage);
     }, []);
     const { onSubmit, setFile, type } = useEditRecord(

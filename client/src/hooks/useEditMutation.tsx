@@ -26,6 +26,7 @@ export default function useEditMutation(
                 });
                 setConfirmModal(true);
                 setType('edit');
+                console.log('수정완료');
             },
             onError(err) {
                 console.log(err);
