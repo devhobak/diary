@@ -8,9 +8,13 @@ interface ViewType {
 }
 const Layout = styled.section<ViewType>`
     display: grid;
-    height: calc(100vh - 50px);
+    height: calc(100vh);
     overflow-y: hidden;
-    grid-template-areas: ${(props) => (props.view ? " 'main' " : "'nav main'")};
+    grid-template-areas: ${(props) =>
+        props.view ? "'top' 'main' 'nav' " : "'nav top' 'nav main'"};
+    grid-template-rows: ${(props) => (props.view ? '1fr 7fr 2fr' : '1fr 15fr')};
+
+    grid-template-columns: ${(props) => (props.view ? '' : '1fr 4fr')};
 `;
 
 const NavLayout = styled.section<ViewType>`
@@ -22,9 +26,24 @@ const NavLayout = styled.section<ViewType>`
     flex-direction: ${(props) => (props.view ? 'row' : 'column')};
     gap: 30px;
     border: 1px solid #fff;
-    padding: ${(props) => (props.view ? '0px' : '50px')} 10px 0 10px;
-    width: ${(props) => (props.view ? '100%' : '90%')};
+    padding: ${(props) => (props.view ? '0px' : '20px')} 10px 0 10px;
+    width: ${(props) => (props.view ? '100%' : '100%')};
     height: ${(props) => (props.view ? '10vh' : '100%')};
+`;
+const MainLayout = styled.section<ViewType>`
+    //position: relative;
+    //width: 100rem;
+    //width: ${(props) => (props.view ? '90%' : '65vw')};
+    //height: ${(props) => (props.view ? '82vh' : '92vh')};
+    //height: calc (100% + 82.09px);
+    // height: ${(props) => (props.view ? '87%' : '90vh')};
+    grid-area: main;
+    //background-color: ${({ theme }) => theme.color.headerBackgroundColor};
+    // margin: ${(props) => (props.view ? '10px' : '10px')} auto;
+    text-align: center;
+    // border-radius: 10px;
+    //padding: 20px;
+    padding: ${(props) => (props.view ? '1%' : ' 2% 8%')};
 `;
 const LogoImg = styled.img`
     width: 50px;
@@ -84,4 +103,13 @@ const IconImg = styled.img`
     margin-left: 20px;
     vertical-align: middle;
 `;
-export { Layout, NavLayout, LogOutButton, NavList, LogoImg, NavLi, IconImg };
+export {
+    Layout,
+    NavLayout,
+    LogOutButton,
+    NavList,
+    LogoImg,
+    NavLi,
+    IconImg,
+    MainLayout,
+};

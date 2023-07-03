@@ -95,6 +95,7 @@ export default function View() {
         <ViewLayout>
             <ViewSection view={isMobile}>
                 <h2 className="ir">일상기록</h2>
+
                 {data ? <RecrodList data={data} /> : <></>}
 
                 <ViewPageNation>

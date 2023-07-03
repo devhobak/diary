@@ -1,6 +1,6 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { Layout } from './style/navbar';
+import { Layout, MainLayout } from './style/navbar';
 import Navbar from './Navbar';
 import Top from './Top';
 
@@ -10,7 +10,7 @@ const ViewLayout = ({ children }: { children: JSX.Element }) => {
         <Layout view={isMobile}>
             <Top />
             <Navbar />
-            {children}
+            <MainLayout view={isMobile}>{children}</MainLayout>
         </Layout>
     );
 };
