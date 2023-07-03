@@ -22,6 +22,7 @@ import { curDateState } from '../../recoil/atoms/calendarState';
 import { confirmState } from '../../recoil/atoms/modalState';
 import Modal from '../modal/Modal';
 import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router';
 
 export default function InputSection() {
     let { onSubmit, setFile, type } = useRecord();
@@ -30,6 +31,7 @@ export default function InputSection() {
     let [day, setDay] = useRecoilState(curDateState);
     let date = useRecoilValue(formatCurDay);
     let [confirmModal, setConfirmModal] = useRecoilState(confirmState);
+    const navigate = useNavigate();
     const isMobile = useMediaQuery({ maxWidth: 980 });
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
@@ -39,7 +41,7 @@ export default function InputSection() {
         setDay(new Date());
     }, []);
     const handleConfirm = () => {
-        //setConfirmModal(true);
+        navigate('/home');
     };
     return (
         <WriteForm onSubmit={onSubmit} view={isMobile}>

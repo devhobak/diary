@@ -12,9 +12,5 @@ const HeaderLayout = styled.header`
 `;
 const Logo = styled.img``;
 export default function Header() {
-    return (
-        <HeaderLayout>
-            <Logo src={LogoImg} alt="홈페이지 로고" />
-        </HeaderLayout>
-    );
+    return <HeaderLayout></HeaderLayout>;
 }
