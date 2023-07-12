@@ -56,6 +56,7 @@ export default function Edit(props: PropsType) {
         console.log(files);
         //setDisplayImage(String(files));
     }, [files]);
+    console.log(files);
     useEffect(() => {
         if (props.data[positionPost].content_image) {
             setDisplayImage(props.data[0].content_image);
@@ -117,15 +118,10 @@ export default function Edit(props: PropsType) {
                     ></Recordarea>
                     {dispalyImage || files ? (
                         <ImgLabel ref={dropSection}>
-                            <input
-                                type="file"
-                                className="visually-hidden"
-                                name="content_image"
-                            ></input>
                             <FileContainer>
                                 <FileImg
                                     src={dispalyImage || String(files)}
-                                    alt="이미지"
+                                    alt="업로드한 이미지"
                                 />
                                 <FileDelete
                                     src={deleteImg}
