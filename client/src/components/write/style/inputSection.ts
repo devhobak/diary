@@ -105,7 +105,7 @@ const ImageFile = styled.input`
 const SubmitButton = styled.button`
     width: 100%;
     border: 0;
-    height: 30%;
+    height: 80px;
     border-radius: 15px;
     background-color: ${({ theme }) => theme.color.inputBoxColor};
 `;

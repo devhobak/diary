@@ -33,25 +33,27 @@ const ViewLi = styled.li`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    height: 50%;
-    margin-bottom: 10%;
+    height: 60%;
+    margin-bottom: 20px;
     // border: 1px solid #dbdbdb;
     //border-radius: 10px;
 `;
 const ViewDate = styled.p`
     width: 100%;
-    // height: 20px;
+    height: 20%;
     text-align: left;
     font-size: 2rem;
-    margin-bottom: 20px;
+    //margin-bottom: 10px;
     padding: 10px;
 `;
 const ViewImg = styled.img`
-    height: 100%;
-    width: 50%;
+    // height: 80%;
+    // width: 50%;
+    width: 280px;
+    height: 280px;
 `;
 const ViewNoImg = styled.div<PropsType>`
-    height: 100%;
+    height: 80%;
     width: 50%;
     background-color: ${(props) => props.color};
 `;
@@ -61,7 +63,7 @@ const ViewTitle = styled.p`
     margin-bottom: 30px;
 `;
 const ViewContent = styled.div`
-    height: 100%;
+    height: 80%;
     width: 50%;
     font-size: 16px;
 `;

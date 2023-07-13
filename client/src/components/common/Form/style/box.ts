@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 
 const LoginArticle = styled.article`
-    margin: 50px auto;
+    margin: 120px auto;
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     text-align: center;
     padding: 44px 34px;
