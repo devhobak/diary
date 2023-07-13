@@ -41,7 +41,9 @@ export default function InputSection() {
         setDay(new Date());
     }, []);
     const handleConfirm = () => {
-        navigate('/home');
+        // setTimeout(() => {
+        //     navigate('/home');
+        // }, 800);
     };
     return (
         <WriteForm onSubmit={onSubmit} view={isMobile}>
@@ -92,7 +94,6 @@ export default function InputSection() {
                     완료
                 </SubmitButton>
             </WriteDiv>
-            {confirmModal ? <Modal type={type} page="write" /> : <></>}
         </WriteForm>
     );
 }

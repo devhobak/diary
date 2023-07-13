@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import RecrodList from './RecordList';
 import ViewLayout from '../common/Layout/ViewLayout';
