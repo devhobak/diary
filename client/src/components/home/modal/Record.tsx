@@ -39,7 +39,6 @@ export default function Record(props: PropType): JSX.Element {
     const [modal, setClose] = useRecoilState(modalState);
     const selectDay = useRecoilValue(selectDateState);
     const [edit, setEdit] = useState(false);
-    const [positionPost, setPositionPost] = useRecoilState(positionState);
     const [color, setColor] = useRecoilState(ColorState);
     const isMobile = useMediaQuery({ maxWidth: 980 });
     let diary = props.data;
@@ -64,7 +63,7 @@ export default function Record(props: PropType): JSX.Element {
     const todayRecord = props.data?.filter(
         (item) => item.datetime.split(' ')[0] === selectDay
     ).length;
-
+    console.log(selectDay, fullDate);
     if (selectDay === fullDate) {
         return (
             <RecordBackground isClose={modal}>

@@ -33,7 +33,7 @@ const ViewLi = styled.li`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    height: 60%;
+    height: 80%;
     margin-bottom: 20px;
     // border: 1px solid #dbdbdb;
     //border-radius: 10px;
@@ -49,8 +49,8 @@ const ViewDate = styled.p`
 const ViewImg = styled.img`
     // height: 80%;
     // width: 50%;
-    width: 280px;
-    height: 280px;
+    width: 50%;
+    height: 80%;
 `;
 const ViewNoImg = styled.div<PropsType>`
     height: 80%;
@@ -64,7 +64,7 @@ const ViewTitle = styled.p`
 `;
 const ViewContent = styled.div`
     height: 80%;
-    width: 50%;
+    width: 60%;
     font-size: 16px;
 `;
 const ViewPageNation = styled.div`

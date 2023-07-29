@@ -1,9 +1,8 @@
 import { DayUI, DayLi, DaySection, DayOfLi, DayOfUI } from './style/calendar';
 import { format } from 'date-fns';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
     curDateState,
-    dateState,
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
 import {
@@ -16,6 +15,7 @@ import Record from '../modal/Record';
 import { useQuery } from 'react-query';
 import { getRecord } from '../../../apis/api/Record';
 import { AxiosError } from 'axios';
+
 interface GetDataType {
     id: number;
     user_id: number;
@@ -33,12 +33,10 @@ interface DayType {
 }
 
 export default function Days(props: DayType) {
-    const [date, setDate] = useRecoilState(dateState);
     const [selectDay, setSelectDate] = useRecoilState(selectDateState);
     const CurDay = useRecoilValue(formatCurDay);
     const formatDate = useRecoilValue(formatCurDataState);
     const curDate = useRecoilValue(curDateState);
-    const resetDate = useResetRecoilState(dateState);
     const [modal, setModal] = useRecoilState(modalState);
     const isMobile = useMediaQuery({ maxWidth: 390 });
     let GetMonth = {

@@ -20,7 +20,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { formatCurDay } from '../../recoil/selectors/date';
 import { curDateState } from '../../recoil/atoms/calendarState';
 import { confirmState } from '../../recoil/atoms/modalState';
-import Modal from '../modal/Modal';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router';
 

@@ -134,6 +134,7 @@ const ColorInput = styled.input`
     height: 60px;
     padding: 0;
 `;
+
 export {
     RecordInput,
     RecordInputSection,
