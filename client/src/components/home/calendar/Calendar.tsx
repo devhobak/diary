@@ -5,6 +5,8 @@ import { CalendarLayout } from './style/calendar';
 import Days from './Days';
 import Month from './Month';
 import { curDateState } from '../../../recoil/atoms/calendarState';
+import { injectStyle } from 'react-toastify/dist/inject-style';
+
 export default function Calendar() {
     const [curDate, setCurDate] = useRecoilState(curDateState);
     const curMonth = format(curDate, 'MMMM');

@@ -24,7 +24,6 @@ import {
 import { confirmState, modalState } from '../../../recoil/atoms/modalState';
 import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import useEditRecord from '../../../hooks/useEditRecord';
-import Modal from '../../modal/Modal';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -63,7 +62,7 @@ export default function Edit(props: PropsType) {
         }
         console.log(dispalyImage);
     }, []);
-    const { onSubmit, setFile, type } = useEditRecord(
+    const { onSubmit, setFile } = useEditRecord(
         props.data[positionPost].id,
         dispalyImage,
         image
@@ -79,6 +78,9 @@ export default function Edit(props: PropsType) {
         //     }
         // });
         //setConfirmModal(true);
+        setTimeout(() => {
+            setClose(false);
+        }, 500);
     };
     const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setColor(e.target.value);
@@ -155,7 +157,6 @@ export default function Edit(props: PropsType) {
                     </RecordButton>
                 </RecordForm>
             </RecordInputSection>
-            {confirmModal ? <Modal type={type} page="home" /> : <></>}
         </>
     );
 }

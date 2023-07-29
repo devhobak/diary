@@ -16,46 +16,28 @@ import {
 } from './style/inputSection';
 import deleteImg from '../../../assets/close.png';
 import { SelectFile, drop, DeleteFile } from '../../../utils/draganddrop';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-    dateState,
-    selectDateState,
-} from '../../../recoil/atoms/calendarState';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import useRecord from '../../../hooks/useRecord';
 import { confirmState, modalState } from '../../../recoil/atoms/modalState';
 import { ColorState } from '../../../recoil/atoms/recordState';
-import Modal from '../../modal/Modal';
+
 export default function InputSection() {
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
-    let selectDate = useRecoilValue(selectDateState);
-    let [date, setDate] = useRecoilState(dateState);
-    let [modal, setClose] = useRecoilState(modalState);
     const [color, setColor] = useRecoilState(ColorState);
     const [confirmModal, setConfirmModal] = useRecoilState(confirmState);
+    let setModalClose = useSetRecoilState(modalState);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
         console.log(files);
         console.log(confirmModal);
     }, [files]);
-
-    let { onSubmit, setFile, type } = useRecord();
-
+    let { onSubmit, setFile } = useRecord();
     const ModalClose = () => {
-        // setTimeout(() => {
-        //     setClose(false);
-        // });
-        //setConfirmModal(true);
-        // let arr = [...date];
-        // date.map((item, idx) => {
-        //     if (item.date === selectDate) {
-        //         setTimeout(() => {
-        //             setClose(false);
-        //             setDate(arr);
-        //             console.log(date);
-        //         }, 100);
-        //     }
-        // });
+        //토스트 창뜨고,
+        setTimeout(() => {
+            setModalClose(false);
+        }, 1000);
     };
     const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setColor(e.target.value);
@@ -121,7 +103,6 @@ export default function InputSection() {
                 <RecordButton find="confirm" onClick={ModalClose} type="submit">
                     완료
                 </RecordButton>
-                {confirmModal ? <Modal type={type} page="home" /> : <></>}
             </RecordForm>
         </RecordInputSection>
     );
