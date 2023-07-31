@@ -19,7 +19,6 @@ import useRecord from '../../hooks/useRecord';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { formatCurDay } from '../../recoil/selectors/date';
 import { curDateState } from '../../recoil/atoms/calendarState';
-import { confirmState } from '../../recoil/atoms/modalState';
 import { useMediaQuery } from 'react-responsive';
 import { useNavigate } from 'react-router';
 
@@ -28,9 +27,6 @@ export default function InputSection() {
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
     let [day, setDay] = useRecoilState(curDateState);
-    let date = useRecoilValue(formatCurDay);
-    let [confirmModal, setConfirmModal] = useRecoilState(confirmState);
-    const navigate = useNavigate();
     const isMobile = useMediaQuery({ maxWidth: 980 });
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);

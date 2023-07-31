@@ -97,7 +97,13 @@ const DayLi = styled.li<ViewType>`
     padding: 10px;
     //150씩 (패딩제외한 너비) / 7
 `;
-
+const DayDate = styled.div`
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 3px;
+`;
 const StateDiv = styled.div`
     display: flex;
     height: 100%;
@@ -114,11 +120,6 @@ const StateRecord = styled.div<PropType>`
     border: 1px solid #dbdbdb;
 `;
 const MonthCalendar = styled.input<ViewType>`
-    // position: relative;
-    // top: 10px;
-    //left: ${(props) => (props.view ? '-35%' : '-40%')};
-    //left: -40px;
-    //margin-left: 20px;
     border: 1px solid #dbdbdb;
     padding: 10px;
     width: 50px;
@@ -142,4 +143,5 @@ export {
     StateRecord,
     StateDiv,
     MonthCalendar,
+    DayDate,
 };

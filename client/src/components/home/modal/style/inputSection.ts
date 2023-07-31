@@ -19,8 +19,6 @@ const RecordForm = styled.form`
     gap: 15px;
 `;
 const RecordInput = styled.input`
-    // width: 48.2rem;
-    // height: 5.6rem;
     width: 100%;
     height: 8%;
     background: url('assets/Light.png') no-repeat 95%;

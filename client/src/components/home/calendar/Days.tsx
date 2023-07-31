@@ -1,4 +1,11 @@
-import { DayUI, DayLi, DaySection, DayOfLi, DayOfUI } from './style/calendar';
+import {
+    DayUI,
+    DayLi,
+    DaySection,
+    DayOfLi,
+    DayOfUI,
+    DayDate,
+} from './style/calendar';
 import { format } from 'date-fns';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
@@ -15,7 +22,7 @@ import Record from '../modal/Record';
 import { useQuery } from 'react-query';
 import { getRecord } from '../../../apis/api/Record';
 import { AxiosError } from 'axios';
-
+import { toast } from 'react-toastify';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -56,13 +63,6 @@ export default function Days(props: DayType) {
             console.log(data);
         },
     });
-    console.log(isSuccess && modal);
-    // useEffect(() => {
-    //     formatDate.curMonthDay.forEach((item, idx) => {
-    //         setDate((prev) => [...prev, { date: item, modal: false }]);
-    //     });
-    //     return () => resetDate();
-    // }, [curDate]);
     let RecordData = data;
     let yearMonth = RecordData?.map((item) => item.datetime.split(' ')[0]);
     let recordColor = formatDate.curMonthDay.map((item, idex) => {
@@ -74,17 +74,25 @@ export default function Days(props: DayType) {
     });
     console.log(CurDay);
     const modalUp = (item: string) => {
-        setModal(true);
-        setSelectDate(CurDay);
+        let record = false;
+        setModal(false);
+        setSelectDate(item);
         RecordData?.map((day) => {
             if (day.datetime.split(' ')[0] === item) {
-                setSelectDate(day.datetime.split(' ')[0]);
-            } else if (item === CurDay) {
                 setModal(true);
-                setSelectDate(CurDay);
+                record = true;
             }
+            return record;
         });
+        if (item === CurDay) {
+            setModal(true);
+            setSelectDate(CurDay);
+        }
+        if (record === false) {
+            toast.error(`${item} 일자에 작성한 일기가 없습니다.`);
+        }
     };
+
     return (
         <DaySection>
             <DayOfUI>
@@ -103,7 +111,7 @@ export default function Days(props: DayType) {
                             view={isMobile}
                             color={recordColor[idx]}
                         >
-                            {item.split('-')[2]}
+                            <DayDate>{item.split('-')[2]}</DayDate>
                         </DayLi>
                     ) : (
                         <DayLi key={idx} color={'#FAFAFA'} view={isMobile}>

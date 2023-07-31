@@ -1,7 +1,7 @@
 import { useQueryClient, useMutation } from 'react-query';
 import { EditPatch } from '../apis/api/EditRecord';
 import { useRecoilState } from 'recoil';
-import { confirmState } from '../recoil/atoms/modalState';
+import { modalState } from '../recoil/atoms/modalState';
 import { toast } from 'react-toastify';
 interface EditDataType {
     content_title: FormDataEntryValue;
@@ -14,7 +14,7 @@ export default function useEditMutation(
     id: number,
     setType: React.Dispatch<React.SetStateAction<string>>
 ) {
-    const [confirmModal, setConfirmModal] = useRecoilState(confirmState);
+    const [moodal, setModal] = useRecoilState(modalState);
     const queryClient = useQueryClient();
     return useMutation(
         key,
@@ -25,14 +25,15 @@ export default function useEditMutation(
                 queryClient.invalidateQueries(['record'], {
                     refetchInactive: true,
                 });
-                setConfirmModal(true);
+                //setConfirmModal(true);
                 setType('edit');
-                console.log('수정완료');
+                setModal(false);
                 toast.success('글 수정 완료');
             },
             onError(err) {
                 console.log(err);
-                setConfirmModal(true);
+                //setConfirmModal(true);
+                setModal(true);
                 setType('error');
                 toast.error('글 수정 실패');
             },

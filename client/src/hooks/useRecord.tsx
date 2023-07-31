@@ -4,12 +4,11 @@ import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { formatCurDay } from '../recoil/selectors/date';
 import { curDateState } from '../recoil/atoms/calendarState';
 import s3upload from '../utils/s3upload';
-import { confirmState } from '../recoil/atoms/modalState';
+import { toast } from 'react-toastify';
 export default function useRecord() {
     let setDate = useSetRecoilState(curDateState);
     let [file, setFile] = useState<File>();
     let [type, setType] = useState('');
-    let setConfirmState = useSetRecoilState(confirmState);
     useEffect(() => {
         setDate(new Date());
     }, []);
@@ -48,8 +47,7 @@ export default function useRecord() {
                 color: color,
             });
         } else {
-            setConfirmState(true);
-            setType('fail');
+            toast.error('글이나 제목을 작성해주세요');
         }
     };
     return { onSubmit, file, setFile, type };

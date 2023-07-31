@@ -21,7 +21,7 @@ import {
     dateState,
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
-import { confirmState, modalState } from '../../../recoil/atoms/modalState';
+import { modalState } from '../../../recoil/atoms/modalState';
 import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import useEditRecord from '../../../hooks/useEditRecord';
 interface GetDataType {
@@ -42,14 +42,10 @@ export default function Edit(props: PropsType) {
     console.log(props.data);
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
-    let selectDate = useRecoilValue(selectDateState);
-    let [date, setDate] = useRecoilState(dateState);
-    let [modal, setClose] = useRecoilState(modalState);
     let [color, setColor] = useRecoilState(ColorState);
     let [image, setImage] = useState<string>();
     let [dispalyImage, setDisplayImage] = useState<string>('');
     const [positionPost, setPositionPost] = useRecoilState(positionState);
-    const [confirmModal, setConfirmModal] = useRecoilState(confirmState);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
         console.log(files);
@@ -67,21 +63,7 @@ export default function Edit(props: PropsType) {
         dispalyImage,
         image
     );
-    const ModalClose = () => {
-        // let arr = [...date];
-        // date.map((item) => {
-        //     if (item.date === selectDate) {
-        //         setTimeout(() => {
-        //             setClose(false);
-        //             setDate(arr);
-        //         }, 100);
-        //     }
-        // });
-        //setConfirmModal(true);
-        setTimeout(() => {
-            setClose(false);
-        }, 500);
-    };
+    const ModalClose = () => {};
     const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setColor(e.target.value);
         console.log(color);
