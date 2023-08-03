@@ -16,6 +16,14 @@ export const getUserByName = async (username: IUser["username"]) => {
 export const getUserById = async (id: IUser["id"]) => {
   return execute<IUser[]>(UserQueries.GetUserById, [id]);
 };
+
+/**
+ * gets a user based on Email provided
+ */
+export const getUserByEmail = async (email: IUser["email"]) => {
+  return execute<IUser[]>(UserQueries.GetUserByEmail, [email]);
+};
+
 /**
  * adds a new active user record
  */
