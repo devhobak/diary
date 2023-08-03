@@ -4,7 +4,7 @@ export interface IUser {
   username: string;
   password: string;
   email: string;
-  isAdmin: number;
+  android_token: number;
 }
 
 export interface IAddUserReq extends Request<any, any, IUser> {}
