@@ -51,7 +51,6 @@ export default function Record(props: PropType): JSX.Element {
     const modalClose = (date: string, idx?: number) => {
         setTimeout(() => {
             setClose(false);
-            setColor('#ffff');
         }, 200);
     };
     const handleEdit = () => {
