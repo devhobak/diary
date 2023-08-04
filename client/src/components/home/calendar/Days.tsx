@@ -57,7 +57,8 @@ export default function Days(props: DayType) {
     >(['record', GetMonth], () => getRecord(GetMonth), {
         select: (record) => record.log,
         refetchOnWindowFocus: false,
-        staleTime: Infinity, // 1초,
+        staleTime: Infinity,
+        cacheTime: Infinity,
         onSuccess(data) {
             console.log(GetMonth);
             console.log(data);
@@ -85,6 +86,7 @@ export default function Days(props: DayType) {
             return record;
         });
         if (item === CurDay) {
+            record = true;
             setModal(true);
             setSelectDate(CurDay);
         }
