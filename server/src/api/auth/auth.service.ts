@@ -88,7 +88,10 @@ const loginService = async (email: string, password: string) => {
           if (isPasswordCorrect) {
             returnForm.status = 200;
             returnForm.message = "Login Success";
-            returnForm.responseData = { token: data[0].android_token };
+            returnForm.responseData = {
+              id: data[0].id,
+              token: data[0].android_token,
+            };
           } else {
             returnForm.status = 400;
             returnForm.message = "Wrong password";
