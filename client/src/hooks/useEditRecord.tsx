@@ -2,8 +2,7 @@ import { useState } from 'react';
 import useEditMutation from './useEditMutation';
 import s3upload from '../utils/s3upload';
 import s3Delete from '../utils/s3Delete';
-import { useSetRecoilState } from 'recoil';
-import { confirmState } from '../recoil/atoms/modalState';
+import { toast } from 'react-toastify';
 export default function useEditRecord(
     id: number,
     displayImage: string,
@@ -12,9 +11,7 @@ export default function useEditRecord(
     const [type, setType] = useState<string>('');
     const [file, setFile] = useState<File>();
     const { mutate } = useEditMutation('edit', id, setType);
-    const setConfirmModal = useSetRecoilState(confirmState);
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        //const formData = new FormData(e.currentTarget);
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
         let color: string;
@@ -45,8 +42,7 @@ export default function useEditRecord(
                 s3Delete(deletImage);
             }
         } else {
-            setConfirmModal(true);
-            setType('fail');
+            toast.error('글이나 제목을 입력해주세요');
         }
     };
     return { onSubmit, file, setFile, type };

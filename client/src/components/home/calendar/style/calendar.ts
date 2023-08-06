@@ -16,25 +16,27 @@ const TopLayout = styled.section`
 const CalendarLayout = styled.section<ViewType>`
     //position: relative;
     //width: 100rem;
-    width: ${(props) => (props.view ? '90%' : '65vw')};
-    //height: ${(props) => (props.view ? '82vh' : '92vh')};
+    width: ${(props) => (props.view ? '90%' : '100%')};
+    height: ${(props) => (props.view ? '82vh' : '100%')};
     //height: calc (100% + 82.09px);
-    height: ${(props) => (props.view ? '87%' : '90vh')};
-    grid-area: main;
+    // height: ${(props) => (props.view ? '87%' : '90vh')};
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
-    margin: ${(props) => (props.view ? '10px' : '10px')} auto;
+    // margin: ${(props) => (props.view ? '10px' : '10px')} auto;
     text-align: center;
-    border-radius: 10px;
+    // border-radius: 10px;
     //padding: 20px;
+    //  padding: 2%;
+    margin: 0 auto;
 `;
 const DaySection = styled.section`
     width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+    height: 85%;
+    // display: flex;
+    // flex-direction: column;
     //justify-content: center;
-    align-items: center;
+    //align-items: center;
     margin: 0 auto;
+    //  padding: 2%;
 `;
 const CalendarHead = styled.div`
     display: flex;
@@ -42,47 +44,66 @@ const CalendarHead = styled.div`
     align-items: center;
     font-size: ${({ theme }) => theme.fontSize.defaultSize};
     padding-top: 10px;
+    margin-bottom: 10px;
 `;
 const DayOfLi = styled.li<ViewType>`
-    width: ${(props) => (props.view ? '11%' : '12%')};
-    height: 20px;
-    background-color: ${({ theme }) => theme.color.inputBoxColor};
-    padding: 3px;
-    border-radius: 10px;
+    // width: ${(props) => (props.view ? '11%' : '12%')};
+    // height: 20px;
+    // background-color: ${({ theme }) => theme.color.inputBoxColor};
+    padding: 10px;
+    //border-radius: 10px;
+    border: 0.5px solid #dbdbdb;
 `;
 const DayUI = styled.ul`
-    //width: 100rem;
-    width: 100%;
-    height: 60%;
-    flex-wrap: wrap;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+    // width: 100%;
+    height: 95%;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    //grid-template-rows: auto;
+    //한줄에 7개
+    // width: 100%;
+    // height: 60%;
+    //flex-wrap: wrap;
+    // display: flex;
+    //gap: 10px;
+    //align-items: center;
+    //justify-content: center;
+    //padding: 10px;
 `;
 const DayOfUI = styled.ul`
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
     width: 100%;
-    height: 10%;
+    height: 5%;
     flex-wrap: wrap;
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+    // display: flex;
+    // gap: 10px;
+    // align-items: center;
+    // justify-content: center;
+    //padding: 10px;
 `;
 const DayLi = styled.li<ViewType>`
     position: relative;
     background-color: ${(props) => props.color};
     //width: 120px;
-    width: ${(props) => (props.view ? '11%' : '12%')};
-    height: ${(props) => (props.view ? '15%' : '20%')};
-    border: 1px solid ${({ theme }) => theme.color.inputBoxColor};
-    border-radius: 10px;
+    width: 100%;
+    //height: 100%;
+    // width: ${(props) => (props.view ? '11%' : '12%')};
+    //height: ${(props) => (props.view ? '15%' : '20%')};
+    //border: 1px solid ${({ theme }) => theme.color.inputBoxColor};
+    border: 0.5px solid #dbdbdb;
+    //border-radius: 10px;
     text-align: left;
     padding: 10px;
+    //150씩 (패딩제외한 너비) / 7
 `;
-
+const DayDate = styled.div`
+    width: 20px;
+    height: 20px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 3px;
+`;
 const StateDiv = styled.div`
     display: flex;
     height: 100%;
@@ -99,18 +120,12 @@ const StateRecord = styled.div<PropType>`
     border: 1px solid #dbdbdb;
 `;
 const MonthCalendar = styled.input<ViewType>`
-    position: relative;
-    top: 10px;
-    left: ${(props) => (props.view ? '-35%' : '-40%')};
-    //left: -40px;
-    //margin-left: 20px;
-    border-radius: 10px;
-    border: 1px solid ${({ theme }) => theme.color.inputBoxColor};
+    border: 1px solid #dbdbdb;
     padding: 10px;
-    width: 100px;
+    width: 50px;
     height: 20px;
     text-align: left;
-
+    flex-basis: 100px;
     &::before {
         content: attr(data-placeholder);
         width: 100%;
@@ -128,4 +143,5 @@ export {
     StateRecord,
     StateDiv,
     MonthCalendar,
+    DayDate,
 };

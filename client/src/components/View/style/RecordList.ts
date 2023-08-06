@@ -9,45 +9,51 @@ interface ChildType {
     child: number;
 }
 const ViewSection = styled.section<ViewType>`
-    grid-area: main;
-    width: ${(props) => (props.view ? '90%' : '65vw')};
-    height: ${(props) => (props.view ? '80vh' : '90vh')};
-    position: relative;
+    //grid-area: main;
+    width: ${(props) => (props.view ? '90%' : '100%')};
+    height: ${(props) => (props.view ? '82vh' : '88vh')};
+    //이유? %로하면 안되는
+    // position: relative;
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
-    margin: 10px auto;
+    margin: 0px auto;
     text-align: center;
-    border-radius: 10px;
+    //border-radius: 10px;
     padding: 10px 0;
 `;
+
 const ViewUl = styled.ul<ViewType>`
+    width: 100%;
     height: ${(props) => (props.view ? '87%' : '90%')};
     overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+    //display: flex;
+    //flex-direction: column;
+    //gap: 20px;
 `;
 const ViewLi = styled.li`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    height: 100%;
+    height: 80%;
+    margin-bottom: 20px;
     // border: 1px solid #dbdbdb;
     //border-radius: 10px;
 `;
 const ViewDate = styled.p`
     width: 100%;
-    height: 20px;
+    height: 20%;
     text-align: left;
     font-size: 2rem;
-    margin-bottom: 20px;
+    //margin-bottom: 10px;
     padding: 10px;
 `;
 const ViewImg = styled.img`
-    height: 400px;
+    // height: 80%;
+    // width: 50%;
     width: 50%;
+    height: 80%;
 `;
 const ViewNoImg = styled.div<PropsType>`
-    height: 400px;
+    height: 80%;
     width: 50%;
     background-color: ${(props) => props.color};
 `;
@@ -57,24 +63,20 @@ const ViewTitle = styled.p`
     margin-bottom: 30px;
 `;
 const ViewContent = styled.div`
-    height: 400px;
-    width: 50%;
+    height: 80%;
+    width: 60%;
     font-size: 16px;
 `;
 const ViewPageNation = styled.div`
-    width: 50%;
+    width: 70%;
     display: flex;
     gap: 3px;
-    // position: absolute;
-    //bottom: 0px;
     padding: 10px;
     margin: 0 auto;
 `;
 const Page = styled.div<ChildType>`
-    // position: absolute;
-    // bottom: 0px;
-    width: 3rem;
-    height: 3rem;
+    width: 30px;
+    height: 30px;
     border: 1px solid ${({ theme }) => theme.color.inputBoxColor};
     border-radius: 50%;
     font-size: 1.5rem;
@@ -91,7 +93,7 @@ const Page = styled.div<ChildType>`
 `;
 const Content = styled.div`
     width: 50%;
-    height: 400px;
+    // height: 400px;
     display: flex;
     flex-direction: column;
     align-items: center;

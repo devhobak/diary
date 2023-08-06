@@ -2,7 +2,8 @@ import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
 import { postRecord } from '../apis/api/Record';
 import { useRecoilState } from 'recoil';
-import { confirmState } from '../recoil/atoms/modalState';
+import { modalState } from '../recoil/atoms/modalState';
+import { toast } from 'react-toastify';
 //{variable.user_id,variable.content_title,variable.content_content,variable.content_image}
 interface PostDataType {
     user_id: number;
@@ -17,19 +18,18 @@ export default function useRecordMutation(
     setType: React.Dispatch<React.SetStateAction<string>>
 ) {
     const queryClient = useQueryClient();
-    const [confirmModal, setConfirmModal] = useRecoilState(confirmState);
+    const [modal, setModal] = useRecoilState(modalState);
     return useMutation(key, (variable: PostDataType) => postRecord(variable), {
         onSuccess(data) {
-            console.log(data);
-            setConfirmModal(true);
-            setType('confirm');
+            setModal(false);
             queryClient.invalidateQueries(['record'], {
                 refetchInactive: true,
             });
+            toast.success('글작성 완료');
         },
         onError(err) {
-            console.log(err);
-            setType('error');
+            setModal(true);
+            toast.error('⭕️ 글작성 실패');
         },
     });
 }

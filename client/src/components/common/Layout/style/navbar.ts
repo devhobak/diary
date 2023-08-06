@@ -8,9 +8,12 @@ interface ViewType {
 }
 const Layout = styled.section<ViewType>`
     display: grid;
-    height: calc(100vh - 50px);
+    height: calc(100vh);
     overflow-y: hidden;
-    grid-template-areas: ${(props) => (props.view ? " 'main' " : "'nav main'")};
+    grid-template-areas: ${(props) =>
+        props.view ? "'top' 'main' 'nav' " : "'nav top' 'nav main'"};
+    grid-template-rows: ${(props) => (props.view ? '1fr 7fr 2fr' : '1fr 15fr')};
+    grid-template-columns: ${(props) => (props.view ? '' : '1fr 4fr')};
 `;
 
 const NavLayout = styled.section<ViewType>`
@@ -22,25 +25,27 @@ const NavLayout = styled.section<ViewType>`
     flex-direction: ${(props) => (props.view ? 'row' : 'column')};
     gap: 30px;
     border: 1px solid #fff;
-    padding: ${(props) => (props.view ? '0px' : '50px')} 10px 0 10px;
-    width: ${(props) => (props.view ? '100%' : '90%')};
+    padding: ${(props) => (props.view ? '0px' : '20px')} 10px 0 10px;
+    width: ${(props) => (props.view ? '100%' : '100%')};
     height: ${(props) => (props.view ? '10vh' : '100%')};
+`;
+const MainLayout = styled.section<ViewType>`
+    grid-area: main;
+    text-align: center;
+    padding: ${(props) => (props.view ? '1%' : ' 2% 8%')};
 `;
 const LogoImg = styled.img`
     width: 50px;
     height: 50px;
-    margin-right: 95%;
+    margin-left: 10%;
     margin-top: 2px;
 `;
 const NavList = styled.ul<ViewType>`
     width: ${(props) => (props.view ? '100%' : '90%')};
-    //height: 10%;
     border-radius: 10px;
-    //flex-basis: 80%;
     display: flex;
     flex-direction: ${(props) => (props.view ? 'row' : 'column')};
     gap: 20px;
-    //flex-direction: ${(props) => (props.view ? '0' : '50px')};
     justify-items: center;
     align-items: center;
     margin: 0 auto;
@@ -52,13 +57,10 @@ const NavLi = styled.li<ChildType>`
     border-radius: 10px;
     width: ${(props) => (props.view ? '25%' : '90%')};
     height: 50px;
-    //flex-direction: center;
-
     padding: 5px;
     align-items: center;
     text-align: left;
     font-size: 1.2rem;
-    //line-height: 45px;
     &:hover {
         background-color: ${({ theme }) => theme.color.inputBoxColor};
     }
@@ -68,7 +70,6 @@ const NavLi = styled.li<ChildType>`
 `;
 const LogOutButton = styled.button`
     display: block;
-
     position: absolute;
     right: 20px;
     top: 20px;
@@ -78,10 +79,18 @@ const LogOutButton = styled.button`
 `;
 const IconImg = styled.img`
     width: 20px;
-
     height: 20px;
     margin-right: 20px;
     margin-left: 20px;
     vertical-align: middle;
 `;
-export { Layout, NavLayout, LogOutButton, NavList, LogoImg, NavLi, IconImg };
+export {
+    Layout,
+    NavLayout,
+    LogOutButton,
+    NavList,
+    LogoImg,
+    NavLi,
+    IconImg,
+    MainLayout,
+};

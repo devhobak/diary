@@ -4,7 +4,9 @@ interface FindProps {
     find?: string;
 }
 const FormLayout = styled.form`
-    width: 37.5rem;
+    // width: 37.5rem;
+    // width: 50%;
+
     margin: 30px auto 0;
     display: flex;
     flex-direction: column;
@@ -15,14 +17,15 @@ const FormLayout = styled.form`
 const Input = styled.input<FindProps>`
     background: url('assets/${(props) => props.find}.png') no-repeat 15px center;
     padding: 0 5.6rem;
-    width: 37.5rem;
+    //width: 37.5rem;
+    width: 100%;
     height: 5.2rem;
     border-radius: 0.8rem;
     background-color: ${({ theme }) => theme.color.inputBoxColor};
     border: 0;
 `;
 const LoginButton = styled.button`
-    width: 37.5rem;
+    width: 100%;
     height: 5.2rem;
     color: ${({ theme }) => theme.color.inputBoxColor};
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
@@ -37,6 +40,7 @@ const LinkButton = styled.button<FindProps>`
 `;
 const Label = styled.label`
     position: relative;
+    width: 100%;
     height: 70px;
 `;
 const ErrorMsg = styled.div`

@@ -26,6 +26,8 @@ export default function Navbar() {
     const isMobile = useMediaQuery({ maxWidth: 980 });
     return (
         <NavLayout view={isMobile}>
+            {isMobile ? <></> : <LogoImg src={logoImg} alt="로고" />}
+
             <NavList view={isMobile}>
                 <NavLi
                     view={isMobile}

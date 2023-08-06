@@ -19,17 +19,14 @@ import useRecord from '../../hooks/useRecord';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { formatCurDay } from '../../recoil/selectors/date';
 import { curDateState } from '../../recoil/atoms/calendarState';
-import { confirmState } from '../../recoil/atoms/modalState';
-import Modal from '../modal/Modal';
 import { useMediaQuery } from 'react-responsive';
+import { useNavigate } from 'react-router';
 
 export default function InputSection() {
     let { onSubmit, setFile, type } = useRecord();
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
     let [day, setDay] = useRecoilState(curDateState);
-    let date = useRecoilValue(formatCurDay);
-    let [confirmModal, setConfirmModal] = useRecoilState(confirmState);
     const isMobile = useMediaQuery({ maxWidth: 980 });
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile);
@@ -39,7 +36,9 @@ export default function InputSection() {
         setDay(new Date());
     }, []);
     const handleConfirm = () => {
-        //setConfirmModal(true);
+        // setTimeout(() => {
+        //     navigate('/home');
+        // }, 800);
     };
     return (
         <WriteForm onSubmit={onSubmit} view={isMobile}>
@@ -90,7 +89,6 @@ export default function InputSection() {
                     완료
                 </SubmitButton>
             </WriteDiv>
-            {confirmModal ? <Modal type={type} page="write" /> : <></>}
         </WriteForm>
     );
 }

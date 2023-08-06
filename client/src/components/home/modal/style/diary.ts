@@ -10,7 +10,7 @@ const DiarySection = styled.section<Type>`
     // width: ${(props) => (props.view ? '100%' : '54rem')};
     // height: ${(props) => (props.view ? '100%' : '73rem')};
     width: 100%;
-    height: 100%;
+    height: 88vh;
     //  width: 54.4rem;
     // height: 73rem;
     // border-radius: 15px;

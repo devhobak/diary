@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import RecrodList from './RecordList';
 import ViewLayout from '../common/Layout/ViewLayout';
@@ -95,6 +95,7 @@ export default function View() {
         <ViewLayout>
             <ViewSection view={isMobile}>
                 <h2 className="ir">일상기록</h2>
+
                 {data ? <RecrodList data={data} /> : <></>}
 
                 <ViewPageNation>

@@ -3,23 +3,26 @@ import {
     DayLi,
     DaySection,
     DayOfLi,
-    StateRecord,
-    StateDiv,
     DayOfUI,
+    DayDate,
 } from './style/calendar';
-import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
+import { format } from 'date-fns';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import {
     curDateState,
-    dateState,
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
-import { useEffect } from 'react';
 import {
     formatCurDataState,
     formatCurDay,
 } from '../../../recoil/selectors/date';
 import { modalState } from '../../../recoil/atoms/modalState';
 import { useMediaQuery } from 'react-responsive';
+import Record from '../modal/Record';
+import { useQuery } from 'react-query';
+import { getRecord } from '../../../apis/api/Record';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -29,50 +32,69 @@ interface GetDataType {
     content_image: string;
     color: string;
 }
+interface LogType {
+    log: GetDataType[];
+}
 interface DayType {
     days: string[];
-    data: GetDataType[];
 }
 
 export default function Days(props: DayType) {
-    const [date, setDate] = useRecoilState(dateState);
     const [selectDay, setSelectDate] = useRecoilState(selectDateState);
     const CurDay = useRecoilValue(formatCurDay);
     const formatDate = useRecoilValue(formatCurDataState);
     const curDate = useRecoilValue(curDateState);
-    const resetDate = useResetRecoilState(dateState);
     const [modal, setModal] = useRecoilState(modalState);
     const isMobile = useMediaQuery({ maxWidth: 390 });
-    useEffect(() => {
-        formatDate.curMonthDay.forEach((item, idx) => {
-            setDate((prev) => [...prev, { date: item, modal: false }]);
-        });
-        return () => resetDate();
-    }, [curDate]);
-    let data = props.data;
-    let yearMonth = props.data.map((item) => item.datetime.split(' ')[0]);
+    let GetMonth = {
+        year: format(curDate, 'yyyy'),
+        month: format(curDate, 'MM'),
+    };
+    const { data, isLoading, isSuccess } = useQuery<
+        LogType,
+        AxiosError,
+        GetDataType[]
+    >(['record', GetMonth], () => getRecord(GetMonth), {
+        select: (record) => record.log,
+        refetchOnWindowFocus: false,
+        staleTime: Infinity,
+        cacheTime: Infinity,
+        onSuccess(data) {
+            console.log(GetMonth);
+            console.log(data);
+        },
+    });
+    let RecordData = data;
+    let yearMonth = RecordData?.map((item) => item.datetime.split(' ')[0]);
     let recordColor = formatDate.curMonthDay.map((item, idex) => {
-        if (yearMonth.includes(item)) {
-            return `#${data[yearMonth.indexOf(item)].color}`;
+        if (yearMonth?.includes(item) && RecordData) {
+            return `#${RecordData[yearMonth.indexOf(item)].color}`;
         } else {
             return '#ffff';
         }
     });
-    console.log(recordColor);
+    console.log(CurDay);
     const modalUp = (item: string) => {
-        console.log(CurDay);
-        data.map((day) => {
+        let record = false;
+        setModal(false);
+        setSelectDate(item);
+        RecordData?.map((day) => {
             if (day.datetime.split(' ')[0] === item) {
                 setModal(true);
-                setSelectDate(day.datetime.split(' ')[0]);
+                record = true;
             }
-            if (item === CurDay) {
-                setModal(true);
-                //console.log(CurDay);
-                setSelectDate(CurDay);
-            }
+            return record;
         });
+        if (item === CurDay) {
+            record = true;
+            setModal(true);
+            setSelectDate(CurDay);
+        }
+        if (record === false) {
+            toast.error(`${item} 일자에 작성한 일기가 없습니다.`);
+        }
     };
+
     return (
         <DaySection>
             <DayOfUI>
@@ -91,15 +113,16 @@ export default function Days(props: DayType) {
                             view={isMobile}
                             color={recordColor[idx]}
                         >
-                            {item.split('-')[2]}
+                            <DayDate>{item.split('-')[2]}</DayDate>
                         </DayLi>
                     ) : (
-                        <DayLi key={idx} title="disabled" view={isMobile}>
+                        <DayLi key={idx} color={'#FAFAFA'} view={isMobile}>
                             {item.split('-')[2]}
                         </DayLi>
                     );
                 })}
             </DayUI>
+            {modal && isSuccess ? <Record data={data} /> : <></>}
         </DaySection>
     );
 }
