@@ -5,7 +5,7 @@ CREATE TABLE `diary_system`.`user` (
     `email` VARCHAR(50) UNIQUE NOT NULL,
     `username` VARCHAR(20) UNIQUE NOT NULL,
     `password` VARCHAR(100) NOT NULL,
-    `isAdmin` TINYINT(1) NOT NULL,
+	`android_token` text NOT NULL,
     PRIMARY KEY (`id`));
 
 CREATE TABLE `diary_system`.`record` (
