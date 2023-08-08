@@ -25,11 +25,14 @@ const vaildation: Vaildation = (data, type) => {
         if (!data.email) {
             error = { ...error, email: '이메일을 입력해주세요' };
         }
-        if (!data.password) {
+        if (!data.password || !data.repassword) {
             error = { ...error, password: '비밀번호를 입력해주세요' };
         }
-        if (!data.repassword) {
-            error = { ...error, password: '비밀번호를 입력해주세요' };
+        if (data.password !== data.repassword) {
+            error = {
+                ...error,
+                password: '비밀번호가 일치 하지 않습니다.',
+            };
         }
     }
     return error;

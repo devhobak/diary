@@ -27,9 +27,12 @@ interface GetDataType {
 interface LogType {
     log: GetDataType[];
 }
-const getRecord = async ({ year, month }: ParamType): Promise<LogType> => {
+const getRecord = async (
+    { year, month }: ParamType,
+    id: number
+): Promise<LogType> => {
     try {
-        const res = await Api.get<LogType>('api/log/1/date', {
+        const res = await Api.get<LogType>(`api/log/${id}/date`, {
             params: {
                 year: year,
                 month: month,
@@ -41,10 +44,10 @@ const getRecord = async ({ year, month }: ParamType): Promise<LogType> => {
         return Promise.reject(err);
     }
 };
-const getTodayRecord = async (today: string): Promise<LogType> => {
+const getTodayRecord = async (today: string, id: number): Promise<LogType> => {
     try {
         //http://localhost:5000/api/log/1/day/2023-04-15
-        const res = await Api.get<LogType>('api/log/1/day/' + today);
+        const res = await Api.get<LogType>(`api/log/${id}/day/` + today);
         return res.data;
     } catch (err) {
         return Promise.reject(err);

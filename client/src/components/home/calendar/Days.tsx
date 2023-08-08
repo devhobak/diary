@@ -19,10 +19,12 @@ import {
 import { modalState } from '../../../recoil/atoms/modalState';
 import { useMediaQuery } from 'react-responsive';
 import Record from '../modal/Record';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { getRecord } from '../../../apis/api/Record';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { LoginCheck } from '../../../apis/api/Login';
+import { LoginState, UserId } from '../../../recoil/atoms/LoginState';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -50,11 +52,14 @@ export default function Days(props: DayType) {
         year: format(curDate, 'yyyy'),
         month: format(curDate, 'MM'),
     };
+    // const id = useRecoilValue(UserId);
+    const id = Number(localStorage.getItem('User'));
+
     const { data, isLoading, isSuccess } = useQuery<
         LogType,
         AxiosError,
         GetDataType[]
-    >(['record', GetMonth], () => getRecord(GetMonth), {
+    >(['record', GetMonth], () => getRecord(GetMonth, id), {
         select: (record) => record.log,
         refetchOnWindowFocus: false,
         staleTime: Infinity,

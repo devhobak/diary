@@ -33,17 +33,16 @@ const ViewLi = styled.li`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
-    height: 80%;
+    height: 90%;
     margin-bottom: 20px;
     // border: 1px solid #dbdbdb;
     //border-radius: 10px;
 `;
 const ViewDate = styled.p`
     width: 100%;
-    height: 20%;
+    height: 10%;
     text-align: left;
     font-size: 2rem;
-    //margin-bottom: 10px;
     padding: 10px;
 `;
 const ViewImg = styled.img`
