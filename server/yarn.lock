@@ -112,7 +112,7 @@
     "@types/qs" "*"
     "@types/range-parser" "*"
 
-"@types/express-session@*", "@types/express-session@^1.17.5":
+"@types/express-session@^1.17.5":
   "integrity" "sha512-L6sB04HVA4HEZo1hDL65JXdZdBJtzZnCiw/P7MnO4w6746tJCNtXlHtzEASyI9ccn9zyOw6IbqQuhVa03VpO4w=="
   "resolved" "https://registry.npmjs.org/@types/express-session/-/express-session-1.17.6.tgz"
   "version" "1.17.6"
@@ -195,14 +195,6 @@
     "@types/mime" "*"
     "@types/node" "*"
 
-"@types/session-file-store@^1.2.2":
-  "integrity" "sha512-l9yZ+PQ8vaXhch03MrV+25BIbhKpeWfZB++3njPIm6lKeDGRS2qF2elLuVa4XrhfJbObqW0puhB3A6FCbkraZg=="
-  "resolved" "https://registry.npmjs.org/@types/session-file-store/-/session-file-store-1.2.2.tgz"
-  "version" "1.2.2"
-  dependencies:
-    "@types/express" "*"
-    "@types/express-session" "*"
-
 "abbrev@1":
   "integrity" "sha512-nne9/IiQ/hzIhY6pdDnbBtz7DjPTKrY00P/zvPSm5pOFkl6xuGrGnXn/VtTNNfNtAfZ9/1RtehkszU9qcTii0Q=="
   "resolved" "https://registry.npmjs.org/abbrev/-/abbrev-1.1.1.tgz"
@@ -281,6 +273,11 @@
   dependencies:
     "@mapbox/node-pre-gyp" "^1.0.10"
     "node-addon-api" "^5.0.0"
+
+"bcryptjs@^2.4.3":
+  "integrity" "sha512-V/Hy/X9Vt7f3BbPJEi8BdVFMByHi+jNXrYkW3huaybV/kQ0KJg0Y6PkEMbn+zeT+i+SiKZ/HMqJGIIt4LZDqNQ=="
+  "resolved" "https://registry.npmjs.org/bcryptjs/-/bcryptjs-2.4.3.tgz"
+  "version" "2.4.3"
 
 "binary-extensions@^2.0.0":
   "integrity" "sha512-jDctJ/IVQbZoJykoeHbhXpOlNBqGNcwXJKJog42E5HDPUwQTSdjCHdihjj0DlnheQ7blbT6dHOafNAiS8ooQKA=="
