@@ -9,6 +9,7 @@ import ViewPage from '../pages/ViewPage';
 import MyPage from '../pages/MyPage';
 
 export default function Routers() {
+    const token = localStorage.getItem('User');
     return (
         <Routes>
             <Route path="/" element={<LoginPage />} />

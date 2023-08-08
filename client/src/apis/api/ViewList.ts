@@ -21,10 +21,10 @@ interface GetRecordType {
 interface LogType {
     log: GetViewListType;
 }
-const GetViewList = async (Page: number): Promise<LogType> => {
+const GetViewList = async (Page: number, id: number): Promise<LogType> => {
     //http://localhost:4000/api/log/1/list?page=1
     try {
-        const res = await Api.get<LogType>('/api/log/1/list', {
+        const res = await Api.get<LogType>(`/api/log/${id}/list`, {
             params: {
                 page: Page,
             },

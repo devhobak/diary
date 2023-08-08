@@ -1,24 +1,30 @@
 import { Api } from '../instance';
+import { AxiosResponse } from 'axios';
 interface SignUpType {
-    username: FormDataEntryValue;
+    username?: FormDataEntryValue;
     password: FormDataEntryValue;
-    email?: FormDataEntryValue;
+    email: FormDataEntryValue;
 }
-const LoginCheck = async (
-    { ...data }: SignUpType,
-    url: string
-): Promise<SignUpType> => {
+interface Response {
+    id: number;
+    token: string;
+}
+interface LoginType<R> {
+    status: number;
+    message: string;
+    responseData: R;
+}
+const LoginCheck = async ({ ...data }: SignUpType, url: string) => {
     console.log({ ...data });
     try {
-        let res = await Api.post<SignUpType>(url, {
+        let res = await Api.post<LoginType<Response>>(url, {
             username: data.username,
             password: data.password,
             email: data.email,
         });
-        return res.data;
-    } catch (err) {
-        return Promise.reject(err);
+        return await res.data;
+    } catch (error) {
+        return Promise.reject(error);
     }
 };
-
 export { LoginCheck };

@@ -9,7 +9,6 @@ import {
     Diaryli,
     DiaryImg,
 } from './style/diary';
-import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import { useMediaQuery } from 'react-responsive';
 interface GetDataType {
     user_id: number;
@@ -26,7 +25,7 @@ interface ProsType {
 export default function Diary(props: ProsType) {
     const isMobile = useMediaQuery({ maxWidth: 980 });
     return (
-        <DiarySection color={props.data[0].color} view={isMobile}>
+        <DiarySection color={`#${props.data[0].color}`} view={isMobile}>
             <h3 className="ir">오늘의 일상</h3>
             <DiaryList>
                 {props.data?.map((item: GetDataType, idx: number) => {

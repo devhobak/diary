@@ -16,22 +16,19 @@ export default function View() {
     let totalPage: number | undefined = 0;
     let [page, setPage] = useState(1);
     const isMobile = useMediaQuery({ maxWidth: 980 });
-    let [displayPage, setDisplayPage] = useState<number[]>();
-    const { data, isLoading } = useQuery(
-        ['record', page],
-        () => GetViewList(page),
-        {
-            staleTime: Infinity,
-            select: (record) => record.log,
-            refetchOnWindowFocus: false,
-            onSuccess(data) {
-                console.log(data);
-            },
-            onError(err) {
-                console.log(err);
-            },
-        }
-    );
+    const id = Number(localStorage.getItem('User'));
+    const { data } = useQuery(['record', page], () => GetViewList(page, id), {
+        staleTime: Infinity,
+        cacheTime: Infinity,
+        select: (record) => record.log,
+        refetchOnWindowFocus: false,
+        onSuccess(data) {
+            console.log(data);
+        },
+        onError(err) {
+            console.log(err);
+        },
+    });
 
     if (data?.totalCount && data?.limit)
         totalPage = Math.ceil(data?.totalCount / data?.limit);
