@@ -7,12 +7,9 @@ import { formatCurDay } from '../../recoil/selectors/date';
 import Notification from './Notification';
 import { useQuery } from 'react-query';
 import { getTodayRecord } from '../../apis/api/Record';
-import { UserId } from '../../recoil/atoms/LoginState';
 export default function Write() {
-    //const todayRecord = useRecoilValue(todayRecordState);
     let today = useRecoilValue(formatCurDay);
     const isMobile = useMediaQuery({ maxWidth: 980 });
-    //const id = useRecoilValue(UserId);
     const id = Number(localStorage.getItem('User'));
     console.log(id);
     const { data } = useQuery(

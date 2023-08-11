@@ -23,8 +23,6 @@ import { useMutation, useQuery } from 'react-query';
 import { getRecord } from '../../../apis/api/Record';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { LoginCheck } from '../../../apis/api/Login';
-import { LoginState, UserId } from '../../../recoil/atoms/LoginState';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -59,11 +57,10 @@ export default function Days(props: DayType) {
         LogType,
         AxiosError,
         GetDataType[]
-    >(['record', GetMonth], () => getRecord(GetMonth, id), {
+    >(['record', GetMonth, { id: id }], () => getRecord(GetMonth, id), {
         select: (record) => record.log,
         refetchOnWindowFocus: false,
         staleTime: Infinity,
-        cacheTime: Infinity,
         onSuccess(data) {
             console.log(GetMonth);
             console.log(data);

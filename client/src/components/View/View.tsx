@@ -19,7 +19,6 @@ export default function View() {
     const id = Number(localStorage.getItem('User'));
     const { data } = useQuery(['record', page], () => GetViewList(page, id), {
         staleTime: Infinity,
-        cacheTime: Infinity,
         select: (record) => record.log,
         refetchOnWindowFocus: false,
         onSuccess(data) {

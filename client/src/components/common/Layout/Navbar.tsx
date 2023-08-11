@@ -3,24 +3,16 @@ import logoImg from '../../../assets/logo.png';
 import calendarImg from '../../../assets/Category.png';
 import diaryImg from '../../../assets/Chat.png';
 import settimtImg from '../../../assets/Setting.png';
-import logoutImg from '../../../assets/Logout.png';
 import writeImg from '../../../assets/Light.png';
 import { useMediaQuery } from 'react-responsive';
-import {
-    NavLayout,
-    LogOutButton,
-    NavList,
-    LogoImg,
-    NavLi,
-    IconImg,
-} from './style/navbar';
+import { NavLayout, NavList, LogoImg, NavLi, IconImg } from './style/navbar';
 
 import { useLocation, useNavigate } from 'react-router';
 
 export default function Navbar() {
     const navigate = useNavigate();
     let url = useLocation();
-    let pathArr = ['/home', '/record', '/write', '/myPage'];
+    let pathArr = ['/', '/record', '/write', '/myPage'];
     let p = pathArr.indexOf(url.pathname) + 1;
     let [position, setPosition] = useState(p);
     const isMobile = useMediaQuery({ maxWidth: 980 });
@@ -32,7 +24,7 @@ export default function Navbar() {
                 <NavLi
                     view={isMobile}
                     onClick={() => {
-                        navigate('/home');
+                        navigate('/');
                         setPosition(1);
                     }}
                     child={position}

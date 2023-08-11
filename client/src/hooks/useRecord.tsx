@@ -18,7 +18,7 @@ export default function useRecord() {
 
     let onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const user_id = 1;
+        const user_id = Number(localStorage.getItem('User'));
         const datetime = curDate;
         const formData = new FormData(e.currentTarget);
         console.log(file);

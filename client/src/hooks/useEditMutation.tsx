@@ -9,11 +9,7 @@ interface EditDataType {
     content_image: FormDataEntryValue;
     color: string;
 }
-export default function useEditMutation(
-    key: string,
-    id: number,
-    setType: React.Dispatch<React.SetStateAction<string>>
-) {
+export default function useEditMutation(key: string, id: number) {
     const [moodal, setModal] = useRecoilState(modalState);
     const queryClient = useQueryClient();
     return useMutation(
@@ -26,7 +22,6 @@ export default function useEditMutation(
                     refetchInactive: true,
                 });
                 //setConfirmModal(true);
-                setType('edit');
                 setModal(false);
                 toast.success('글 수정 완료');
             },
@@ -34,7 +29,6 @@ export default function useEditMutation(
                 console.log(err);
                 //setConfirmModal(true);
                 setModal(true);
-                setType('error');
                 toast.error('글 수정 실패');
             },
         }

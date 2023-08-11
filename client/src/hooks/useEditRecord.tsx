@@ -8,9 +8,8 @@ export default function useEditRecord(
     displayImage: string,
     deletImage?: string
 ) {
-    const [type, setType] = useState<string>('');
     const [file, setFile] = useState<File>();
-    const { mutate } = useEditMutation('edit', id, setType);
+    const { mutate } = useEditMutation('edit', id);
     const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
@@ -29,7 +28,6 @@ export default function useEditRecord(
             }
         }
         const data = Object.fromEntries(formData);
-        console.log(e);
         const { content_title, content_main, content_image, content_color } =
             data;
         color = String(content_color).split('#')[1];
@@ -45,5 +43,5 @@ export default function useEditRecord(
             toast.error('글이나 제목을 입력해주세요');
         }
     };
-    return { onSubmit, file, setFile, type };
+    return { onSubmit, file, setFile };
 }
