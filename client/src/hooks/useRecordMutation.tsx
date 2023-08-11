@@ -19,7 +19,7 @@ export default function useRecordMutation(
 ) {
     const queryClient = useQueryClient();
     const [modal, setModal] = useRecoilState(modalState);
-    return useMutation(key, (variable: PostDataType) => postRecord(variable), {
+    return useMutation((variable: PostDataType) => postRecord(variable), {
         onSuccess(data) {
             setModal(false);
             queryClient.invalidateQueries(['record'], {

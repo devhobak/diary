@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { vaildation } from '../utils/vaildation';
-import { LoginState, UserId } from '../recoil/atoms/LoginState';
-import { useRecoilState, useSetRecoilState } from 'recoil';
 import { useMutation } from 'react-query';
 import { LoginCheck } from '../apis/api/Login';
 import { AxiosError } from 'axios';
@@ -22,15 +20,13 @@ export default function useForm() {
     });
     const navigate = useNavigate();
     const [error, setError] = useState<ErrorType>();
-    const [login, loginState] = useRecoilState(LoginState);
-    const userIdState = useSetRecoilState(UserId);
     const { mutate } = useMutation(
+        ['login'],
         (variable: FormType) => LoginCheck(variable, '/api/auth/login'),
         {
-            onSuccess: async (data) => {
+            onSuccess: (data) => {
                 localStorage.setItem('User', String(data.responseData.id));
-                loginState(true);
-                navigate('home');
+                navigate('/');
             },
             onError: (error: AxiosError) => {
                 if (error.response?.status === 400) {
@@ -40,7 +36,6 @@ export default function useForm() {
                         '서버에 문제가 발생했습니다. 관리자에게 문의 부탁드립니다'
                     );
                 }
-                loginState(false);
             },
         }
     );

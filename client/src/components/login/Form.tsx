@@ -39,9 +39,6 @@ export default function Form(): JSX.Element {
                 />
                 {error ? <ErrorMsg>{error.password}</ErrorMsg> : <></>}
             </Label>
-            <LinkButton find="find" type="button">
-                비밀번호 찾기
-            </LinkButton>
             <LinkButton
                 type="button"
                 onClick={(e) => {
@@ -51,9 +48,6 @@ export default function Form(): JSX.Element {
                 회원가입
             </LinkButton>
             <LoginButton type="submit">로그인</LoginButton>
-            <LinkButton type="button">
-                SNS계정으로 간편 로그인/회원가입
-            </LinkButton>
         </FormLayout>
     );
 }

@@ -72,7 +72,7 @@ export default function Form() {
             <LinkButton
                 type="button"
                 onClick={(e) => {
-                    navigate('/');
+                    navigate('/login');
                 }}
             >
                 이미 아이디가 있으신가요? 로그인
