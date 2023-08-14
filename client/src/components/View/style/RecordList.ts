@@ -4,9 +4,17 @@ interface ViewType {
 }
 interface PropsType {
     color: string;
+    view: boolean;
 }
 interface ChildType {
     child: number;
+}
+interface TextType {
+    clickIndex: number;
+    isMobile: boolean;
+}
+interface ContentType {
+    isLongContent: boolean;
 }
 const ViewSection = styled.section<ViewType>`
     //grid-area: main;
@@ -25,46 +33,69 @@ const ViewUl = styled.ul<ViewType>`
     width: 100%;
     height: ${(props) => (props.view ? '87%' : '90%')};
     overflow-y: scroll;
-    //display: flex;
-    //flex-direction: column;
-    //gap: 20px;
 `;
-const ViewLi = styled.li`
+const ViewLi = styled.li<TextType>`
+    &:nth-child(${(props) => props.clickIndex}) > button {
+        display: none;
+    }
+
+    &:nth-child(${(props) => props.clickIndex}) > p.content {
+        white-space: pre-line;
+        overflow: visible;
+        height: 10%;
+    }
+    &:nth-child(${(props) => props.clickIndex}) {
+        height: auto;
+    }
     width: 100%;
+    height: auto;
     display: flex;
-    flex-wrap: wrap;
-    height: 90%;
+    flex-direction: column;
     margin-bottom: 20px;
-    // border: 1px solid #dbdbdb;
-    //border-radius: 10px;
+    padding: ${(props) => (props.isMobile ? '2% 5%' : '2% 15%')};
+    border-bottom: 1px solid #dbdbdb;
 `;
 const ViewDate = styled.p`
     width: 100%;
-    height: 10%;
     text-align: left;
-    font-size: 2rem;
-    padding: 10px;
+    font-size: 1.5rem;
 `;
-const ViewImg = styled.img`
-    // height: 80%;
-    // width: 50%;
-    width: 50%;
-    height: 80%;
+const ViewImg = styled.img<ViewType>`
+    display: block;
+    width: 100%;
+    height: ${(props) => (props.view ? '300px' : '500px')};
+    object-fit: contain;
 `;
 const ViewNoImg = styled.div<PropsType>`
-    height: 80%;
-    width: 50%;
+    height: ${(props) => (props.view ? '300px' : '500px')};
+    width: 100%;
     background-color: ${(props) => props.color};
+    border: 1px solid #dbdbdb;
 `;
 const ViewTitle = styled.p`
-    font-size: 16px;
-    font-weight: 700;
-    margin-bottom: 30px;
+    font-size: 1.8rem;
+    text-align: left;
+    margin-bottom: 2%;
 `;
-const ViewContent = styled.div`
-    height: 80%;
-    width: 60%;
-    font-size: 16px;
+const ViewContent = styled.p`
+    width: 100%;
+    height: 1.7rem;
+    overflow: hidden;
+    white-space: pre-wrap;
+    font-size: 1.5rem;
+    text-align: left;
+    margin-bottom: 5px;
+`;
+const MoreButton = styled.button<ContentType>`
+    &::before {
+        content: '...';
+    }
+    display: ${(props) => (props.isLongContent ? 'visible' : 'none')};
+    width: 20%;
+    border: 0;
+    background-color: white;
+    text-align: left;
+    color: gray;
 `;
 const ViewPageNation = styled.div`
     width: 70%;
@@ -92,7 +123,7 @@ const Page = styled.div<ChildType>`
 `;
 const Content = styled.div`
     width: 50%;
-    // height: 400px;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -128,4 +159,5 @@ export {
     ViewNoImg,
     NextButton,
     PrevButton,
+    MoreButton,
 };

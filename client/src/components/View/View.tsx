@@ -17,17 +17,21 @@ export default function View() {
     let [page, setPage] = useState(1);
     const isMobile = useMediaQuery({ maxWidth: 980 });
     const id = Number(localStorage.getItem('User'));
-    const { data } = useQuery(['record', page], () => GetViewList(page, id), {
-        staleTime: Infinity,
-        select: (record) => record.log,
-        refetchOnWindowFocus: false,
-        onSuccess(data) {
-            console.log(data);
-        },
-        onError(err) {
-            console.log(err);
-        },
-    });
+    const { data } = useQuery(
+        ['record', page, { id: id }],
+        () => GetViewList(page, id),
+        {
+            staleTime: Infinity,
+            select: (record) => record.log,
+            refetchOnWindowFocus: false,
+            onSuccess(data) {
+                console.log(data);
+            },
+            onError(err) {
+                console.log(err);
+            },
+        }
+    );
 
     if (data?.totalCount && data?.limit)
         totalPage = Math.ceil(data?.totalCount / data?.limit);
@@ -73,7 +77,6 @@ export default function View() {
             }
         }
     };
-
     const NextHandler = () => {
         if (totalPage)
             if (page < totalPage) {
@@ -91,35 +94,39 @@ export default function View() {
         <ViewLayout>
             <ViewSection view={isMobile}>
                 <h2 className="ir">일상기록</h2>
-
-                {data ? <RecrodList data={data} /> : <></>}
-
-                <ViewPageNation>
-                    <PrevButton onClick={PrevHandler} child={page}>
-                        Prev
-                    </PrevButton>
-                    {PageArr[positionPage]?.map(
-                        (item: number, index: number) => (
-                            <Page
-                                child={
-                                    page % limit === 0 ? limit : page % limit
-                                }
-                                key={index}
-                                onClick={() => {
-                                    NextPageHandler(item + 1);
-                                }}
-                            >
-                                {item + 1}
-                            </Page>
-                        )
-                    )}
-                    <NextButton
-                        onClick={NextHandler}
-                        child={page === totalPage ? page : 0}
-                    >
-                        Next
-                    </NextButton>
-                </ViewPageNation>
+                {data ? <RecrodList data={data} page={page} /> : <></>}
+                {data ? (
+                    <ViewPageNation>
+                        <PrevButton onClick={PrevHandler} child={page}>
+                            Prev
+                        </PrevButton>
+                        {PageArr[positionPage]?.map(
+                            (item: number, index: number) => (
+                                <Page
+                                    child={
+                                        page % limit === 0
+                                            ? limit
+                                            : page % limit
+                                    }
+                                    key={index}
+                                    onClick={() => {
+                                        NextPageHandler(item + 1);
+                                    }}
+                                >
+                                    {item + 1}
+                                </Page>
+                            )
+                        )}
+                        <NextButton
+                            onClick={NextHandler}
+                            child={page === totalPage ? page : 0}
+                        >
+                            Next
+                        </NextButton>
+                    </ViewPageNation>
+                ) : (
+                    <></>
+                )}
             </ViewSection>
         </ViewLayout>
     );
