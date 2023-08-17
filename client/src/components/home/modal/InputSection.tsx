@@ -16,17 +16,18 @@ import {
 } from './style/inputSection';
 import deleteImg from '../../../assets/close.png';
 import { SelectFile, drop, DeleteFile } from '../../../utils/draganddrop';
-import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import useRecord from '../../../hooks/useRecord';
-import { modalState } from '../../../recoil/atoms/modalState';
 import { ColorState } from '../../../recoil/atoms/recordState';
+import LoadingImage from '../../common/InputSection/LoadingImage';
 
 export default function InputSection() {
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
     const [color, setColor] = useRecoilState(ColorState);
+    let [loading, setLoading] = useState(false);
     useEffect(() => {
-        drop(dropSection.current, setFiles, setFile);
+        drop(dropSection.current, setFiles, setFile, setLoading);
         console.log(files);
     }, [files]);
     let { onSubmit, setFile } = useRecord();
@@ -65,33 +66,40 @@ export default function InputSection() {
                 ></Recordarea>
                 {typeof files === 'string' ? (
                     <ImgLabel ref={dropSection}>
-                        <input
-                            type="file"
-                            className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles, setFile)}
-                        ></input>
                         <FileContainer>
                             <FileImg src={files} alt="이미지" />
                             <FileDelete
                                 src={deleteImg}
                                 alt="사진삭제"
-                                onClick={(e) =>
-                                    DeleteFile(e, setFiles, setFile)
-                                }
+                                onClick={(e) => DeleteFile(e, setFiles)}
                             />
                         </FileContainer>
                     </ImgLabel>
                 ) : (
-                    <FileLabel ref={dropSection}>
-                        <input
-                            type="file"
-                            className="visually-hidden"
-                            onChange={(e) => SelectFile(e, setFiles, setFile)}
-                        ></input>
-                        <Filep>
-                            Drop your file here to upload or select from storage
-                        </Filep>
-                    </FileLabel>
+                    <>
+                        {loading ? (
+                            <LoadingImage view="modal" />
+                        ) : (
+                            <FileLabel ref={dropSection}>
+                                <input
+                                    type="file"
+                                    className="visually-hidden"
+                                    onChange={(e) =>
+                                        SelectFile(
+                                            e,
+                                            setFiles,
+                                            setFile,
+                                            setLoading
+                                        )
+                                    }
+                                ></input>
+                                <Filep>
+                                    Drop your file here to upload or select from
+                                    storage
+                                </Filep>
+                            </FileLabel>
+                        )}
+                    </>
                 )}
 
                 <RecordButton find="confirm" onClick={ModalClose} type="submit">

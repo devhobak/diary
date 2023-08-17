@@ -18,7 +18,6 @@ export default function s3Delete(imageFile: string) {
         Key: `upload/${imageFile}`,
         Body: imageFile,
     };
-
     const deleteFile = () => {
         let clientS3 = new AWS.S3({ params: s3_params });
         clientS3.deleteObject();

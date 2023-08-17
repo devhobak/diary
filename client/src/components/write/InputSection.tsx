@@ -3,7 +3,6 @@ import { drop, SelectFile, DeleteFile } from '../../utils/draganddrop';
 import { FileImg, FileDelete, Filep } from '../home/modal/style/inputSection';
 import deleteImg from '../../assets/close.png';
 import {
-    WriteSection,
     WriteForm,
     WriteTitle,
     WriteContents,
@@ -12,34 +11,28 @@ import {
     FileLabel,
     SubmitButton,
     FileContainer,
-    DateP,
     Color,
 } from './style/inputSection';
 import useRecord from '../../hooks/useRecord';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { formatCurDay } from '../../recoil/selectors/date';
+import { useRecoilState } from 'recoil';
 import { curDateState } from '../../recoil/atoms/calendarState';
 import { useMediaQuery } from 'react-responsive';
-import { useNavigate } from 'react-router';
+import LoadingImage from '../common/InputSection/LoadingImage';
 
 export default function InputSection() {
-    let { onSubmit, setFile, type } = useRecord();
+    let { onSubmit, setFile } = useRecord();
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
     let [day, setDay] = useRecoilState(curDateState);
+    let [loading, setLoading] = useState(false);
     const isMobile = useMediaQuery({ maxWidth: 980 });
     useEffect(() => {
-        drop(dropSection.current, setFiles, setFile);
+        drop(dropSection.current, setFiles, setFile, setLoading);
         console.log(files);
     }, [files]);
     useEffect(() => {
         setDay(new Date());
     }, []);
-    const handleConfirm = () => {
-        // setTimeout(() => {
-        //     navigate('/home');
-        // }, 800);
-    };
     return (
         <WriteForm onSubmit={onSubmit} view={isMobile}>
             <Color
@@ -49,31 +42,42 @@ export default function InputSection() {
             ></Color>
             {typeof files === 'string' ? (
                 <ImageLabel ref={dropSection} view={isMobile}>
-                    <input
-                        type="file"
-                        className="visually-hidden"
-                        onChange={(e) => SelectFile(e, setFiles, setFile)}
-                    ></input>
                     <FileContainer>
                         <FileImg src={files} alt="이미지" />
                         <FileDelete
                             src={deleteImg}
                             alt="사진삭제"
-                            onClick={(e) => DeleteFile(e, setFiles, setFile)}
+                            onClick={(e) => DeleteFile(e, setFiles)}
                         />
                     </FileContainer>
                 </ImageLabel>
             ) : (
-                <FileLabel ref={dropSection} view={isMobile}>
-                    <input
-                        type="file"
-                        className="visually-hidden"
-                        onChange={(e) => SelectFile(e, setFiles, setFile)}
-                    ></input>
-                    <Filep>
-                        Drop your file here to upload or select from storage
-                    </Filep>
-                </FileLabel>
+                <>
+                    {loading ? (
+                        <LoadingImage view="write" />
+                    ) : (
+                        <FileLabel ref={dropSection} view={isMobile}>
+                            <>
+                                <input
+                                    type="file"
+                                    className="visually-hidden"
+                                    onChange={(e) =>
+                                        SelectFile(
+                                            e,
+                                            setFiles,
+                                            setFile,
+                                            setLoading
+                                        )
+                                    }
+                                ></input>
+                                <Filep>
+                                    Drop your file here to upload or select from
+                                    storage
+                                </Filep>
+                            </>
+                        </FileLabel>
+                    )}
+                </>
             )}
             <WriteDiv view={isMobile}>
                 <WriteTitle
@@ -85,9 +89,7 @@ export default function InputSection() {
                     name="content_main"
                     placeholder="일상을 기록해주세요"
                 ></WriteContents>
-                <SubmitButton type="submit" onClick={handleConfirm}>
-                    완료
-                </SubmitButton>
+                <SubmitButton type="submit">완료</SubmitButton>
             </WriteDiv>
         </WriteForm>
     );
