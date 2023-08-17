@@ -6,7 +6,6 @@ import {
     ViewDate,
     ViewTitle,
     ViewContent,
-    ViewNoImg,
     MoreButton,
 } from './style/RecordList';
 import { useMediaQuery } from 'react-responsive';

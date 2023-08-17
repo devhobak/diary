@@ -16,14 +16,10 @@ import {
 } from './style/inputSection';
 import deleteImg from '../../../assets/close.png';
 import { SelectFile, drop, DeleteFile } from '../../../utils/draganddrop';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-    dateState,
-    selectDateState,
-} from '../../../recoil/atoms/calendarState';
-import { modalState } from '../../../recoil/atoms/modalState';
+import { useRecoilState } from 'recoil';
 import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import useEditRecord from '../../../hooks/useEditRecord';
+import LoadingImage from '../../common/InputSection/LoadingImage';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -46,8 +42,9 @@ export default function Edit(props: PropsType) {
     let [image, setImage] = useState<string>();
     let [dispalyImage, setDisplayImage] = useState<string>('');
     const [positionPost, setPositionPost] = useRecoilState(positionState);
+    let [loading, setLoading] = useState(false);
     useEffect(() => {
-        drop(dropSection.current, setFiles, setFile);
+        drop(dropSection.current, setFiles, setFile, setLoading);
         console.log(files);
         //setDisplayImage(String(files));
     }, [files]);
@@ -69,7 +66,7 @@ export default function Edit(props: PropsType) {
         console.log(color);
     };
     const DeletImage = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-        DeleteFile(e, setFiles, setFile);
+        DeleteFile(e, setFiles);
         setImage(props.data[0].content_image);
         setDisplayImage('');
     };
@@ -115,19 +112,30 @@ export default function Edit(props: PropsType) {
                             </FileContainer>
                         </ImgLabel>
                     ) : (
-                        <FileLabel ref={dropSection}>
-                            <input
-                                type="file"
-                                className="visually-hidden"
-                                onChange={(e) =>
-                                    SelectFile(e, setFiles, setFile)
-                                }
-                            ></input>
-                            <Filep>
-                                Drop your file here to upload or select from
-                                storage
-                            </Filep>
-                        </FileLabel>
+                        <>
+                            {loading ? (
+                                <LoadingImage view="modal" />
+                            ) : (
+                                <FileLabel ref={dropSection}>
+                                    <input
+                                        type="file"
+                                        className="visually-hidden"
+                                        onChange={(e) =>
+                                            SelectFile(
+                                                e,
+                                                setFiles,
+                                                setFile,
+                                                setLoading
+                                            )
+                                        }
+                                    ></input>
+                                    <Filep>
+                                        Drop your file here to upload or select
+                                        from storage
+                                    </Filep>
+                                </FileLabel>
+                            )}
+                        </>
                     )}
 
                     <RecordButton

@@ -48,8 +48,7 @@ const FileLabel = styled.label<ViewType>`
     border: 1px dashed #8b8687;
     border-radius: 12px;
     padding: 51px 111px;
-    height: ${(props) => (props.view ? '10%' : '60%')};
-
+    height: 92%;
     &::before {
         position: absolute;
         display: block;
@@ -77,8 +76,16 @@ const FileLabel = styled.label<ViewType>`
         border: 2px dashed #8b8687;
     }
 `;
+const ImageLoading = styled.div`
+    position: relative;
+    width: 100%;
+    border: 1px dashed #8b8687;
+    border-radius: 12px;
+    height: 92%;
+`;
+
 const ImageLabel = styled.label<ViewType>`
-    width: ${(props) => (props.view ? '100%' : '100%')};
+    width: 100%;
     border: 1px dashed #8b8687;
     border-radius: 12px;
     height: 92%;
@@ -116,7 +123,6 @@ const FileContainer = styled.div`
     top: 50%;
     left: 50%;
     border-radius: 10px;
-    border: 1px solid #dbdbdb;
     transform: translate(-50%, -50%);
 `;
 export {
@@ -132,4 +138,5 @@ export {
     FileContainer,
     DateP,
     Color,
+    ImageLoading,
 };

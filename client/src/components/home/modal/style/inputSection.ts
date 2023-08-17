@@ -7,7 +7,6 @@ const RecordInputSection = styled.section`
     height: 100%;
     display: flex;
     flex-direction: column;
-    //justify-content: center;
     align-items: center;
 `;
 
@@ -28,8 +27,6 @@ const RecordInput = styled.input`
     background-color: #fff;
 `;
 const Recordarea = styled.textarea`
-    //width: 48.2rem;
-    // height: 20rem;
     width: 100%;
     height: 70%;
     background: url('assets/Light.png') no-repeat 95% 5%;
@@ -111,7 +108,7 @@ const FileContainer = styled.div`
 const FileDelete = styled.img`
     position: absolute;
     top: -5%;
-    right: -5%;
+    right: 0%;
     width: 15px;
 `;
 const FileImg = styled.img`
