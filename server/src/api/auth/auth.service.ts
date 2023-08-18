@@ -86,11 +86,19 @@ const loginService = async (email: string, password: string) => {
           );
           // * Validate if password is correct
           if (isPasswordCorrect) {
+            dotenv.config();
+            const TOKEN_KEY = process.env.TOKEN_KEY || "";
+
+            // * Encrypt user password
+            let encryptedPassword = await bcrypt.hash(password, 10);
+            const token = jwt.sign({ email }, TOKEN_KEY, {
+              expiresIn: "20h",
+            });
             returnForm.status = 200;
             returnForm.message = "Login Success";
             returnForm.responseData = {
               id: data[0].id,
-              token: data[0].android_token,
+              token: token,
             };
           } else {
             returnForm.status = 400;
@@ -107,7 +115,7 @@ const loginService = async (email: string, password: string) => {
     )
     .catch((e) => {
       console.log(e);
-      returnForm.status = 500;
+      returnForm.status = 400;
       returnForm.message = "Server Error";
     });
   return returnForm;
