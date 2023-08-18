@@ -84,7 +84,7 @@ export const getLogByMonth = async (req: IGetLogByMonthReq, res: Response) => {
  *@param req Express Request
  *@param res Express Response
  */
-export const getLogsList = async (req: IGetLogsListReq, res: Response) => {
+export const getLogsList: any = async (req: IGetLogsListReq, res: Response) => {
   try {
     const log = await LogService.getLogsList(
       req.params.user_id,
