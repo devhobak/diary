@@ -23,3 +23,10 @@ export const getUserById = async (id: IUser["id"]) => {
 export const getUserByEmail = async (email: IUser["email"]) => {
   return execute<IUser[]>(UserQueries.GetUserByEmail, [email]);
 };
+
+/**
+ * delete user
+ */
+export const deleteUser = async (id: IUser["id"]) => {
+  return execute<IUser[]>(UserQueries.DeleteUser, [id]);
+};

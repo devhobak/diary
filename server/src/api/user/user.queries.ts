@@ -11,4 +11,6 @@ export const UserQueries = {
 
   GetUserByEmail: `
     SELECT * FROM diary_system.user WHERE email=?;`,
+
+  DeleteUser: `DELETE FROM diary_system.user WHERE id=?`,
 };

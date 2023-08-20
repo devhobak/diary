@@ -10,3 +10,4 @@ export interface IUser {
 export interface IAddUserReq extends Request<any, any, IUser> {}
 export interface IGetUserReq extends Request<{ username: IUser["username"] }> {}
 export interface IGetUserIdReq extends Request<{ id: IUser["id"] }> {}
+export interface IDeleteUserReq extends Request<{ id: IUser["id"] }> {}
