@@ -16,16 +16,13 @@ interface TextType {
 interface ContentType {
     isLongContent: boolean;
 }
+
 const ViewSection = styled.section<ViewType>`
-    //grid-area: main;
     width: ${(props) => (props.view ? '90%' : '100%')};
     height: ${(props) => (props.view ? '82vh' : '88vh')};
-    //이유? %로하면 안되는
-    // position: relative;
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     margin: 0px auto;
     text-align: center;
-    //border-radius: 10px;
     padding: 10px 0;
 `;
 
@@ -34,11 +31,13 @@ const ViewUl = styled.ul<ViewType>`
     height: ${(props) => (props.view ? '87%' : '90%')};
     overflow-y: scroll;
 `;
+
 const ViewLi = styled.li<TextType>`
+    // 버튼이 눌리면 보이지 않는다.
     &:nth-child(${(props) => props.clickIndex}) > button {
         display: none;
     }
-
+    //버튼을 누르면 글이 펼쳐진다.
     &:nth-child(${(props) => props.clickIndex}) > p.content {
         white-space: pre-line;
         overflow: visible;
@@ -47,18 +46,32 @@ const ViewLi = styled.li<TextType>`
     &:nth-child(${(props) => props.clickIndex}) {
         height: auto;
     }
-    width: 100%;
+    width: 90%;
     height: auto;
-    display: flex;
-    flex-direction: column;
+    margin: 0 auto;
     margin-bottom: 20px;
-    padding: ${(props) => (props.isMobile ? '2% 5%' : '2% 15%')};
-    border-bottom: 1px solid #dbdbdb;
+    padding: ${(props) => (props.isMobile ? '8% 5%' : '3% 15%')};
+    border-bottom: 1px solid ${(props) => props.theme.color.backgroundColor};
+    text-align: center;
 `;
-const ViewDate = styled.p`
-    width: 100%;
-    text-align: left;
+
+const ViewDate = styled.span`
+    display: inline-block;
     font-size: 1.5rem;
+    box-shadow: inset 0 -10px 0 ${(props) => props.theme.color.backgroundColor};
+    margin-bottom: 10%;
+    &:after {
+        content: '';
+        width: 0;
+        height: 10px;
+        display: inline-block;
+        background: #d9fcdb;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        z-index: -1;
+        transition: 0.2s all;
+    }
 `;
 const ViewImg = styled.img<ViewType>`
     display: block;
@@ -66,37 +79,40 @@ const ViewImg = styled.img<ViewType>`
     height: ${(props) => (props.view ? '300px' : '500px')};
     object-fit: contain;
 `;
+
 const ViewNoImg = styled.div<PropsType>`
     height: ${(props) => (props.view ? '300px' : '500px')};
     width: 100%;
     background-color: ${(props) => props.color};
     border: 1px solid #dbdbdb;
 `;
+
 const ViewTitle = styled.p`
     font-size: 1.8rem;
-    text-align: left;
-    margin-bottom: 2%;
 `;
+
 const ViewContent = styled.p`
     width: 100%;
-    height: 1.7rem;
+    height: 1.5rem;
     overflow: hidden;
-    white-space: pre-wrap;
     font-size: 1.5rem;
-    text-align: left;
-    margin-bottom: 5px;
+    margin: 5px 0;
+    white-space: pre-wrap;
 `;
+
 const MoreButton = styled.button<ContentType>`
+    // ... 더보기를 표현
     &::before {
         content: '...';
     }
-    display: ${(props) => (props.isLongContent ? 'visible' : 'none')};
-    width: 20%;
+    display: ${(props) => (props.isLongContent ? 'block' : 'none')};
+    width: 30%;
     border: 0;
     background-color: white;
-    text-align: left;
     color: gray;
+    margin-left: 80%;
 `;
+
 const ViewPageNation = styled.div`
     width: 70%;
     display: flex;
@@ -104,6 +120,7 @@ const ViewPageNation = styled.div`
     padding: 10px;
     margin: 0 auto;
 `;
+
 const Page = styled.div<ChildType>`
     width: 30px;
     height: 30px;
@@ -121,6 +138,7 @@ const Page = styled.div<ChildType>`
         background-color: ${({ theme }) => theme.color.inputBoxColor};
     }
 `;
+
 const Content = styled.div`
     width: 50%;
     overflow: hidden;
@@ -131,12 +149,14 @@ const Content = styled.div`
     padding: 30px;
     background-color: #fffff2;
 `;
+
 const PrevButton = styled.button<ChildType>`
     border: 0;
     background-color: #fff;
     font-weight: 800;
     color: ${(props) => (props.child === 1 ? '#dbdbdb' : 'rgb(251, 217, 109)')};
 `;
+
 const NextButton = styled.button<ChildType>`
     border: 0;
     background-color: #fff;
