@@ -12,7 +12,7 @@ const WriteSection = styled.section<ViewType>`
     margin: 0 auto;
     text-align: center;
     //border-radius: 10px;
-    padding: 30px;
+    padding: ${(props) => (props.view ? '30px 10px' : '30px')};
     overflow-y: scroll;
 `;
 
