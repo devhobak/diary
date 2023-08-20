@@ -26,20 +26,29 @@ export default function InputSection() {
     let [day, setDay] = useRecoilState(curDateState);
     let [loading, setLoading] = useState(false);
     const isMobile = useMediaQuery({ maxWidth: 980 });
+
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile, setLoading);
         console.log(files);
     }, [files]);
+
     useEffect(() => {
         setDay(new Date());
     }, []);
+
     return (
         <WriteForm onSubmit={onSubmit} view={isMobile}>
-            <Color
-                type="color"
-                name="content_color"
-                defaultValue="#ffffff"
-            ></Color>
+            <div className="tooltip">
+                <Color
+                    type="color"
+                    name="content_color"
+                    defaultValue="#FBD96D"
+                ></Color>
+                <span className="tooltiptext">
+                    🐶 선택한 색상으로 기록됩니다.
+                </span>
+            </div>
+
             {typeof files === 'string' ? (
                 <ImageLabel ref={dropSection} view={isMobile}>
                     <FileContainer>

@@ -21,25 +21,32 @@ time, mark, audio, video {
 	font: inherit;
 	vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure, 
 footer, header, hgroup, menu, nav, section {
 	display: block;
 }
+
 body {
 	line-height: 1;
 }
+
+
 ol, ul {
 	list-style: none;
 }
+
 blockquote, q {
 	quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
 }
+
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
@@ -76,11 +83,11 @@ body{
     z-index: -1;
   }
   .visually-hidden {
-  position: absolute !important;
-  height: 1px;
-  width: 1px;
-  overflow: hidden;
-  clip: rect(1px, 1px, 1px, 1px);
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
 }
 
   .ellipsis{
@@ -88,11 +95,57 @@ body{
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
   .drop{
     background-color:#dbdbdb;
     border: 3px dashed #8b8687;
   }
+
+  .tooltip{
+    position: relative;
+    display: inline-block;
+    width:60px;
+    height: 60px;
+  
+    
+  }
+
+  .tooltip .tooltiptext{
+    visibility:hidden;
+    width: 230px;
+    height: 50px;
+    background-color: ${(props) => props.theme.color.backgroundColor};
+    text-align: center;
+    border-radius: 16px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+    top: -10px;
+    left: 130%;
+    font-size:1.4rem;
+    font-weight: 700;
+    line-height: 40px;
+  }
  
+  .tooltip .tooltiptext::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 100%;
+    margin-top: -5px;
+    border-width: 6px;
+    border-style: solid;
+    border-color: transparent  ${(props) =>
+        props.theme.color.backgroundColor} transparent transparent;
+ 
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+
+}
+
+
 `;
 
 export default GlobalStyle;

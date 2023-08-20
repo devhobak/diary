@@ -15,15 +15,15 @@ const WriteSection = styled.section<ViewType>`
     padding: 30px;
     overflow-y: scroll;
 `;
+
 const Color = styled.input`
     width: 50px;
-    height: 10%;
 `;
+
 const DateP = styled.p`
     font-size: 25px;
     font-weight: 700;
     text-align: left;
-    //position: absolute;
 `;
 const WriteDiv = styled.div<ViewType>`
     display: flex;

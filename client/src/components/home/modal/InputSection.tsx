@@ -43,15 +43,21 @@ export default function InputSection() {
             <h3 className="ir">오늘의 일상</h3>
             <RecordForm onSubmit={onSubmit}>
                 <InputLabel htmlFor="daily">오늘의 일상</InputLabel>
-                <ColorInput
-                    id="color"
-                    type="color"
-                    onChange={(e) => {
-                        handleColor(e);
-                    }}
-                    name="content_color"
-                    defaultValue="#FBD96D"
-                ></ColorInput>
+                <div className="tooltip">
+                    <ColorInput
+                        id="color"
+                        type="color"
+                        onChange={(e) => {
+                            handleColor(e);
+                        }}
+                        name="content_color"
+                        defaultValue="#FBD96D"
+                    ></ColorInput>
+                    <span className="tooltiptext">
+                        🐶 선택한 색상으로 기록됩니다.
+                    </span>
+                </div>
+
                 <RecordInput
                     id="daily"
                     type="text"
