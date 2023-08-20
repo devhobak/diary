@@ -50,7 +50,7 @@ const ViewLi = styled.li<TextType>`
     height: auto;
     margin: 0 auto;
     margin-bottom: 20px;
-    padding: ${(props) => (props.isMobile ? '8% 5%' : '3% 15%')};
+    padding: ${(props) => (props.isMobile ? '3% 8% 5%' : '3% 15%')};
     border-bottom: 1px solid ${(props) => props.theme.color.backgroundColor};
     text-align: center;
 `;
@@ -89,6 +89,7 @@ const ViewNoImg = styled.div<PropsType>`
 
 const ViewTitle = styled.p`
     font-size: 1.8rem;
+    margin-bottom: 20px;
 `;
 
 const ViewContent = styled.p`
