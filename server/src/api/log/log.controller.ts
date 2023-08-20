@@ -3,6 +3,7 @@ import {
   IAddLogReq,
   IGetLogByDayReq,
   IGetLogByMonthReq,
+  IGetLogCountReq,
   IGetLogsListReq,
   IUpdateLogReq,
 } from "./log.model";
@@ -98,6 +99,36 @@ export const getLogsList: any = async (req: IGetLogsListReq, res: Response) => {
     );
     res.status(500).json({
       message: "There was an error when fetching log",
+    });
+  }
+};
+
+/**Get log count based on year, user_id provided
+ *
+ *@param req Express Request
+ *@param res Express Response
+ */
+export const getLogCount = async (req: IGetLogCountReq, res: Response) => {
+  try {
+    const monthCount = await LogService.getLogCount(
+      req.params.user_id,
+      req.params.year
+    );
+
+    let monthArray = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (let monthText in monthCount) {
+      let monthInt = parseInt(monthCount[monthText].date.split("-")[1]);
+      monthArray[monthInt - 1] = monthCount[monthText].count;
+    }
+
+    res.status(200).json({ monthArray });
+  } catch (error) {
+    console.error(
+      "[log.controller][getLogCount][Error]",
+      typeof error === "object" ? JSON.stringify(error) : error
+    );
+    res.status(500).json({
+      message: "There was an error when fetching log count",
     });
   }
 };
