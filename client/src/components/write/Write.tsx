@@ -7,10 +7,12 @@ import { formatCurDay } from '../../recoil/selectors/date';
 import Notification from './Notification';
 import { useQuery } from 'react-query';
 import { getTodayRecord } from '../../apis/api/Record';
+import { useNavigate } from 'react-router';
 export default function Write() {
     let today = useRecoilValue(formatCurDay);
     const isMobile = useMediaQuery({ maxWidth: 980 });
     const id = Number(localStorage.getItem('User'));
+    let navigate = useNavigate();
     console.log(id);
     const { data } = useQuery(
         ['record', today],
@@ -22,6 +24,7 @@ export default function Write() {
             refetchOnWindowFocus: false,
             onSuccess(data) {
                 console.log(data);
+                navigate('/');
             },
             onError(err) {
                 console.log(err);
