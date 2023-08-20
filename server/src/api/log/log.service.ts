@@ -60,6 +60,16 @@ export const getLogsList = async (
 };
 
 /**
+ * gets a log based on year, user_id provided
+ */
+export const getLogCount = async (
+  user_id: ILog["user_id"],
+  year: ILog["datetime"]
+) => {
+  return execute<ILog[]>(LogQueries.GetLogCount, [user_id, year]);
+};
+
+/**
  * updates log information based on the id provided
  */
 export const updateLog = async (log: ILog) => {

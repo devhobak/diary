@@ -25,14 +25,8 @@ export const getUserByEmail = async (email: IUser["email"]) => {
 };
 
 /**
- * adds a new active user record
+ * delete user
  */
-export const insertUser = async (user: IUser) => {
-  const hashedPassword = await bcrypt.hash(user.password, 10);
-  const result = await execute<{ affectedRows: number }>(UserQueries.AddUser, [
-    user.username,
-    hashedPassword,
-    user.email,
-  ]);
-  return result.affectedRows > 0;
+export const deleteUser = async (id: IUser["id"]) => {
+  return execute<IUser[]>(UserQueries.DeleteUser, [id]);
 };

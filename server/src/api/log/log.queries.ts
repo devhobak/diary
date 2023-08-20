@@ -19,6 +19,11 @@ export const LogQueries = {
         SELECT count(*) as totalCount
         FROM record
         WHERE user_id = ?;`,
+  GetLogCount: `
+        SELECT date_format(datetime, '%Y-%m') date, count(*) count
+        FROM record
+        WHERE user_id = ? and year(datetime) = ?
+        GROUP BY date_format(datetime, '%Y-%m');`,
   UpdateLogById: `
         UPDATE diary_system.record
         SET content_title = ?, content_main = ?, color = UNHEX(?), content_image = ?

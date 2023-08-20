@@ -1,44 +1,11 @@
 import { Request, RequestHandler, Response } from "express";
-import { IGetUserIdReq, IAddUserReq, IGetUserReq } from "./user.model";
+import {
+  IGetUserIdReq,
+  IAddUserReq,
+  IGetUserReq,
+  IDeleteUserReq,
+} from "./user.model";
 import * as UserService from "./user.service";
-
-/**
- * Inserts a new user record based
- *
- * @param req Express Request
- * @param res Express Response
- */
-export const addUser: RequestHandler = async (
-  req: IAddUserReq,
-  res: Response
-) => {
-  try {
-    const { username, password, email } = req.body;
-
-    if (
-      !username ||
-      !password ||
-      typeof username !== "string" ||
-      typeof password !== "string"
-    ) {
-      res.send("Improper Values");
-      return;
-    }
-    const result = await UserService.insertUser(req.body);
-
-    res.status(200).json({
-      result,
-    });
-  } catch (error) {
-    console.error(
-      "[user.controller][addUser][Error] ",
-      typeof error === "object" ? JSON.stringify(error) : error
-    );
-    res.status(500).json({
-      message: "There was an error when adding new user",
-    });
-  }
-};
 
 /**Get user record based on id provided
  *
@@ -57,6 +24,27 @@ export const getUserByName = async (req: IGetUserReq, res: Response) => {
     );
     res.status(500).json({
       message: "There was an error when fetching user",
+    });
+  }
+};
+
+/**Get user record based on id provided
+ *
+ *@param req Express Request
+ *@param res Express Response
+ */
+
+export const deleteUser: any = async (req: IDeleteUserReq, res: Response) => {
+  try {
+    await UserService.deleteUser(req.body.user_id);
+    res.status(200).json({ message: "Success" });
+  } catch (error) {
+    console.error(
+      "[user.controller][deleteUser][Error]",
+      typeof error === "object" ? JSON.stringify(error) : error
+    );
+    res.status(500).json({
+      message: "There was an error when delete user",
     });
   }
 };
