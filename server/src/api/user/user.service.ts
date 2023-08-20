@@ -23,16 +23,3 @@ export const getUserById = async (id: IUser["id"]) => {
 export const getUserByEmail = async (email: IUser["email"]) => {
   return execute<IUser[]>(UserQueries.GetUserByEmail, [email]);
 };
-
-/**
- * adds a new active user record
- */
-export const insertUser = async (user: IUser) => {
-  const hashedPassword = await bcrypt.hash(user.password, 10);
-  const result = await execute<{ affectedRows: number }>(UserQueries.AddUser, [
-    user.username,
-    hashedPassword,
-    user.email,
-  ]);
-  return result.affectedRows > 0;
-};
