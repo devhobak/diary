@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { Api } from '../instance';
+import { Api, authApi } from '../instance';
 interface GetViewListType {
     totalCount: number;
     page: number;
@@ -24,7 +24,7 @@ interface LogType {
 const GetViewList = async (Page: number, id: number): Promise<LogType> => {
     //http://localhost:4000/api/log/1/list?page=1
     try {
-        const res = await Api.get<LogType>(`/api/log/${id}/list`, {
+        const res = await authApi.get<LogType>(`/api/log/${id}/list`, {
             params: {
                 page: Page,
             },

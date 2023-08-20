@@ -26,6 +26,7 @@ export default function useForm() {
         {
             onSuccess: (data) => {
                 localStorage.setItem('User', String(data.responseData.id));
+                localStorage.setItem('token', data.responseData.token);
                 navigate('/');
             },
             onError: (error: AxiosError) => {

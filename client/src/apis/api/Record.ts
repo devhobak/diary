@@ -1,4 +1,4 @@
-import { Api } from '../instance';
+import { Api, authApi } from '../instance';
 
 interface ParamType {
     year: string;
@@ -32,7 +32,7 @@ const getRecord = async (
     id: number
 ): Promise<LogType> => {
     try {
-        const res = await Api.get<LogType>(`api/log/${id}/date`, {
+        const res = await authApi.get<LogType>(`api/log/${id}/date`, {
             params: {
                 year: year,
                 month: month,
@@ -47,7 +47,7 @@ const getRecord = async (
 const getTodayRecord = async (today: string, id: number): Promise<LogType> => {
     try {
         //http://localhost:5000/api/log/1/day/2023-04-15
-        const res = await Api.get<LogType>(`api/log/${id}/day/` + today);
+        const res = await authApi.get<LogType>(`api/log/${id}/day/` + today);
         return res.data;
     } catch (err) {
         return Promise.reject(err);
@@ -63,7 +63,7 @@ const postRecord = async ({
     color,
 }: PostDataType): Promise<PostRecordType> => {
     try {
-        const res = await Api.post<PostRecordType>('api/log', {
+        const res = await authApi.post<PostRecordType>('api/log', {
             user_id: user_id,
             datetime: datetime,
             content_title: content_title,

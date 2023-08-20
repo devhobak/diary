@@ -24,6 +24,7 @@ export default function Form() {
         <FormLayout onSubmit={handleSumit}>
             <Label>
                 <Input
+                    autoComplete="off"
                     placeholder="닉네임"
                     name="username"
                     find="Profile"
@@ -31,11 +32,17 @@ export default function Form() {
                 {error ? <ErrorMsg>{error.username}</ErrorMsg> : <></>}
             </Label>
             <Label>
-                <Input placeholder="이메일" name="email" find="Message"></Input>
+                <Input
+                    autoComplete="off"
+                    placeholder="이메일"
+                    name="email"
+                    find="Message"
+                ></Input>
                 {error ? <ErrorMsg>{error.email}</ErrorMsg> : <></>}
             </Label>
             <Label>
                 <Input
+                    autoComplete="off"
                     type={password.pw ? 'password' : 'text'}
                     placeholder="비밀번호"
                     name="password"
@@ -52,6 +59,7 @@ export default function Form() {
             </Label>
             <Label>
                 <Input
+                    autoComplete="off"
                     type={password.rePw ? 'password' : 'text'}
                     placeholder="비밀번호확인"
                     name="repassword"

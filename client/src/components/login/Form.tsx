@@ -20,11 +20,17 @@ export default function Form(): JSX.Element {
     return (
         <FormLayout onSubmit={handleSumit}>
             <Label>
-                <Input placeholder="이메일" name="email" find="Message"></Input>
+                <Input
+                    autoComplete="off"
+                    placeholder="이메일"
+                    name="email"
+                    find="Message"
+                ></Input>
                 {error ? <ErrorMsg>{error.email}</ErrorMsg> : <></>}
             </Label>
             <Label>
                 <Input
+                    autoComplete="off"
                     type={password.pw ? 'password' : 'text'}
                     placeholder="비밀번호"
                     name="password"
