@@ -23,8 +23,8 @@ const RecordInput = styled.input`
     background: url('assets/Light.png') no-repeat 95%;
     padding: 16px 50px 16px 16px;
     border-radius: 12px;
-    border: 1px solid #dfdfe6;
     background-color: #fff;
+    border: 0;
 `;
 const Recordarea = styled.textarea`
     width: 100%;
@@ -32,7 +32,7 @@ const Recordarea = styled.textarea`
     background: url('assets/Light.png') no-repeat 95% 5%;
     padding: 16px 50px 16px 16px;
     border-radius: 12px;
-    border: 1px solid #dfdfe6;
+    border: 0;
     background-color: #fff;
 `;
 const InputLabel = styled.label`
@@ -76,15 +76,16 @@ const FileLabel = styled.label`
 `;
 const ImgLabel = styled.label`
     position: relative;
-    border: 1px dashed #8b8687;
+    // border: 1px dashed #8b8687;
     border-radius: 12px;
     height: 15rem;
     padding: 51px 111px;
+    background-color: #fff;
 `;
 const RecordButton = styled.button<ProsType>`
     height: 70px;
     border-radius: 6px;
-    border: 1px solid #dbdbdb;
+    border: 0;
     background: ${(props) => (props.find === 'submit' ? '#F9C00C' : '#ffff')};
     color: ${(props) => (props.find === 'submit' ? '#FFFF' : '#F9C00C')};
 `;
@@ -120,13 +121,13 @@ const FileImg = styled.img`
     border-radius: 10px;
     transform: translate(-50%, -50%);
     object-fit: contain;
+    border: 0;
 `;
 
 const ColorInput = styled.input`
     display: block;
-    margin-bottom: 15px;
-    width: 30px;
-    height: 60px;
+    width: 40px;
+    height: 40px;
     padding: 0;
 `;
 

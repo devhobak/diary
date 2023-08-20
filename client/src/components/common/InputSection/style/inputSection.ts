@@ -5,6 +5,7 @@ interface ViewType {
 const ImageLoading = styled.div<ViewType>`
     position: relative;
     width: 100%;
+    background-color: #fff;
     border: 1px dashed #8b8687;
     border-radius: 12px;
     height: ${(props) => (props.view === 'modal' ? '15rem' : '92%')};

@@ -31,7 +31,7 @@ export default function Diary(props: ProsType) {
                 {props.data?.map((item: GetDataType, idx: number) => {
                     return (
                         <Diaryli key={idx}>
-                            <DiaryLabel>일상</DiaryLabel>
+                            <DiaryLabel>제목</DiaryLabel>
                             <DiaryTitle>{item.content_title}</DiaryTitle>
                             <DiaryLabel>기록</DiaryLabel>
                             {item.content_image ? (

@@ -105,7 +105,7 @@ export default function Record(props: PropType): JSX.Element {
                     color={`#${diaryArr[0].color}`}
                     view={isMobile}
                 >
-                    <h2 className="ir">일상기록1</h2>
+                    <h2 className="ir">일상기록</h2>
                     <Date>{selectDay}</Date>
                     <CloseButton
                         src={closeImg}

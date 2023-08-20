@@ -50,7 +50,7 @@ export default function InputSection() {
                         handleColor(e);
                     }}
                     name="content_color"
-                    defaultValue="#ffffff"
+                    defaultValue="#FBD96D"
                 ></ColorInput>
                 <RecordInput
                     id="daily"
@@ -58,7 +58,7 @@ export default function InputSection() {
                     name="content_title"
                     placeholder="제목을 입력해주세요"
                 ></RecordInput>
-                <InputLabel htmlFor="record">기록</InputLabel>
+
                 <Recordarea
                     id="record"
                     name="content_main"

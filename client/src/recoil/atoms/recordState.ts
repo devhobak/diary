@@ -22,7 +22,7 @@ const recordState = atom<RecordType>({
 });
 const ColorState = atom({
     key: 'ColorState',
-    default: '#ffff',
+    default: 'rgb(251, 217, 109)',
 });
 const positionState = atom({
     key: 'positionState',

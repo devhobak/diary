@@ -69,6 +69,7 @@ const EditButton = styled.button`
     border-radius: 15px;
     border: 0;
     background-color: ${({ theme }) => theme.color.inputBoxColor};
+    border: 2px solid #23262f;
     font-size: 10px;
     z-index: 1000;
 `;
