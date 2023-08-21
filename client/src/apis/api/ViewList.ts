@@ -1,6 +1,4 @@
-import React from 'react';
-import axios from 'axios';
-import { Api, authApi } from '../instance';
+import { authApi } from '../instance';
 interface GetViewListType {
     totalCount: number;
     page: number;
@@ -9,6 +7,7 @@ interface GetViewListType {
     nextPage: string;
     logList: GetRecordType[];
 }
+
 interface GetRecordType {
     id: number;
     user_id: number;
@@ -21,6 +20,11 @@ interface GetRecordType {
 interface LogType {
     log: GetViewListType;
 }
+
+interface GetCharDataType {
+    monthArray: number[];
+}
+
 const GetViewList = async (Page: number, id: number): Promise<LogType> => {
     //http://localhost:4000/api/log/1/list?page=1
     try {
@@ -34,4 +38,21 @@ const GetViewList = async (Page: number, id: number): Promise<LogType> => {
         return Promise.reject(err);
     }
 };
-export { GetViewList };
+
+const GetChartData = async ({
+    ...data
+}: {
+    year: number;
+    user_id: number;
+    totalNumber: number;
+}) => {
+    try {
+        const res = await authApi.get<GetCharDataType>(
+            `/api/log/${data.user_id}/${data.year}`
+        );
+        return res.data;
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+export { GetViewList, GetChartData };
