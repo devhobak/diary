@@ -8,6 +8,7 @@ interface RecordType {
         content_image: '';
     };
 }
+
 const recordState = atom<RecordType>({
     key: 'recordState',
     default: {
@@ -20,12 +21,19 @@ const recordState = atom<RecordType>({
         },
     },
 });
+
 const ColorState = atom({
     key: 'ColorState',
     default: 'rgb(251, 217, 109)',
 });
+
 const positionState = atom({
     key: 'positionState',
     default: 0,
 });
-export { recordState, ColorState, positionState };
+
+const charDataState = atom({
+    key: 'charDataState',
+    default: 0,
+});
+export { recordState, ColorState, positionState, charDataState };
