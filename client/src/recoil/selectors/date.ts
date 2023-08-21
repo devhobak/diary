@@ -33,9 +33,18 @@ const formatCurDataState = selector({
 const formatCurDay = selector({
     key: 'formatCurDay ',
     get: ({ get }) => {
-        const curDate = get(curDateState);
+        let curDate = get(curDateState);
 
         return format(curDate, 'yyyy-MM-dd');
     },
 });
-export { formatCurDataState, formatCurDay };
+
+const formatCurrentYear = selector({
+    key: 'formatCurrentYear',
+    get: ({ get }) => {
+        let curDate = get(curDateState);
+
+        return format(curDate, 'yyyy');
+    },
+});
+export { formatCurDataState, formatCurDay, formatCurrentYear };
