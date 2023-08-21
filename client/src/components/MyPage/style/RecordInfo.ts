@@ -34,7 +34,7 @@ const ChartArticle = styled.article`
 `;
 
 const TotalBox = styled.div`
-    margin-bottom: 5%;
+    margin-bottom: 20px;
     font-size: 1.6rem;
     height: 50px;
 `;
@@ -57,6 +57,7 @@ const ButtonBox = styled.div`
     flex-direction: row;
     justify-content: center;
     gap: 20px;
+    margin-bottom: 20px;
 `;
 
 const YearSpan = styled.span`
