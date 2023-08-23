@@ -27,7 +27,7 @@ export default function useRecordMutation(
             queryClient.invalidateQueries(['record'], {
                 refetchInactive: true,
             });
-            navigate('/');
+            navigate('/home');
             toast.success('글작성 완료');
         },
         onError(err) {
