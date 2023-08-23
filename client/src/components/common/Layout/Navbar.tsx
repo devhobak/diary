@@ -12,7 +12,7 @@ import { useLocation, useNavigate } from 'react-router';
 export default function Navbar() {
     const navigate = useNavigate();
     let url = useLocation();
-    let pathArr = ['/', '/record', '/write', '/myPage'];
+    let pathArr = ['/home', '/record', '/write', '/myPage'];
     let p = pathArr.indexOf(url.pathname) + 1;
     let [position, setPosition] = useState(p);
     const isMobile = useMediaQuery({ maxWidth: 980 });
@@ -24,7 +24,7 @@ export default function Navbar() {
                 <NavLi
                     view={isMobile}
                     onClick={() => {
-                        navigate('/');
+                        navigate('/home');
                         setPosition(1);
                     }}
                     child={position}

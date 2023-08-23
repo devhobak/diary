@@ -11,13 +11,13 @@ export default function Routers() {
     return (
         <Routes>
             <Route element={<ProtectedRouter />}>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/home" element={<HomePage />} />
                 <Route path="/record" element={<ViewPage />} />
                 <Route path="/write" element={<WritePage />} />
                 <Route path="/myPage" element={<MyPage />} />
             </Route>
             <Route element={<PublicRouter />}>
-                <Route path="/login" element={<LoginPage />} />
+                <Route path="/" element={<LoginPage />} />
                 <Route path="/signup" element={<SignupPage />} />
             </Route>
             <Route path="*" element={<LoginPage />} />

@@ -35,12 +35,7 @@ export default function useForm() {
             onSuccess: () => {
                 navigate('/');
             },
-            onError: (err: AxiosError) => {
-                console.log(
-                    'useMutation의 onError결과 : ',
-                    err.response?.status
-                );
-            },
+            onError: (err: AxiosError) => {},
         }
     );
     const handleSumit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -52,7 +47,6 @@ export default function useForm() {
         if (username && email && password && password === repassword) {
             mutate({ username, email, password });
         }
-        //e.currentTarget.reset();
     };
     useEffect(() => {
         setError(vaildation({ ...value }));

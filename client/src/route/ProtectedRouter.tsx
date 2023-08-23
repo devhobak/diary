@@ -11,5 +11,5 @@ export default function ProtectedRouter() {
      * 그렇지 않다면 login페이지로 이동한다.
      */
 
-    return isLogin ? <Outlet /> : <Navigate to="/login" />;
+    return isLogin ? <Outlet /> : <Navigate to="/" />;
 }
