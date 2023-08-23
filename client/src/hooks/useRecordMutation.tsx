@@ -4,6 +4,7 @@ import { postRecord } from '../apis/api/Record';
 import { useRecoilState } from 'recoil';
 import { modalState } from '../recoil/atoms/modalState';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 //{variable.user_id,variable.content_title,variable.content_content,variable.content_image}
 interface PostDataType {
     user_id: number;
@@ -19,12 +20,14 @@ export default function useRecordMutation(
 ) {
     const queryClient = useQueryClient();
     const [modal, setModal] = useRecoilState(modalState);
+    const navigate = useNavigate();
     return useMutation((variable: PostDataType) => postRecord(variable), {
         onSuccess(data) {
             setModal(false);
             queryClient.invalidateQueries(['record'], {
                 refetchInactive: true,
             });
+            navigate('/');
             toast.success('글작성 완료');
         },
         onError(err) {

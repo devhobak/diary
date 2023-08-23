@@ -24,7 +24,6 @@ export default function Write() {
             refetchOnWindowFocus: false,
             onSuccess(data) {
                 console.log(data);
-                navigate('/');
             },
             onError(err) {
                 console.log(err);
