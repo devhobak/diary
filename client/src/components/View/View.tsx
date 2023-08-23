@@ -12,11 +12,11 @@ import {
 import { useQuery } from 'react-query';
 import { GetViewList } from '../../apis/api/ViewList';
 export default function View() {
-    // let page = 1;
     let totalPage: number | undefined = 0;
     let [page, setPage] = useState(1);
     const isMobile = useMediaQuery({ maxWidth: 980 });
     const id = Number(localStorage.getItem('User'));
+
     const { data } = useQuery(
         ['record', page, { id: id }],
         () => GetViewList(page, id),
@@ -37,35 +37,20 @@ export default function View() {
         totalPage = Math.ceil(data?.totalCount / data?.limit);
 
     let totalPageArr: number[] = [0];
+
     if (data?.limit) {
         for (let i = 1; i <= totalPage - 1; i++) {
             totalPageArr.push(i);
         }
     }
-    //[[1,2,3,4,5],[6,7,8,9,10]]
+
     let limit = 5;
     let PageArr = new Array(Math.ceil(totalPage / limit));
     let [positionPage, setPositionPage] = useState(0);
     for (let i = 0; i < Math.ceil(totalPage / limit); i++) {
-        //PageArr[i] = new Array(limit);
-        // 0,5 5,10
         PageArr[i] = totalPageArr.slice(limit * i, limit * i + limit);
-        //PageArr[i] = i;
     }
-    //PageArr.map((item, index) => (item[index] = index));
-    // let PageArr = new Array(5)
-    //     .fill(0)
-    //     .map(() => new Array(Math.ceil(totalPage / limit)));
 
-    console.log(PageArr);
-    //개수만큼 페이지를 나타내고싶다.
-    // useEffect(() => {
-    //     if (page % 5 === 0) {
-    //         setPositionPage((prev) => prev + 1);
-    //     } else if (page % 5 === 1) {
-    //         setPositionPage((prev) => prev - 1);
-    //     }
-    // }, [page]);
     const NextPageHandler = (item: number) => {
         setPage(item);
     };
@@ -86,16 +71,18 @@ export default function View() {
                 }
             }
     };
-    console.log(PageArr);
-    console.log(page);
     //prev,next 버튼누르면 5개 단위로 변화
 
     return (
         <ViewLayout>
             <ViewSection view={isMobile}>
                 <h2 className="ir">일상기록</h2>
-                {data ? <RecrodList data={data} page={page} /> : <></>}
-                {data ? (
+                {data?.totalCount ? (
+                    <RecrodList data={data} page={page} />
+                ) : (
+                    <></>
+                )}
+                {data?.totalCount ? (
                     <ViewPageNation>
                         <PrevButton onClick={PrevHandler} child={page}>
                             Prev
