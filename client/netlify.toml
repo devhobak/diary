@@ -1,6 +1,6 @@
 [[redirects]]
   from = "/proxy/*"
-  to = "/index.html"
+  to = "https://fixed-jacenta-memoonoffice.koyeb.app/:splat"
   status = 200
   force = true
   /index.html 200
