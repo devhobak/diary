@@ -1,13 +1,13 @@
 export const LogQueries = {
   AddLog: `
-        INSERT INTO diary_system.record (user_id, datetime, content_title, content_main, color, content_image) 
+        INSERT INTO record (user_id, datetime, content_title, content_main, color, content_image) 
         VALUES (?, now(), ?, ?, UNHEX(?), ?);`,
   GetLogByDay: `
         SELECT id, user_id, DATE_FORMAT(datetime, "%Y-%m-%d %H:%i:%s") as datetime, content_title, content_main, HEX(color) as color
-        FROM diary_system.record WHERE user_id = ? and DATE(datetime) = ?;`,
+        FROM record WHERE user_id = ? and DATE(datetime) = ?;`,
   GetLogByMonth: `
         SELECT id, user_id, DATE_FORMAT(datetime, "%Y-%m-%d %H:%i:%s") as datetime, content_title, content_main, HEX(color) as color,content_image
-        FROM diary_system.record 
+        FROM record 
         WHERE user_id = ? and YEAR(datetime) = ? and MONTH(datetime) = ?;`,
   GetLogsList: `
         SELECT id, user_id, DATE_FORMAT(datetime, "%Y-%m-%d %H:%i:%s") as datetime, content_title, content_main, HEX(color) as color,content_image
@@ -25,7 +25,7 @@ export const LogQueries = {
         WHERE user_id = ? and year(datetime) = ?
         GROUP BY date_format(datetime, '%Y-%m');`,
   UpdateLogById: `
-        UPDATE diary_system.record
+        UPDATE record
         SET content_title = ?, content_main = ?, color = UNHEX(?), content_image = ?
         WHERE id = ?`,
 };
