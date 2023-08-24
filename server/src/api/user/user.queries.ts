@@ -1,16 +1,16 @@
 export const UserQueries = {
   AddUser: `
-    INSERT INTO diary_system.user (username, password, email, android_token) 
+    INSERT INTO user (username, password, email, android_token) 
     VALUES (?, ?, ?, ?);`,
 
   GetUserByName: `
-    SELECT * FROM diary_system.user WHERE username=?;`,
+    SELECT * FROM user WHERE username=?;`,
 
   GetUserById: `
-    SELECT * FROM diary_system.user WHERE id=?;`,
+    SELECT * FROM user WHERE id=?;`,
 
   GetUserByEmail: `
-    SELECT * FROM diary_system.user WHERE email=?;`,
+    SELECT * FROM user WHERE email=?;`,
 
-  DeleteUser: `DELETE FROM diary_system.user WHERE id=?`,
+  DeleteUser: `DELETE FROM user WHERE id=?`,
 };
