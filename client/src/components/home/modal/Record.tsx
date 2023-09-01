@@ -9,12 +9,12 @@ import {
 import Diary from './Diary';
 import { format } from 'date-fns';
 import {
-    RecordBackground,
-    RecordSection,
+    ModalBackground,
+    ModalSection,
     CloseButton,
     Date,
     EditButton,
-} from './style/Record';
+} from '../../common/Modal/modal';
 import { modalState } from '../../../recoil/atoms/modalState';
 import { ColorState, positionState } from '../../../recoil/atoms/recordState';
 import Edit from './Edit';
@@ -43,30 +43,33 @@ export default function Record(props: PropType): JSX.Element {
     const isMobile = useMediaQuery({ maxWidth: 980 });
     let diary = props.data;
     let diaryArr: GetDataType[] = [];
+
     diary?.map((item: GetDataType) => {
         if (item.datetime.split(' ')[0] === selectDay) {
             diaryArr.push(item);
         }
     });
+
     const modalClose = (date: string, idx?: number) => {
         setTimeout(() => {
             setClose(false);
         }, 200);
     };
+
     const handleEdit = () => {
         setEdit(true);
         console.log(edit);
     };
-    console.log(diaryArr);
+
     //선택한 날짜의 데이터를 저장함.
     const todayRecord = props.data?.filter(
         (item) => item.datetime.split(' ')[0] === selectDay
     ).length;
-    console.log(selectDay, fullDate);
+
     if (selectDay === fullDate) {
         return (
-            <RecordBackground isClose={modal}>
-                <RecordSection
+            <ModalBackground isClose={modal}>
+                <ModalSection
                     isClose={modal}
                     color={color ?? `#${diaryArr[0].color}`}
                     view={isMobile}
@@ -94,13 +97,13 @@ export default function Record(props: PropType): JSX.Element {
                     ) : (
                         <InputSection />
                     )}
-                </RecordSection>
-            </RecordBackground>
+                </ModalSection>
+            </ModalBackground>
         );
     } else {
         return (
-            <RecordBackground isClose={modal}>
-                <RecordSection
+            <ModalBackground isClose={modal}>
+                <ModalSection
                     isClose={modal}
                     color={`#${diaryArr[0].color}`}
                     view={isMobile}
@@ -115,8 +118,8 @@ export default function Record(props: PropType): JSX.Element {
                         }}
                     />
                     <Diary data={diaryArr} />
-                </RecordSection>
-            </RecordBackground>
+                </ModalSection>
+            </ModalBackground>
         );
     }
 }

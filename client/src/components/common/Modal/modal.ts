@@ -23,7 +23,7 @@ interface CloseType {
     color?: string;
 }
 
-const RecordBackground = styled.div<CloseType>`
+const ModalBackground = styled.div<CloseType>`
     background-color: rgba(0, 0, 0, 0.3);
     animation: ${({ isClose }) => (isClose ? fadeIn : fadeOut)} 0.5s ease-out;
     position: fixed;
@@ -32,7 +32,7 @@ const RecordBackground = styled.div<CloseType>`
     right: 0;
     bottom: 0;
 `;
-const RecordSection = styled.section<CloseType>`
+const ModalSection = styled.section<CloseType>`
     position: relative;
     // width: 54.4rem;
     // height: 73rem;
@@ -55,6 +55,7 @@ const CloseButton = styled.img`
     position: absolute;
     top: 22px;
     right: 32px;
+    z-index: 100;
 `;
 const Date = styled.div`
     font-size: 2.4rem;
@@ -73,4 +74,4 @@ const EditButton = styled.button`
     font-size: 10px;
     z-index: 1000;
 `;
-export { RecordBackground, RecordSection, CloseButton, Date, EditButton };
+export { ModalBackground, ModalSection, CloseButton, Date, EditButton };
