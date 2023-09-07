@@ -17,7 +17,7 @@ import {
 import deleteImg from '../../../assets/close.png';
 import { SelectFile, drop, DeleteFile } from '../../../utils/draganddrop';
 import { useRecoilState } from 'recoil';
-import { ColorState, positionState } from '../../../recoil/atoms/recordState';
+import { ColorState } from '../../../recoil/atoms/recordState';
 import useEditRecord from '../../../hooks/useEditRecord';
 import LoadingImage from '../../common/InputSection/LoadingImage';
 interface GetDataType {
@@ -41,7 +41,6 @@ export default function Edit(props: PropsType) {
     let [color, setColor] = useRecoilState(ColorState);
     let [image, setImage] = useState<string>();
     let [dispalyImage, setDisplayImage] = useState<string>('');
-    const [positionPost, setPositionPost] = useRecoilState(positionState);
     let [loading, setLoading] = useState(false);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile, setLoading);
@@ -50,13 +49,13 @@ export default function Edit(props: PropsType) {
     }, [files]);
     console.log(files);
     useEffect(() => {
-        if (props.data[positionPost].content_image) {
+        if (props.data[0].content_image) {
             setDisplayImage(props.data[0].content_image);
         }
         console.log(dispalyImage);
     }, []);
     const { onSubmit, setFile } = useEditRecord(
-        props.data[positionPost].id,
+        props.data[0].id,
         dispalyImage,
         image
     );

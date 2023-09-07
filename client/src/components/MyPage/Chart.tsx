@@ -12,7 +12,7 @@ import {
 import { ChartArticle } from './style/chart';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { GetChartData } from '../../apis/api/ViewList';
-import { charDataState } from '../../recoil/atoms/recordState';
+import { chartDataState } from '../../recoil/atoms/recordState';
 
 const CustomTooltip = ({
     active,
@@ -36,8 +36,8 @@ const CustomTooltip = ({
 export default function Chart() {
     let currentYear = useRecoilValue(formatCurrentYear);
     let user_id = Number(localStorage.getItem('User'));
-    let setTotalData = useSetRecoilState(charDataState);
-    let totalNumber = useRecoilValue(charDataState);
+    let setTotalData = useSetRecoilState(chartDataState);
+    let totalNumber = useRecoilValue(chartDataState);
     let { data } = useQuery(
         [
             'record',

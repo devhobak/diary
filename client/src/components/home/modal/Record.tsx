@@ -1,13 +1,21 @@
 import { useState } from 'react';
-import InputSection from './InputSection';
-import closeImg from '../../../assets/close.png';
 import { useRecoilValue, useRecoilState } from 'recoil';
+import { format } from 'date-fns';
+import { useMediaQuery } from 'react-responsive';
+
+import closeImg from '../../../assets/close.png';
+
+import InputSection from './InputSection';
+import Edit from './Edit';
+import Diary from './Diary';
+
 import {
     curDateState,
     selectDateState,
 } from '../../../recoil/atoms/calendarState';
-import Diary from './Diary';
-import { format } from 'date-fns';
+import { modalState } from '../../../recoil/atoms/modalState';
+import { ColorState } from '../../../recoil/atoms/recordState';
+
 import {
     ModalBackground,
     ModalSection,
@@ -15,11 +23,6 @@ import {
     Date,
     EditButton,
 } from '../../common/Modal/modal';
-import { modalState } from '../../../recoil/atoms/modalState';
-import { ColorState, positionState } from '../../../recoil/atoms/recordState';
-import Edit from './Edit';
-import { useMediaQuery } from 'react-responsive';
-
 interface GetDataType {
     id: number;
     user_id: number;
@@ -58,7 +61,6 @@ export default function Record(props: PropType): JSX.Element {
 
     const handleEdit = () => {
         setEdit(true);
-        console.log(edit);
     };
 
     //선택한 날짜의 데이터를 저장함.

@@ -25,14 +25,14 @@ import { formatCurrentYear } from '../../recoil/selectors/date';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { curDateState } from '../../recoil/atoms/calendarState';
 import { addYears, subYears } from 'date-fns';
-import { charDataState } from '../../recoil/atoms/recordState';
+import { chartDataState } from '../../recoil/atoms/recordState';
 export default function MyInfo() {
     let user_id = Number(localStorage.getItem('User'));
     const isMobile = useMediaQuery({ maxWidth: 980 });
     let navigate = useNavigate();
     const [curDate, setCurDate] = useRecoilState(curDateState);
     let currentYear = useRecoilValue(formatCurrentYear);
-    let totalNumber = useRecoilValue(charDataState);
+    let totalNumber = useRecoilValue(chartDataState);
 
     const UpClick = () => {
         setCurDate(addYears(curDate, 1));
