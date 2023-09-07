@@ -23,6 +23,7 @@ import { useMutation, useQuery } from 'react-query';
 import { getRecord } from '../../../apis/api/Record';
 import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -50,22 +51,34 @@ export default function Days(props: DayType) {
         year: format(curDate, 'yyyy'),
         month: format(curDate, 'MM'),
     };
-    // const id = useRecoilValue(UserId);
     const id = Number(localStorage.getItem('User'));
-
-    const { data, isLoading, isSuccess } = useQuery<
-        LogType,
-        AxiosError,
-        GetDataType[]
-    >(['record', GetMonth, { id: id }], () => getRecord(GetMonth, id), {
-        select: (record) => record.log,
-        refetchOnWindowFocus: false,
-        staleTime: Infinity,
-        onSuccess(data) {
-            console.log(GetMonth);
-            console.log(data);
-        },
-    });
+    const navigate = useNavigate();
+    const { data, isSuccess } = useQuery<LogType, AxiosError, GetDataType[]>(
+        ['record', GetMonth, { id: id }],
+        () => getRecord(GetMonth, id),
+        {
+            select: (record) => record.log,
+            refetchOnWindowFocus: true,
+            staleTime: Infinity,
+            onSuccess(data) {
+                console.log(GetMonth);
+                console.log(data);
+            },
+            onError(err: AxiosError) {
+                if (
+                    err.response?.status === 401 ||
+                    err.response?.status === 403
+                ) {
+                    toast.error(
+                        '로그인 시간이 만료되었습니다. 다시 로그인 해주세요'
+                    );
+                    localStorage.removeItem('UserId');
+                    localStorage.removeItem('token');
+                    navigate('/login');
+                }
+            },
+        }
+    );
     let RecordData = data;
     let yearMonth = RecordData?.map((item) => item.datetime.split(' ')[0]);
     let recordColor = formatDate.curMonthDay.map((item, idex) => {
