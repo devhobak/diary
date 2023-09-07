@@ -40,7 +40,6 @@ const getRecord = async (
         });
         return res.data;
     } catch (err) {
-        console.log(err);
         return Promise.reject(err);
     }
 };
