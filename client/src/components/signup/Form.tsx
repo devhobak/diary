@@ -9,10 +9,10 @@ import {
     PwImg,
 } from '../common/Form/style/form';
 import { useNavigate } from 'react-router-dom';
-import useSignupHook from '../../hooks/useSignupHook';
+import useForm from '../../hooks/useForm';
 export default function Form() {
     let navigate = useNavigate();
-    let { handleSumit, error } = useSignupHook();
+    let { handleSumit, error } = useForm();
     const [password, setPassword] = useState({ pw: true, rePw: true });
     const ChangePwType = (): void => {
         setPassword({ pw: !password.pw, rePw: password.rePw });
