@@ -9,34 +9,19 @@ import {
     PrevButton,
     NextButton,
 } from './style/RecordList';
-import { useQuery } from 'react-query';
-import { GetViewList } from '../../apis/api/ViewList';
+import useViewQuery from '../../hooks/queries/useViewQuery';
 export default function View() {
+    const isMobile = useMediaQuery({ maxWidth: 980 });
     let totalPage: number | undefined = 0;
     let [page, setPage] = useState(1);
-    const isMobile = useMediaQuery({ maxWidth: 980 });
-    const id = Number(localStorage.getItem('User'));
-
-    const { data } = useQuery(
-        ['record', page, { id: id }],
-        () => GetViewList(page, id),
-        {
-            staleTime: Infinity,
-            select: (record) => record.log,
-            refetchOnWindowFocus: false,
-            onSuccess(data) {
-                console.log(data);
-            },
-            onError(err) {
-                console.log(err);
-            },
-        }
-    );
+    let totalPageArr: number[] = [0];
+    let limit = 5;
+    let PageArr = new Array(Math.ceil(totalPage / limit));
+    let [positionPage, setPositionPage] = useState(0);
+    const { data } = useViewQuery(page);
 
     if (data?.totalCount && data?.limit)
         totalPage = Math.ceil(data?.totalCount / data?.limit);
-
-    let totalPageArr: number[] = [0];
 
     if (data?.limit) {
         for (let i = 1; i <= totalPage - 1; i++) {
@@ -44,9 +29,6 @@ export default function View() {
         }
     }
 
-    let limit = 5;
-    let PageArr = new Array(Math.ceil(totalPage / limit));
-    let [positionPage, setPositionPage] = useState(0);
     for (let i = 0; i < Math.ceil(totalPage / limit); i++) {
         PageArr[i] = totalPageArr.slice(limit * i, limit * i + limit);
     }
@@ -54,6 +36,7 @@ export default function View() {
     const NextPageHandler = (item: number) => {
         setPage(item);
     };
+
     const PrevHandler = () => {
         if (page !== 1) {
             setPage((prev) => prev - 1);
@@ -62,6 +45,7 @@ export default function View() {
             }
         }
     };
+
     const NextHandler = () => {
         if (totalPage)
             if (page < totalPage) {
@@ -71,7 +55,6 @@ export default function View() {
                 }
             }
     };
-    //prev,next 버튼누르면 5개 단위로 변화
 
     return (
         <ViewLayout>

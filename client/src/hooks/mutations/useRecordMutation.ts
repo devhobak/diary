@@ -1,8 +1,8 @@
 import React from 'react';
 import { useMutation, useQueryClient } from 'react-query';
-import { postRecord } from '../apis/api/Record';
+import { postRecord } from '../../apis/api/Record';
 import { useRecoilState } from 'recoil';
-import { modalState } from '../recoil/atoms/modalState';
+import { modalState } from '../../recoil/atoms/modalState';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 //{variable.user_id,variable.content_title,variable.content_content,variable.content_image}
@@ -28,11 +28,11 @@ export default function useRecordMutation(
                 refetchInactive: true,
             });
             navigate('/home');
-            toast.success('글작성 완료');
+            toast.success('글작성을 완료했습니다.');
         },
         onError(err) {
             setModal(true);
-            toast.error('⭕️ 글작성 실패');
+            toast.error('글작성을 실패했습니다.');
         },
     });
 }

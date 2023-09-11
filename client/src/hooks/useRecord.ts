@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import useRecordMutation from './useRecordMutation';
+import useRecordMutation from './mutations/useRecordMutation';
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import { formatCurDay } from '../recoil/selectors/date';
 import { curDateState } from '../recoil/atoms/calendarState';

@@ -6,7 +6,6 @@ import {
     DayOfUI,
     DayDate,
 } from './style/calendar';
-import { format } from 'date-fns';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import {
     curDateState,
@@ -19,11 +18,8 @@ import {
 import { modalState } from '../../../recoil/atoms/modalState';
 import { useMediaQuery } from 'react-responsive';
 import Record from '../modal/Record';
-import { useMutation, useQuery } from 'react-query';
-import { getRecord } from '../../../apis/api/Record';
-import { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router';
+import useGetReportQuery from '../../../hooks/queries/useRecordQuery';
 interface GetDataType {
     id: number;
     user_id: number;
@@ -44,41 +40,9 @@ export default function Days(props: DayType) {
     const [selectDay, setSelectDate] = useRecoilState(selectDateState);
     const CurDay = useRecoilValue(formatCurDay);
     const formatDate = useRecoilValue(formatCurDataState);
-    const curDate = useRecoilValue(curDateState);
     const [modal, setModal] = useRecoilState(modalState);
     const isMobile = useMediaQuery({ maxWidth: 390 });
-    let GetMonth = {
-        year: format(curDate, 'yyyy'),
-        month: format(curDate, 'MM'),
-    };
-    const id = Number(localStorage.getItem('User'));
-    const navigate = useNavigate();
-    const { data, isSuccess } = useQuery<LogType, AxiosError, GetDataType[]>(
-        ['record', GetMonth, { id: id }],
-        () => getRecord(GetMonth, id),
-        {
-            select: (record) => record.log,
-            refetchOnWindowFocus: true,
-            staleTime: Infinity,
-            onSuccess(data) {
-                console.log(GetMonth);
-                console.log(data);
-            },
-            onError(err: AxiosError) {
-                if (
-                    err.response?.status === 401 ||
-                    err.response?.status === 403
-                ) {
-                    toast.error(
-                        '로그인 시간이 만료되었습니다. 다시 로그인 해주세요'
-                    );
-                    localStorage.removeItem('UserId');
-                    localStorage.removeItem('token');
-                    navigate('/login');
-                }
-            },
-        }
-    );
+    const { data, isSuccess } = useGetReportQuery();
     let RecordData = data;
     let yearMonth = RecordData?.map((item) => item.datetime.split(' ')[0]);
     let recordColor = formatDate.curMonthDay.map((item, idex) => {
@@ -88,7 +52,7 @@ export default function Days(props: DayType) {
             return '#ffff';
         }
     });
-    console.log(CurDay);
+
     const modalUp = (item: string) => {
         let record = false;
         setModal(false);
@@ -137,7 +101,7 @@ export default function Days(props: DayType) {
                     );
                 })}
             </DayUI>
-            {modal && isSuccess ? <Record data={data} /> : <></>}
+            {modal && isSuccess && data ? <Record data={data} /> : <></>}
         </DaySection>
     );
 }

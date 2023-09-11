@@ -52,7 +52,7 @@ const getTodayRecord = async (today: string, id: number): Promise<LogType> => {
         return Promise.reject(err);
     }
 };
-//나중에 instance 변경하기
+
 const postRecord = async ({
     user_id,
     datetime,

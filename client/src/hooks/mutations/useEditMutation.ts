@@ -1,7 +1,7 @@
 import { useQueryClient, useMutation } from 'react-query';
-import { EditPatch } from '../apis/api/EditRecord';
+import { EditPatch } from '../../apis/api/EditRecord';
 import { useRecoilState } from 'recoil';
-import { modalState } from '../recoil/atoms/modalState';
+import { modalState } from '../../recoil/atoms/modalState';
 import { toast } from 'react-toastify';
 interface EditDataType {
     content_title: FormDataEntryValue;
@@ -18,18 +18,15 @@ export default function useEditMutation(key: string, id: number) {
         {
             onSuccess(data) {
                 console.log(data);
-                queryClient.invalidateQueries(['record'], {
+                queryClient.invalidateQueries(['record', 'edit'], {
                     refetchInactive: true,
                 });
-                //setConfirmModal(true);
                 setModal(false);
-                toast.success('글 수정 완료');
+                toast.success('글 수정을 완료했습니다');
             },
             onError(err) {
-                console.log(err);
-                //setConfirmModal(true);
                 setModal(true);
-                toast.error('글 수정 실패');
+                toast.error('글 수정을 실패했습니다.');
             },
         }
     );

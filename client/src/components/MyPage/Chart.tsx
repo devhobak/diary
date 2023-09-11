@@ -1,6 +1,4 @@
 import React, { useEffect } from 'react';
-import { useQuery } from 'react-query';
-import { formatCurrentYear } from '../../recoil/selectors/date';
 import {
     BarChart,
     Bar,
@@ -10,9 +8,9 @@ import {
     ResponsiveContainer,
 } from 'recharts';
 import { ChartArticle } from './style/chart';
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import { GetChartData } from '../../apis/api/ViewList';
+import { useSetRecoilState } from 'recoil';
 import { chartDataState } from '../../recoil/atoms/recordState';
+import useChartQuery from '../../hooks/queries/useChartQuery';
 
 const CustomTooltip = ({
     active,
@@ -33,28 +31,11 @@ const CustomTooltip = ({
 
     return null;
 };
+
 export default function Chart() {
-    let currentYear = useRecoilValue(formatCurrentYear);
-    let user_id = Number(localStorage.getItem('User'));
     let setTotalData = useSetRecoilState(chartDataState);
-    let totalNumber = useRecoilValue(chartDataState);
-    let { data } = useQuery(
-        [
-            'record',
-            { name: 'chartData', year: currentYear, total: totalNumber },
-        ],
-        () =>
-            GetChartData({
-                user_id: user_id,
-                year: Number(currentYear),
-                totalNumber: totalNumber,
-            }),
-        {
-            refetchOnWindowFocus: false,
-            staleTime: Infinity,
-            cacheTime: Infinity,
-        }
-    );
+
+    let { data } = useChartQuery();
     useEffect(() => {
         let total = data?.monthArray.reduce((arr: number, cur: number) => {
             return arr + cur;

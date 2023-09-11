@@ -28,7 +28,6 @@ export default function InputSection() {
     let [loading, setLoading] = useState(false);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile, setLoading);
-        console.log(files);
     }, [files]);
     let { onSubmit, setFile } = useRecord();
     const ModalClose = () => {
@@ -36,7 +35,6 @@ export default function InputSection() {
     };
     const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setColor(e.target.value);
-        console.log(color);
     };
     return (
         <RecordInputSection>
