@@ -13,6 +13,7 @@ import useForm from '../../hooks/useForm';
 export default function Form(): JSX.Element {
     let navigate = useNavigate();
     let { handleSumit, error } = useForm();
+
     const [password, setPassword] = useState({ pw: true, rePw: true });
     const ChangePwType = (): void => {
         setPassword({ pw: !password.pw, rePw: password.rePw });
