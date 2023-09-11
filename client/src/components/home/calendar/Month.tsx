@@ -42,8 +42,8 @@ export default function Month(props: MonthType) {
                     }}
                 ></MonthCalendar>
                 <img src={prevIcon} alt="이전달이동" onClick={DownClick} />
-                <p style={{ width: '15%' }}>{props.curMonth}</p>
-                <p style={{ width: '15%' }}>{props.curYear}</p>
+                <p style={{ width: '20%' }}>{props.curMonth}</p>
+                <p style={{ width: '20%' }}>{props.curYear}</p>
                 <img src={nextIcon} alt="다음달이동" onClick={UpClick} />
             </CalendarHead>
         </section>
