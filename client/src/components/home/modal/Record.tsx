@@ -73,7 +73,7 @@ export default function Record(props: PropType): JSX.Element {
             <ModalBackground isClose={modal}>
                 <ModalSection
                     isClose={modal}
-                    color={color ?? `#${diaryArr[0].color}`}
+                    color={`#${diaryArr[0].color}` ?? color}
                     view={isMobile}
                 >
                     <h2 className="ir">일상기록</h2>
