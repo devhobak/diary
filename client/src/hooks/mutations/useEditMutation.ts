@@ -18,7 +18,7 @@ export default function useEditMutation(key: string, id: number) {
         {
             onSuccess(data) {
                 console.log(data);
-                queryClient.invalidateQueries(['record', 'edit'], {
+                queryClient.invalidateQueries(['record'], {
                     refetchInactive: true,
                 });
                 setModal(false);
