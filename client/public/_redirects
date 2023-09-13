@@ -1,1 +1,7 @@
-/* /index.html 200
+[[redirects]]
+  from = "/proxy/*"
+  "https://fixed-jacenta-memoonoffice.koyeb.app/:splat"
+  status = 200
+  force = true
+
+  /* /index.html 200
