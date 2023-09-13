@@ -1,9 +1,6 @@
 [[redirects]]
-  from = "/*"
-  to = "/index.html"
+  from = "/proxy/*"
+  "https://fixed-jacenta-memoonoffice.koyeb.app/:splat"
   status = 200
+  force = true
 
-[[headers]]
-  for = "/*"
-    [headers.values]
-    Access-Control-Allow-Origin = "*"
