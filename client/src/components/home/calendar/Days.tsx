@@ -7,10 +7,8 @@ import {
     DayDate,
 } from './style/calendar';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import {
-    curDateState,
-    selectDateState,
-} from '../../../recoil/atoms/calendarState';
+import { selectDateState } from '../../../recoil/atoms/calendarState';
+import { ColorState } from '../../../recoil/atoms/recordState';
 import {
     formatCurDataState,
     formatCurDay,
@@ -43,6 +41,7 @@ export default function Days(props: DayType) {
     const [modal, setModal] = useRecoilState(modalState);
     const isMobile = useMediaQuery({ maxWidth: 390 });
     const { data, isSuccess } = useGetReportQuery();
+    const [color, setColor] = useRecoilState(ColorState);
     let RecordData = data;
     let yearMonth = RecordData?.map((item) => item.datetime.split(' ')[0]);
     let recordColor = formatDate.curMonthDay.map((item, idex) => {

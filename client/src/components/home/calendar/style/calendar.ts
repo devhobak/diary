@@ -102,7 +102,8 @@ const DayDate = styled.div`
     height: 20px;
     background-color: white;
     border-radius: 50%;
-    padding: 4px;
+    line-height: 20px;
+    text-align: center;
 `;
 const StateDiv = styled.div`
     display: flex;
