@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { format } from 'date-fns';
 import { useMediaQuery } from 'react-responsive';
@@ -73,7 +73,7 @@ export default function Record(props: PropType): JSX.Element {
             <ModalBackground isClose={modal}>
                 <ModalSection
                     isClose={modal}
-                    color={`#${diaryArr[0].color}` ?? color}
+                    color={todayRecord ? `#${diaryArr[0].color}` : color}
                     view={isMobile}
                 >
                     <h2 className="ir">일상기록</h2>
