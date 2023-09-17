@@ -141,6 +141,7 @@ export default function Edit(props: PropsType) {
                         find="confirm"
                         type="submit"
                         onClick={ModalClose}
+                        disabled={loading ? true : false}
                     >
                         완료
                     </RecordButton>

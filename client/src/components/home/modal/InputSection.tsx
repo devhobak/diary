@@ -106,7 +106,12 @@ export default function InputSection() {
                     </>
                 )}
 
-                <RecordButton find="confirm" onClick={ModalClose} type="submit">
+                <RecordButton
+                    find="confirm"
+                    onClick={ModalClose}
+                    type="submit"
+                    disabled={loading ? true : false}
+                >
                     완료
                 </RecordButton>
             </RecordForm>

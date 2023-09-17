@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 interface ProsType {
+    disabled: boolean;
     find: string;
 }
 const RecordInputSection = styled.section`
@@ -86,7 +87,8 @@ const RecordButton = styled.button<ProsType>`
     height: 70px;
     border-radius: 6px;
     border: 0;
-    background: ${(props) => (props.find === 'submit' ? '#F9C00C' : '#ffff')};
+    background: #ffff;
+    opacity: ${(props) => (props.disabled ? 0.7 : 1)};
     color: ${(props) => (props.find === 'submit' ? '#FFFF' : '#F9C00C')};
 `;
 const Filep = styled.p`
