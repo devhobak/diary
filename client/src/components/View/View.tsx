@@ -66,7 +66,7 @@ export default function View() {
                     <></>
                 )}
                 {data?.totalCount ? (
-                    <ViewPageNation>
+                    <ViewPageNation page={PageArr.length + 1}>
                         <PrevButton onClick={PrevHandler} child={page}>
                             Prev
                         </PrevButton>

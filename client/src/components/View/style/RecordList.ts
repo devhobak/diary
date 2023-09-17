@@ -16,6 +16,9 @@ interface TextType {
 interface ContentType {
     isLongContent: boolean;
 }
+interface PageCountType {
+    page: number;
+}
 
 const ViewSection = styled.section<ViewType>`
     width: ${(props) => (props.view ? '90%' : '100%')};
@@ -114,12 +117,12 @@ const MoreButton = styled.button<ContentType>`
     margin-left: 80%;
 `;
 
-const ViewPageNation = styled.div`
-    width: 70%;
+const ViewPageNation = styled.div<PageCountType>`
+    width: 60%;
+    height: 30px;
     display: flex;
     gap: 3px;
-    padding: 10px;
-    margin: 0 auto;
+    margin: 20px auto;
 `;
 
 const Page = styled.div<ChildType>`
@@ -128,8 +131,9 @@ const Page = styled.div<ChildType>`
     border: 1px solid ${({ theme }) => theme.color.inputBoxColor};
     border-radius: 50%;
     font-size: 1.5rem;
-    padding-top: 5px;
     margin: 0 auto;
+    line-height: 30px;
+    text-align: center;
     cursor: pointer;
     &:hover {
         background-color: ${({ theme }) => theme.color.inputBoxColor};
