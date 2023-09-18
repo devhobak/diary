@@ -50,6 +50,8 @@ const ModalSection = styled.section<CloseType>`
    border: 1px solid ${props => props.color};
 `;
 const CloseButton = styled.img`
+   width: 20px;
+   height: 20px;
    position: absolute;
    top: 22px;
    right: 32px;
