@@ -7,12 +7,13 @@ export default function s3upload(imageFile: File) {
         accessKeyId: process.env.REACT_APP_ACCESS,
         secretAccessKey: process.env.REACT_APP_SECRET,
     };
-    console.log(config);
+
     AWS.config.update({
         region: config.region,
         accessKeyId: config.accessKeyId,
         secretAccessKey: config.secretAccessKey,
     });
+
     const s3_params = {
         ACL: 'public-read',
         Bucket: config.bucketName,
@@ -28,7 +29,7 @@ export default function s3upload(imageFile: File) {
                 return data.Location;
             })
             .catch((err) => {
-                console.log(err);
+                return err;
             });
     };
 

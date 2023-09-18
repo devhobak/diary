@@ -29,7 +29,6 @@ export default function InputSection() {
 
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile, setLoading);
-        console.log(files);
     }, [files]);
 
     useEffect(() => {

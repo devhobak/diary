@@ -35,7 +35,6 @@ interface PropsType {
 }
 //id 와 데이터 전달
 export default function Edit(props: PropsType) {
-    console.log(props.data);
     let dropSection = useRef<HTMLLabelElement>(null);
     let [files, setFiles] = useState<string | null | ArrayBuffer>();
     let [color, setColor] = useRecoilState(ColorState);
@@ -44,15 +43,12 @@ export default function Edit(props: PropsType) {
     let [loading, setLoading] = useState(false);
     useEffect(() => {
         drop(dropSection.current, setFiles, setFile, setLoading);
-        console.log(files);
-        //setDisplayImage(String(files));
     }, [files]);
-    console.log(files);
+
     useEffect(() => {
         if (props.data[0].content_image) {
             setDisplayImage(props.data[0].content_image);
         }
-        console.log(dispalyImage);
     }, []);
     const { onSubmit, setFile } = useEditRecord(
         props.data[0].id,
@@ -62,7 +58,6 @@ export default function Edit(props: PropsType) {
     const ModalClose = () => {};
     const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setColor(e.target.value);
-        console.log(color);
     };
     const DeletImage = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
         DeleteFile(e, setFiles);

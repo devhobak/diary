@@ -16,7 +16,6 @@ interface LoginType<R> {
 }
 
 const LoginCheck = async ({ ...data }: SignUpType, url: string) => {
-    console.log({ ...data });
     try {
         let res = await Api.post<LoginType<Response>>(url, {
             username: data.username,

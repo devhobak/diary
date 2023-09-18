@@ -21,20 +21,15 @@ export default function useRecord() {
         const user_id = Number(localStorage.getItem('User'));
         const datetime = curDate;
         const formData = new FormData(e.currentTarget);
-        console.log(file);
         if (file instanceof File) {
             let { uploadFile } = s3upload(file);
             let url = await uploadFile();
             await formData.append('content_image', url);
-            console.log(url);
         }
         const data = Object.fromEntries(formData);
         const { content_title, content_main, content_image, content_color } =
             data;
         const color = String(content_color).split('#')[1];
-        console.log(content_image);
-        console.log(data, curDate);
-        console.log(color);
 
         if (content_title && content_main) {
             //post 호출

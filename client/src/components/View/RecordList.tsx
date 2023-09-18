@@ -42,8 +42,6 @@ export default function RecrodList(props: ProsType) {
 
     const MoreButtonHandler = (index: number) => {
         setMoreButton(index + 1);
-        console.log(index);
-        console.log(moreButton);
     };
 
     const getContentLen = () => {
@@ -51,7 +49,6 @@ export default function RecrodList(props: ProsType) {
             (item) => item.content_main.indexOf('\n') > 0
         );
         setLongContent([...longContents]);
-        console.log(longContent);
     };
 
     useEffect(() => {

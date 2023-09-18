@@ -12,8 +12,6 @@ export default function Write() {
     let today = useRecoilValue(formatCurDay);
     const isMobile = useMediaQuery({ maxWidth: 980 });
     const id = Number(localStorage.getItem('User'));
-    let navigate = useNavigate();
-    console.log(id);
     const { data } = useQuery(
         ['record', today],
         () => getTodayRecord(today, id),
@@ -22,19 +20,13 @@ export default function Write() {
             cacheTime: Infinity,
             select: (record) => record.log,
             refetchOnWindowFocus: false,
-            onSuccess(data) {
-                console.log(data);
-            },
-            onError(err) {
-                console.log(err);
-            },
         }
     );
     let todayRecord;
     if (data) {
         todayRecord = data?.length > 0 ? true : false;
     }
-    console.log(todayRecord);
+
     return (
         <ViewLayout>
             <WriteSection view={isMobile}>

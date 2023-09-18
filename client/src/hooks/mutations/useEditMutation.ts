@@ -17,7 +17,6 @@ export default function useEditMutation(key: string, id: number) {
         (variable: EditDataType) => EditPatch(variable, id),
         {
             onSuccess(data) {
-                console.log(data);
                 queryClient.invalidateQueries(['record'], {
                     refetchInactive: true,
                 });
