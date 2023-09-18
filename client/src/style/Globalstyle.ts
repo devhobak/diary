@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 
 const GlobalStyle = createGlobalStyle`
 html, body, div, span, applet, object, iframe,
@@ -114,7 +114,7 @@ body{
     visibility:hidden;
     width: 230px;
     height: 50px;
-    background-color: ${(props) => props.theme.color.backgroundColor};
+    background-color: ${props => props.theme.color.backgroundColor};
     text-align: center;
     border-radius: 16px;
     padding: 5px 0;
@@ -135,8 +135,7 @@ body{
     margin-top: -5px;
     border-width: 6px;
     border-style: solid;
-    border-color: transparent  ${(props) =>
-        props.theme.color.backgroundColor} transparent transparent;
+    border-color: transparent  ${props => props.theme.color.backgroundColor} transparent transparent;
  
 }
 

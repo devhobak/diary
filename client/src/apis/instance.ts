@@ -1,33 +1,31 @@
-import axios from 'axios';
-import { toast } from 'react-toastify';
+import axios from "axios";
+import { toast } from "react-toastify";
 const Api = axios.create({
-    baseURL: 'https://fixed-jacenta-memoonoffice.koyeb.app/',
-    headers: { 'Content-Type': 'application/json' },
+   baseURL: "http://localhost:4000",
+   headers: { "Content-Type": "application/json" },
 });
 const authApi = axios.create({
-    baseURL: 'https://fixed-jacenta-memoonoffice.koyeb.app/',
-    headers: { 'Content-Type': 'application/json' },
+   baseURL: "http://localhost:4000",
+   headers: { "Content-Type": "application/json" },
 });
-authApi.interceptors.request.use((config) => {
-    try {
-        let token = localStorage.getItem('token') || '';
-        if (token) {
-            config.headers['Content-Type'] = 'application/json';
-            config.headers['x-access-token'] = token;
-        }
-        //config.headers['Authorization'] = ' 토큰 값';
-        //config.data.params = 'id';
-    } catch (error) {
-        return Promise.reject(error);
-    }
+authApi.interceptors.request.use(config => {
+   try {
+      let token = localStorage.getItem("token") || "";
+      if (token) {
+         config.headers["Content-Type"] = "application/json";
+         config.headers["x-access-token"] = token;
+      }
+   } catch (error) {
+      return Promise.reject(error);
+   }
 
-    return config;
+   return config;
 });
-authApi.interceptors.response.use((response) => {
-    try {
-        return response;
-    } catch (err) {
-        return Promise.reject(err);
-    }
+authApi.interceptors.response.use(response => {
+   try {
+      return response;
+   } catch (err) {
+      return Promise.reject(err);
+   }
 });
 export { Api, authApi };
