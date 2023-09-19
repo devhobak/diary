@@ -2,6 +2,7 @@
   from = "/proxy/*"
   to = "https://fixed-jacenta-memoonoffice.koyeb.app/:splat"
   status = 200
+  headers = { Access-Control-Allow-Origin = “*”}
 
 [[redirects]]
   from = "/*"
