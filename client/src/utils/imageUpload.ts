@@ -1,30 +1,15 @@
-import imageCompression from "browser-image-compression";
-import heic2any from "heic2any";
+import s3upload from "./s3upload";
+import { reSizing } from "./reSizing";
+import { heictoany } from "./heictoany";
+import { toast } from "react-toastify";
+import s3Delete from "./s3Delete";
 //영역에 파일이 drop됐을때
-const heictoany = async (file: File) => {
-   let changefile = file;
-   await heic2any({ blob: file, toType: "image/webp" }).then((resultBlob: any) => {
-      changefile = new File([resultBlob], file.name.split(".")[0] + ".webp", {
-         type: "image/webp",
-         lastModified: new Date().getTime(),
-      });
-   });
-   return changefile;
-};
-const reSizing = async (file: File) => {
-   let options = {
-      maxSizeMB: 1,
-   };
-   let resizingImg = await imageCompression(file, options);
-   let FileResizing = new File([resizingImg], file.name, { type: file.type });
-
-   return FileResizing;
-};
 let reader = new FileReader();
+
 const drop = async (
    el: HTMLLabelElement | null,
    setFiles: React.Dispatch<React.SetStateAction<string | undefined | null | ArrayBuffer>>,
-   setS3file: React.Dispatch<React.SetStateAction<File | undefined>>,
+   setS3file: React.Dispatch<React.SetStateAction<string>>,
    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
    let files: FileList[] = [];
@@ -44,11 +29,16 @@ const drop = async (
             if (data[0].type === "image/heic" || data[0].type === "image/HEIC") {
                let heic2webp = await heictoany(data[0]);
                reader.readAsDataURL(await reSizing(heic2webp));
-               setS3file(await reSizing(heic2webp));
+               let { uploadFile } = s3upload(await reSizing(data[0]));
+               let url = await uploadFile();
+               setS3file(url);
             } else {
                reader.readAsDataURL(await reSizing(data[0]));
-               setS3file(await reSizing(data[0]));
+               let { uploadFile } = s3upload(await reSizing(data[0]));
+               let url = await uploadFile();
+               setS3file(url);
             }
+
             files = [...files, data];
          }
          reader.addEventListener("load", () => {
@@ -85,7 +75,7 @@ const onDragLeave = (e: DragEvent, el: HTMLLabelElement | null): void => {
 const SelectFile = async (
    e: React.ChangeEvent<HTMLInputElement>,
    setFiles: React.Dispatch<React.SetStateAction<string | undefined | null | ArrayBuffer>>,
-   setS3file: React.Dispatch<React.SetStateAction<File | undefined>>,
+   setS3file: React.Dispatch<React.SetStateAction<string>>,
    setLoading: React.Dispatch<React.SetStateAction<boolean>>,
 ) => {
    setLoading(true);
@@ -102,18 +92,27 @@ const SelectFile = async (
          let heic2webp = await heictoany(image[0]);
          let reSizingHeic = await reSizing(heic2webp);
          reader.readAsDataURL(reSizingHeic);
-         setS3file(reSizingHeic);
+         //setS3file(reSizingHeic);
+
+         let { uploadFile } = s3upload(await reSizing(image[0]));
+         let url = await uploadFile();
+         setS3file(url);
       } else {
          reader.readAsDataURL(await reSizing(image[0]));
-         setS3file(await reSizing(image[0]));
+         let { uploadFile } = s3upload(await reSizing(image[0]));
+         let url = await uploadFile();
+         setS3file(url);
       }
    }
 };
-const DeleteFile = (
+const DeleteFile = async (
    e: React.MouseEvent<HTMLImageElement, MouseEvent>,
    setFiles: React.Dispatch<React.SetStateAction<string | undefined | null | ArrayBuffer>>,
+   s3File: string,
 ) => {
    setFiles(null);
    e.preventDefault();
+   await s3Delete(s3File);
+   await toast.success("이미지를 취소했습니다");
 };
 export { SelectFile, onDragOver, drop, DeleteFile };

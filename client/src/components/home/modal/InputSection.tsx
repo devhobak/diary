@@ -15,24 +15,25 @@ import {
    ColorInput,
 } from "./style/inputSection";
 import deleteImg from "../../../assets/close.png";
-import { SelectFile, drop, DeleteFile } from "../../../utils/draganddrop";
+import { SelectFile, drop, DeleteFile } from "../../../utils/imageUpload";
 import { useRecoilState } from "recoil";
 import useRecord from "../../../hooks/useRecord";
 import { ColorState } from "../../../recoil/atoms/recordState";
 import LoadingImage from "../../common/InputSection/LoadingImage";
+import { loadingState } from "../../../recoil/atoms/loadingState";
 
 export default function InputSection() {
    let dropSection = useRef<HTMLLabelElement>(null);
    let [files, setFiles] = useState<string | null | ArrayBuffer>();
    const [color, setColor] = useRecoilState(ColorState);
    let [loading, setLoading] = useState(false);
+   let [s3file, sets3File] = useState<string>("");
+   //let [loading, setLoading] = useRecoilState(loadingState);
    useEffect(() => {
-      drop(dropSection.current, setFiles, setFile, setLoading);
+      drop(dropSection.current, setFiles, sets3File, setLoading);
    }, [files]);
-   let { onSubmit, setFile } = useRecord();
-   const ModalClose = () => {
-      //토스트 창뜨고,
-   };
+   let { onSubmit } = useRecord(s3file);
+
    const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
       setColor(e.target.value);
    };
@@ -60,7 +61,7 @@ export default function InputSection() {
                <ImgLabel ref={dropSection}>
                   <FileContainer>
                      <FileImg src={files} alt="이미지" />
-                     <FileDelete src={deleteImg} alt="사진삭제" onClick={e => DeleteFile(e, setFiles)} />
+                     <FileDelete src={deleteImg} alt="사진삭제" onClick={e => DeleteFile(e, setFiles, s3file)} />
                   </FileContainer>
                </ImgLabel>
             ) : (
@@ -72,14 +73,14 @@ export default function InputSection() {
                         <input
                            type="file"
                            className="visually-hidden"
-                           onChange={e => SelectFile(e, setFiles, setFile, setLoading)}></input>
+                           onChange={e => SelectFile(e, setFiles, sets3File, setLoading)}></input>
                         <Filep>Drop your file here to upload or select from storage</Filep>
                      </FileLabel>
                   )}
                </>
             )}
 
-            <RecordButton find="confirm" onClick={ModalClose} type="submit" disabled={loading ? true : false}>
+            <RecordButton find="confirm" type="submit" disabled={loading ? true : false}>
                완료
             </RecordButton>
          </RecordForm>

@@ -1,38 +1,5 @@
 import AWS from "aws-sdk";
-import {
-   ListBucketsCommand,
-   PutBucketCorsCommand,
-   PutObjectCommand,
-   PutObjectCommandOutput,
-   S3Client,
-} from "@aws-sdk/client-s3";
-import { fileURLToPath } from "url";
-
-const client = new S3Client({});
-
-export const main = async () => {
-   const command = new PutBucketCorsCommand({
-      Bucket: process.env.REACT_APP_BUCKET_NAME,
-      CORSConfiguration: {
-         CORSRules: [
-            {
-               AllowedHeaders: ["*"],
-               AllowedMethods: ["GET", "PUT", "POST", "DELETE"],
-               AllowedOrigins: ["*"],
-               ExposeHeaders: ["ETag"],
-               MaxAgeSeconds: 3600,
-            },
-         ],
-      },
-   });
-
-   try {
-      const response = await client.send(command);
-      console.log(response);
-   } catch (err) {
-      console.error(err);
-   }
-};
+import { toast } from "react-toastify";
 
 export default function s3upload(imageFile: File) {
    const config = {
@@ -55,33 +22,19 @@ export default function s3upload(imageFile: File) {
       Body: imageFile,
    };
 
-   //    const uploadFile = (): AWS.S3.ManagedUpload.SendData | any => {
-   //       let clientS3 = new AWS.S3.ManagedUpload({ params: s3_params });
-   //       return clientS3
-   //          .promise()
-   //          .then(data => {
-   //             return data.Location;
-   //          })
-   //          .catch(err => {
-   //             return err;
-   //          });
-   //    };
-   const uploadFile = async (): Promise<any> => {
-      const command = new PutObjectCommand({
-         Bucket: config.bucketName,
-         Key: `upload/${imageFile.name}`,
-         Body: imageFile,
-      });
-      try {
-         const response = await client.send(command);
-         return response;
-      } catch (err) {
-         console.error(err);
-      }
+   const uploadFile = (): AWS.S3.ManagedUpload.SendData | any => {
+      let clientS3 = new AWS.S3.ManagedUpload({ params: s3_params });
+      return clientS3
+         .promise()
+         .then(data => {
+            toast.success("이미지 업로드 완료!");
+            return data.Location;
+         })
+         .catch(err => {
+            toast.error("이미지 업로드에 오류가 발생했습니다. 관리자에게 문의부탁드립니다.");
+            return err;
+         });
    };
-   if (process.argv[1] === fileURLToPath(import.meta.url)) {
-      main();
-   }
 
    return { uploadFile };
 }

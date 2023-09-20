@@ -3,7 +3,7 @@ import useEditMutation from "./mutations/useEditMutation";
 import s3upload from "../utils/s3upload";
 import s3Delete from "../utils/s3Delete";
 import { toast } from "react-toastify";
-export default function useEditRecord(id: number, displayImage: string, deletImage?: string) {
+export default function useEditRecord(id: number, displayImage: string, s3File: string, deletImage?: string) {
    const [file, setFile] = useState<File>();
    const { mutate } = useEditMutation("edit", id);
    const onSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -14,13 +14,15 @@ export default function useEditRecord(id: number, displayImage: string, deletIma
       if (file instanceof File) {
          let { uploadFile } = s3upload(file);
          let url = await uploadFile();
-         await formData.append("content_image", url);
+         await formData.append("content_image", s3File);
       } else {
          if (displayImage !== "null") {
             formData.append("content_image", displayImage);
          }
       }
+      formData.append("content_image", s3File);
       const data = Object.fromEntries(formData);
+      console.log(data);
       const { content_title, content_main, content_image, content_color } = data;
       color = String(content_color).split("#")[1];
       //처음 글이없는 상태에서 수정하면 이미지가 출력

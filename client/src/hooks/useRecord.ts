@@ -5,9 +5,9 @@ import { formatCurDay } from "../recoil/selectors/date";
 import { curDateState } from "../recoil/atoms/calendarState";
 import s3upload from "../utils/s3upload";
 import { toast } from "react-toastify";
-export default function useRecord() {
+export default function useRecord(s3file: string) {
    let setDate = useSetRecoilState(curDateState);
-   let [file, setFile] = useState<File>();
+   // let [file, setFile] = useState<File>();
    let [type, setType] = useState("");
    useEffect(() => {
       setDate(new Date());
@@ -21,12 +21,13 @@ export default function useRecord() {
       const user_id = Number(localStorage.getItem("User"));
       const datetime = curDate;
       const formData = new FormData(e.currentTarget);
-      if (file instanceof File) {
-         let { uploadFile } = s3upload(file);
-         let url = await uploadFile();
-         await formData.append("content_image", url);
-      }
+      //   if (file instanceof File) {
+      //      let { uploadFile } = s3upload(file);
+      //      let url = await uploadFile();
+      //      await formData.append("content_image", url);
+      //   }
       const data = Object.fromEntries(formData);
+
       const { content_title, content_main, content_image, content_color } = data;
       const color = String(content_color).split("#")[1];
 
@@ -44,5 +45,5 @@ export default function useRecord() {
          toast.error("글이나 제목을 작성해주세요");
       }
    };
-   return { onSubmit, file, setFile, type };
+   return { onSubmit, type };
 }

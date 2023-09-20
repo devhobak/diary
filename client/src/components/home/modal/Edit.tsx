@@ -15,7 +15,7 @@ import {
    ColorInput,
 } from "./style/inputSection";
 import deleteImg from "../../../assets/close.png";
-import { SelectFile, drop, DeleteFile } from "../../../utils/draganddrop";
+import { SelectFile, drop, DeleteFile } from "../../../utils/imageUpload";
 import { useRecoilState } from "recoil";
 import { ColorState } from "../../../recoil/atoms/recordState";
 import useEditRecord from "../../../hooks/useEditRecord";
@@ -36,13 +36,14 @@ interface PropsType {
 //id 와 데이터 전달
 export default function Edit(props: PropsType) {
    let dropSection = useRef<HTMLLabelElement>(null);
+   let [s3file, sets3File] = useState<string>("");
    let [files, setFiles] = useState<string | null | ArrayBuffer>();
    let [color, setColor] = useRecoilState(ColorState);
    let [image, setImage] = useState<string>();
    let [dispalyImage, setDisplayImage] = useState<string>("");
    let [loading, setLoading] = useState(false);
    useEffect(() => {
-      drop(dropSection.current, setFiles, setFile, setLoading);
+      drop(dropSection.current, setFiles, sets3File, setLoading);
    }, [files]);
 
    useEffect(() => {
@@ -50,13 +51,15 @@ export default function Edit(props: PropsType) {
          setDisplayImage(props.data[0].content_image);
       }
    }, []);
-   const { onSubmit, setFile } = useEditRecord(props.data[0].id, dispalyImage, image);
+   const { onSubmit, setFile } = useEditRecord(props.data[0].id, dispalyImage, s3file, image);
    const ModalClose = () => {};
    const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
       setColor(e.target.value);
    };
    const DeletImage = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
-      DeleteFile(e, setFiles);
+      if (s3file) {
+         DeleteFile(e, setFiles, s3file);
+      }
       setImage(props.data[0].content_image);
       setDisplayImage("");
    };
@@ -97,7 +100,7 @@ export default function Edit(props: PropsType) {
                            <input
                               type="file"
                               className="visually-hidden"
-                              onChange={e => SelectFile(e, setFiles, setFile, setLoading)}></input>
+                              onChange={e => SelectFile(e, setFiles, sets3File, setLoading)}></input>
                            <Filep>Drop your file here to upload or select from storage</Filep>
                         </FileLabel>
                      )}
