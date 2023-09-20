@@ -1,18 +1,4 @@
 [[redirects]]
-  from = "/proxy/*"
-  to = "https://fixed-jacenta-memoonoffice.koyeb.app/:splat"
-  status = 200
-  force = true
-
-[[redirects]]
-  from = "https://daily-diary-happy.netlify.app/:splat"
-  to = "https://diaryimghj.s3.ap-northeast-2.amazonaws.com/upload/:splat"
-  status = 200
-  force = true
-  headers = {  Access-Control-Allow-Origin = "*"}
-
-
-[[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
