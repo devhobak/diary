@@ -30,14 +30,14 @@ const drop = async (
                let heic2webp = await heictoany(data[0]);
                let { uploadFile } = s3upload(await reSizing(heic2webp));
                let url = await uploadFile();
-               if (url !== "") {
+               if (url === Error) {
                   reader.readAsDataURL(await reSizing(heic2webp));
                }
                setS3file(url);
             } else {
                let { uploadFile } = s3upload(await reSizing(data[0]));
                let url = await uploadFile();
-               if (url !== "") {
+               if (url === Error) {
                   reader.readAsDataURL(await reSizing(data[0]));
                }
                setS3file(url);
@@ -97,14 +97,16 @@ const SelectFile = async (
          let reSizingHeic = await reSizing(heic2webp);
          let { uploadFile } = s3upload(await reSizing(heic2webp));
          let url = await uploadFile();
-         if (url !== " ") {
+         if (url === Error) {
             reader.readAsDataURL(reSizingHeic);
          }
          setS3file(url);
       } else {
-         reader.readAsDataURL(await reSizing(image[0]));
          let { uploadFile } = s3upload(await reSizing(image[0]));
          let url = await uploadFile();
+         if (url === Error) {
+            reader.readAsDataURL(await reSizing(image[0]));
+         }
          setS3file(url);
       }
    }
