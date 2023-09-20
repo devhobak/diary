@@ -5,7 +5,7 @@
   force = true
 
 [[redirects]]
-  from = "/api/*"
+  from = "/proxy/*"
   to = "https://s3.amazonaws.com/%27diaryimghj%27/upload/:splat"
   status = 200
   force = true
