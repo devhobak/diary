@@ -6,7 +6,7 @@
 
 [[redirects]]
   from = "https://daily-diary-happy.netlify.app/:splat"
-  to = "http://diaryimghj.s3-website.ap-northeast-2.amazonaws.com/:splat"
+  to = "https://s3.amazonaws.com/%27diaryimghj%27/upload/:splat"
   status = 200
   force = true
   headers = {  Access-Control-Allow-Origin = "*"}
