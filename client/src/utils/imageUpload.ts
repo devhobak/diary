@@ -28,14 +28,18 @@ const drop = async (
             }
             if (data[0].type === "image/heic" || data[0].type === "image/HEIC") {
                let heic2webp = await heictoany(data[0]);
-               reader.readAsDataURL(await reSizing(heic2webp));
-               let { uploadFile } = s3upload(await reSizing(data[0]));
+               let { uploadFile } = s3upload(await reSizing(heic2webp));
                let url = await uploadFile();
+               if (url !== "") {
+                  reader.readAsDataURL(await reSizing(heic2webp));
+               }
                setS3file(url);
             } else {
-               reader.readAsDataURL(await reSizing(data[0]));
                let { uploadFile } = s3upload(await reSizing(data[0]));
                let url = await uploadFile();
+               if (url !== "") {
+                  reader.readAsDataURL(await reSizing(data[0]));
+               }
                setS3file(url);
             }
 
@@ -91,11 +95,11 @@ const SelectFile = async (
       if (image[0].type === "image/heic" || image[0].type === "image/HEIC") {
          let heic2webp = await heictoany(image[0]);
          let reSizingHeic = await reSizing(heic2webp);
-         reader.readAsDataURL(reSizingHeic);
-         //setS3file(reSizingHeic);
-
-         let { uploadFile } = s3upload(await reSizing(image[0]));
+         let { uploadFile } = s3upload(await reSizing(heic2webp));
          let url = await uploadFile();
+         if (url !== " ") {
+            reader.readAsDataURL(reSizingHeic);
+         }
          setS3file(url);
       } else {
          reader.readAsDataURL(await reSizing(image[0]));

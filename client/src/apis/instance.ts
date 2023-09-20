@@ -1,11 +1,11 @@
 import axios from "axios";
 import { toast } from "react-toastify";
 const Api = axios.create({
-   baseURL: "https://fixed-jacenta-memoonoffice.koyeb.app/",
+   baseURL: "http://localhost:4000/",
    headers: { "Content-Type": "application/json" },
 });
 const authApi = axios.create({
-   baseURL: "https://fixed-jacenta-memoonoffice.koyeb.app/",
+   baseURL: "http://localhost:4000/",
    headers: { "Content-Type": "application/json" },
 });
 authApi.interceptors.request.use(config => {
