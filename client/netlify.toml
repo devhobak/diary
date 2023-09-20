@@ -6,10 +6,10 @@
 
 [[redirects]]
   from = "/proxy/*"
-  to = "http://diaryimghj.s3-website.ap-northeast-2.amazonaws.com/:splat"
+  to = "https://s3.amazonaws.com/%27diaryimghj%27/upload/:splat"
   status = 200
   force = true
-  headers = {X-From = "Netlify"}
+  headers = {  Access-Control-Allow-Origin = "*"}
 
 
 [[redirects]]
