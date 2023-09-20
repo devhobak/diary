@@ -6,7 +6,7 @@ const Api = axios.create({
 });
 const authApi = axios.create({
    baseURL: "https://fixed-jacenta-memoonoffice.koyeb.app/",
-   headers: { "Content-Type": "application/json", "Access-Control-Allow-Origin": "*" },
+   headers: { "Content-Type": "application/json" },
 });
 authApi.interceptors.request.use(config => {
    try {
