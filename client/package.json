@@ -41,6 +41,7 @@
       "test": "react-scripts test",
       "eject": "react-scripts eject"
    },
+   "homepage": "https://daily-diary-happy.netlify.app",
    "eslintConfig": {
       "extends": [
          "react-app",
