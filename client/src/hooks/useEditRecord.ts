@@ -22,7 +22,7 @@ export default function useEditRecord(id: number, displayImage: string, s3File: 
       }
       formData.append("content_image", s3File);
       const data = Object.fromEntries(formData);
-      console.log(data);
+
       const { content_title, content_main, content_image, content_color } = data;
       color = String(content_color).split("#")[1];
       //처음 글이없는 상태에서 수정하면 이미지가 출력
