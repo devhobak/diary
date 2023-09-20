@@ -12,8 +12,8 @@ export default function useEditRecord(id: number, displayImage: string, s3File: 
       let color: string;
 
       if (file instanceof File) {
-         let { uploadFile } = s3upload(file);
-         let url = await uploadFile();
+         //  let { uploadFile } = s3upload(file);
+         //  let url = await uploadFile();
          await formData.append("content_image", s3File);
       } else {
          if (displayImage !== "null") {

@@ -87,7 +87,7 @@ export default function Edit(props: PropsType) {
                {dispalyImage || files ? (
                   <ImgLabel ref={dropSection}>
                      <FileContainer>
-                        <FileImg src={dispalyImage || String(files)} alt="업로드한 이미지" />
+                        <FileImg src={dispalyImage || String(s3file)} alt="업로드한 이미지" />
                         <FileDelete src={deleteImg} alt="사진삭제" onClick={e => DeletImage(e)} />
                      </FileContainer>
                   </ImgLabel>

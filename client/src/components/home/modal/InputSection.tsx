@@ -60,7 +60,7 @@ export default function InputSection() {
             {typeof files === "string" ? (
                <ImgLabel ref={dropSection}>
                   <FileContainer>
-                     <FileImg src={files} alt="이미지" />
+                     <FileImg src={s3file} alt="이미지" />
                      <FileDelete src={deleteImg} alt="사진삭제" onClick={e => DeleteFile(e, setFiles, s3file)} />
                   </FileContainer>
                </ImgLabel>

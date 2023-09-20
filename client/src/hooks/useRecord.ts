@@ -3,9 +3,8 @@ import useRecordMutation from "./mutations/useRecordMutation";
 import { useRecoilValue, useSetRecoilState } from "recoil";
 import { formatCurDay } from "../recoil/selectors/date";
 import { curDateState } from "../recoil/atoms/calendarState";
-import s3upload from "../utils/s3upload";
 import { toast } from "react-toastify";
-export default function useRecord(s3file: string) {
+export default function useRecord(s3File: string) {
    let setDate = useSetRecoilState(curDateState);
    // let [file, setFile] = useState<File>();
    let [type, setType] = useState("");
@@ -26,6 +25,7 @@ export default function useRecord(s3file: string) {
       //      let url = await uploadFile();
       //      await formData.append("content_image", url);
       //   }
+      await formData.append("content_image", s3File);
       const data = Object.fromEntries(formData);
 
       const { content_title, content_main, content_image, content_color } = data;
