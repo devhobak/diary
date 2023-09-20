@@ -97,15 +97,18 @@ const SelectFile = async (
          let reSizingHeic = await reSizing(heic2webp);
          let { uploadFile } = s3upload(await reSizing(heic2webp));
          let url = await uploadFile();
-         if (url === Error) {
+         if (url !== Error) {
             reader.readAsDataURL(reSizingHeic);
+         } else if (url === Error) {
+            setLoading(false);
          }
          setS3file(url);
       } else {
          let { uploadFile } = s3upload(await reSizing(image[0]));
          let url = await uploadFile();
-         if (url === Error) {
+         if (url !== Error) {
             reader.readAsDataURL(await reSizing(image[0]));
+            setLoading(false);
          }
          setS3file(url);
       }
