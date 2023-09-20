@@ -5,7 +5,7 @@
   force = true
 
 [[redirects]]
-  from = "/api/*"
+  from = "https://daily-diary-happy.netlify.app/:splat"
   to = "http://diaryimghj.s3-website.ap-northeast-2.amazonaws.com/:splat"
   status = 200
   force = true
