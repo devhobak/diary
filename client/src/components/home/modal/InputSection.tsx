@@ -14,7 +14,7 @@ import {
     FileDelete,
     ColorInput,
 } from './style/inputSection';
-import deleteImg from '../../../assets/close.svg';
+import deleteImg from '../../../assets/close.png';
 import { SelectFile, drop, DeleteFile } from '../../../utils/imageUpload';
 import { useRecoilState } from 'recoil';
 import useRecord from '../../../hooks/useRecord';

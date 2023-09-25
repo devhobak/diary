@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import { drop, SelectFile, DeleteFile } from '../../utils/imageUpload';
 import { FileImg, FileDelete, Filep } from '../home/modal/style/inputSection';
-import deleteImg from '../../assets/close.svg';
+import deleteImg from '../../assets/close.png';
 import {
     WriteForm,
     WriteTitle,
