@@ -127,10 +127,23 @@ const MonthCalendar = styled.input<ViewType>`
     height: 20px;
     text-align: left;
     flex-basis: 100px;
+    font-size: ${(props) => (props.view ? '1rem' : '1.2rem')};
     &::before {
         content: attr(data-placeholder);
         width: 100%;
     }
+`;
+const MonthLabel = styled.label`
+    font-size: 1.2rem;
+    line-height: 20px;
+    width: 80px;
+`;
+const PassButton = styled.img`
+    width: 40px;
+    height: 40px;
+`;
+const CurDate = styled.p`
+    width: 20%;
 `;
 export {
     TopLayout,
@@ -144,5 +157,8 @@ export {
     StateRecord,
     StateDiv,
     MonthCalendar,
+    MonthLabel,
     DayDate,
+    CurDate,
+    PassButton,
 };
