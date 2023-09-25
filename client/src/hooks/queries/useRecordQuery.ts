@@ -45,7 +45,7 @@ export default function useGetReportQuery() {
                     );
                     localStorage.removeItem('UserId');
                     localStorage.removeItem('token');
-                    navigate('/login');
+                    navigate('/');
                 }
             },
         }
