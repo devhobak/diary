@@ -34,6 +34,7 @@ export default function useGetReportQuery() {
             select: (record) => record.log,
             refetchOnWindowFocus: true,
             staleTime: Infinity,
+            retry: 2,
             onError(err: AxiosError) {
                 if (
                     err.response?.status === 401 ||
@@ -44,7 +45,7 @@ export default function useGetReportQuery() {
                     );
                     localStorage.removeItem('UserId');
                     localStorage.removeItem('token');
-                    navigate('/login');
+                    navigate('/');
                 }
             },
         }
