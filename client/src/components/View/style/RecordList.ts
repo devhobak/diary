@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-interface ViewType {
-    view: boolean;
-}
+import { ViewType } from '../../../types/style';
 interface PropsType {
     color: string;
     view: boolean;
@@ -21,8 +19,8 @@ interface PageCountType {
 }
 
 const ViewSection = styled.section<ViewType>`
-    width: ${(props) => (props.view ? '90%' : '100%')};
-    height: ${(props) => (props.view ? '82vh' : '88vh')};
+    width: ${(props) => (props.mobile ? '90%' : '100%')};
+    height: ${(props) => (props.mobile ? '82vh' : '88vh')};
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     margin: 0px auto;
     text-align: center;
@@ -31,7 +29,7 @@ const ViewSection = styled.section<ViewType>`
 
 const ViewUl = styled.ul<ViewType>`
     width: 100%;
-    height: ${(props) => (props.view ? '87%' : '90%')};
+    height: ${(props) => (props.mobile ? '87%' : '90%')};
     overflow-y: scroll;
 `;
 
@@ -79,7 +77,7 @@ const ViewDate = styled.span`
 const ViewImg = styled.img<ViewType>`
     display: block;
     width: 100%;
-    height: ${(props) => (props.view ? '300px' : '500px')};
+    height: ${(props) => (props.mobile ? '300px' : '500px')};
     object-fit: contain;
 `;
 

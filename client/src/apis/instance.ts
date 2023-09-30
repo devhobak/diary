@@ -1,31 +1,34 @@
-import axios from "axios";
-import { toast } from "react-toastify";
-const Api = axios.create({
-   baseURL: "https://fixed-jacenta-memoonoffice.koyeb.app/",
-   headers: { "Content-Type": "application/json" },
-});
-const authApi = axios.create({
-   baseURL: "https://fixed-jacenta-memoonoffice.koyeb.app/",
-   headers: { "Content-Type": "application/json" },
-});
-authApi.interceptors.request.use(config => {
-   try {
-      let token = localStorage.getItem("token") || "";
-      if (token) {
-         config.headers["Content-Type"] = "application/json";
-         config.headers["x-access-token"] = token;
-      }
-   } catch (error) {
-      return Promise.reject(error);
-   }
+import axios from 'axios';
 
-   return config;
+const Api = axios.create({
+    baseURL: 'https://fixed-jacenta-memoonoffice.koyeb.app/',
+    headers: { 'Content-Type': 'application/json' },
 });
-authApi.interceptors.response.use(response => {
-   try {
-      return response;
-   } catch (err) {
-      return Promise.reject(err);
-   }
+
+const authApi = axios.create({
+    baseURL: 'https://fixed-jacenta-memoonoffice.koyeb.app/',
+    headers: { 'Content-Type': 'application/json' },
+});
+
+authApi.interceptors.request.use((config) => {
+    try {
+        let token = localStorage.getItem('token') || '';
+        if (token) {
+            config.headers['Content-Type'] = 'application/json';
+            config.headers['x-access-token'] = token;
+        }
+    } catch (error) {
+        return Promise.reject(error);
+    }
+
+    return config;
+});
+
+authApi.interceptors.response.use((response) => {
+    try {
+        return response;
+    } catch (err) {
+        return Promise.reject(err);
+    }
 });
 export { Api, authApi };

@@ -1,14 +1,13 @@
 import styled from 'styled-components';
-interface ViewType {
-    view: boolean;
-}
+import { ViewType } from '../../../types/style';
+
 const WriteSection = styled.section<ViewType>`
-    width: ${(props) => (props.view ? '90%' : '100%')};
-    height: ${(props) => (props.view ? '82vh' : '88vh')};
+    width: ${(props) => (props.mobile ? '90%' : '100%')};
+    height: ${(props) => (props.mobile ? '82vh' : '88vh')};
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     margin: 0 auto;
     text-align: center;
-    padding: ${(props) => (props.view ? '30px 10px' : '30px')};
+    padding: ${(props) => (props.mobile ? '30px 10px' : '30px')};
     overflow-y: scroll;
 `;
 
@@ -25,10 +24,10 @@ const WriteDiv = styled.div<ViewType>`
     display: flex;
     flex-direction: column;
     gap: 20px;
-    width: ${(props) => (props.view ? '100%' : '100%')};
+    width: ${(props) => (props.mobile ? '100%' : '100%')};
     height: 100%;
-    flex-direction: ${(props) => (props.view ? 'center' : '')};
-    align-items: ${(props) => (props.view ? 'center' : '')};
+    flex-direction: ${(props) => (props.mobile ? 'center' : '')};
+    align-items: ${(props) => (props.mobile ? 'center' : '')};
 `;
 const WriteForm = styled.form<ViewType>`
     width: 100%;
@@ -40,7 +39,7 @@ const WriteForm = styled.form<ViewType>`
 `;
 const FileLabel = styled.label<ViewType>`
     position: relative;
-    width: ${(props) => (props.view ? '100%' : '100%')};
+    width: ${(props) => (props.mobile ? '100%' : '100%')};
     border: 1px dashed #8b8687;
     border-radius: 12px;
     padding: 51px 111px;

@@ -1,9 +1,11 @@
 import { format } from 'date-fns';
 import { useRecoilState } from 'recoil';
 import { useMediaQuery } from 'react-responsive';
-import { CalendarLayout } from './style/calendar';
+
 import Days from './Days';
 import Month from './Month';
+
+import { CalendarLayout } from './style/calendar';
 import { curDateState } from '../../../recoil/atoms/calendarState';
 
 export default function Calendar() {
@@ -14,7 +16,7 @@ export default function Calendar() {
     const days = ['일', '월', '화', '수', '목', '금', '토'];
 
     return (
-        <CalendarLayout view={isMobile}>
+        <CalendarLayout mobile={isMobile}>
             <h2 className="ir">달력</h2>
             <Month curMonth={curMonth} curYear={curYear} />
             <Days days={days} />

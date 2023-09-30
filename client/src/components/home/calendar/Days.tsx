@@ -1,3 +1,17 @@
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { toast } from 'react-toastify';
+import { useMediaQuery } from 'react-responsive';
+
+import Record from '../modal/Record';
+
+import useGetReportQuery from '../../../hooks/queries/useRecordQuery';
+import { selectDateState } from '../../../recoil/atoms/calendarState';
+import {
+    formatCurDataState,
+    formatCurDay,
+} from '../../../recoil/selectors/date';
+import { modalState } from '../../../recoil/atoms/modalState';
+
 import {
     DayUI,
     DayLi,
@@ -6,31 +20,7 @@ import {
     DayOfUI,
     DayDate,
 } from './style/calendar';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { selectDateState } from '../../../recoil/atoms/calendarState';
-import { ColorState } from '../../../recoil/atoms/recordState';
-import {
-    formatCurDataState,
-    formatCurDay,
-} from '../../../recoil/selectors/date';
-import { modalState } from '../../../recoil/atoms/modalState';
-import { useMediaQuery } from 'react-responsive';
-import Record from '../modal/Record';
-import { toast } from 'react-toastify';
-import useGetReportQuery from '../../../hooks/queries/useRecordQuery';
-import { useEffect } from 'react';
-interface GetDataType {
-    id: number;
-    user_id: number;
-    datetime: string;
-    content_title: string;
-    content_main: string;
-    content_image: string;
-    color: string;
-}
-interface LogType {
-    log: GetDataType[];
-}
+
 interface DayType {
     days: string[];
 }
@@ -41,11 +31,11 @@ export default function Days(props: DayType) {
     const formatDate = useRecoilValue(formatCurDataState);
     const [modal, setModal] = useRecoilState(modalState);
     const isMobile = useMediaQuery({ maxWidth: 390 });
-
     const { data, isSuccess } = useGetReportQuery();
-    const [color, setColor] = useRecoilState(ColorState);
+
     let RecordData = data;
     let yearMonth = RecordData?.map((item) => item.datetime.split(' ')[0]);
+
     let recordColor = formatDate.curMonthDay.map((item, idex) => {
         if (yearMonth?.includes(item) && RecordData) {
             return `#${RecordData[yearMonth.indexOf(item)].color}`;
@@ -79,7 +69,7 @@ export default function Days(props: DayType) {
         <DaySection>
             <DayOfUI>
                 {props.days.map((item, idx) => (
-                    <DayOfLi key={idx} view={isMobile}>
+                    <DayOfLi key={idx}>
                         <p key={idx}>{item}</p>
                     </DayOfLi>
                 ))}
