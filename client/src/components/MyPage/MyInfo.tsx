@@ -69,7 +69,7 @@ export default function MyInfo() {
 
     return (
         <ViewLayout>
-            <RecordInfoSection isMobile={isMobile}>
+            <RecordInfoSection mobile={isMobile}>
                 <MyPageH2>마이페이지</MyPageH2>
                 <StatisticsNoticeArticle>
                     <h3 className="ir">일기 통계 보기</h3>

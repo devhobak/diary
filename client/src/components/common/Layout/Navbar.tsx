@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useState } from 'react';
 import logoImg from '../../../assets/logo.png';
 import calendarImg from '../../../assets/Category.png';
 import diaryImg from '../../../assets/Chat.png';
@@ -17,10 +17,10 @@ export default function Navbar() {
     let [position, setPosition] = useState(p);
     const isMobile = useMediaQuery({ maxWidth: 980 });
     return (
-        <NavLayout view={isMobile}>
+        <NavLayout mobile={isMobile}>
             {isMobile ? <></> : <LogoImg src={logoImg} alt="로고" />}
 
-            <NavList view={isMobile}>
+            <NavList mobile={isMobile}>
                 <NavLi
                     view={isMobile}
                     onClick={() => {

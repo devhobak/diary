@@ -45,7 +45,7 @@ export default function Manual(props: {
                 />
 
                 <Slider {...settings}>
-                    <ManualDiv isMobile={isMobile}>
+                    <ManualDiv mobile={isMobile}>
                         <ManualP>
                             오늘의 일상을 <br />
                             기록하세요!✨
@@ -53,7 +53,7 @@ export default function Manual(props: {
                         <ManualSubP>매일 한개의 글을 적을 수 있어요</ManualSubP>
                         <ManualImg src={manual1} alt="다이어리 메뉴얼 소개" />
                     </ManualDiv>
-                    <ManualDiv isMobile={isMobile}>
+                    <ManualDiv mobile={isMobile}>
                         <ManualP>
                             오늘하루는 <br />
                             어떤 색깔인가요?
@@ -63,7 +63,7 @@ export default function Manual(props: {
                             alt="다이어리 메뉴얼 소개 색깔"
                         />
                     </ManualDiv>
-                    <ManualDiv isMobile={isMobile}>
+                    <ManualDiv mobile={isMobile}>
                         <ManualP>
                             그래프로 한눈에 <br />알 수 있어요.
                         </ManualP>

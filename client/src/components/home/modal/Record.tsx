@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { format } from 'date-fns';
 import { useMediaQuery } from 'react-responsive';
@@ -23,19 +23,14 @@ import {
     Date,
     EditButton,
 } from '../../common/Modal/modal';
-interface GetDataType {
-    id: number;
-    user_id: number;
-    datetime: string;
-    content_title: string;
-    content_main: string;
-    content_image: string;
-    color: string;
-}
+
+import { GetRecordType } from '../../../types/serverDataType';
+
 interface PropType {
     idx?: number;
-    data: GetDataType[];
+    data: GetRecordType[];
 }
+
 export default function Record(props: PropType): JSX.Element {
     const curDate = useRecoilValue(curDateState);
     const fullDate = format(curDate, 'yyyy-MM-dd');
@@ -45,9 +40,9 @@ export default function Record(props: PropType): JSX.Element {
     const [color, setColor] = useRecoilState(ColorState);
     const isMobile = useMediaQuery({ maxWidth: 980 });
     let diary = props.data;
-    let diaryArr: GetDataType[] = [];
+    let diaryArr: GetRecordType[] = [];
 
-    diary?.map((item: GetDataType) => {
+    diary?.map((item: GetRecordType) => {
         if (item.datetime.split(' ')[0] === selectDay) {
             diaryArr.push(item);
         }

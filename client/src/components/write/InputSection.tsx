@@ -37,7 +37,7 @@ export default function InputSection() {
     }, []);
 
     return (
-        <WriteForm onSubmit={onSubmit} view={isMobile}>
+        <WriteForm onSubmit={onSubmit} mobile={isMobile}>
             <div className="tooltip">
                 <label htmlFor="color" className="ir">
                     색상 선택
@@ -54,7 +54,7 @@ export default function InputSection() {
             </div>
 
             {typeof files === 'string' ? (
-                <ImageLabel ref={dropSection} view={isMobile}>
+                <ImageLabel ref={dropSection} mobile={isMobile}>
                     <FileContainer>
                         <FileImg src={files} alt="이미지" />
                         <FileDelete
@@ -69,7 +69,7 @@ export default function InputSection() {
                     {loading ? (
                         <LoadingImage view="write" />
                     ) : (
-                        <FileLabel ref={dropSection} view={isMobile}>
+                        <FileLabel ref={dropSection} mobile={isMobile}>
                             <>
                                 <input
                                     type="file"
@@ -92,7 +92,7 @@ export default function InputSection() {
                     )}
                 </>
             )}
-            <WriteDiv view={isMobile}>
+            <WriteDiv mobile={isMobile}>
                 <WriteTitle
                     type="text"
                     name="content_title"

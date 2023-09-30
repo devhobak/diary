@@ -1,12 +1,13 @@
-import React from 'react';
 import styled from 'styled-components';
-import { LogOutButton } from './style/navbar';
+import { format } from 'date-fns';
+import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router';
 import { useQueryClient } from 'react-query';
 import { useRecoilValue } from 'recoil';
+
+import { LogOutButton } from './style/navbar';
 import { curDateState } from '../../../recoil/atoms/calendarState';
-import { format } from 'date-fns';
-import { toast } from 'react-toastify';
+
 const TopLayout = styled.section`
     width: 100%;
     height: 7vh;
@@ -35,7 +36,6 @@ export default function Top() {
     };
     return (
         <TopLayout>
-            <p style={{ fontSize: '1.8rem' }}></p>
             <LogOutButton onClick={Logout}>로그아웃</LogOutButton>
         </TopLayout>
     );

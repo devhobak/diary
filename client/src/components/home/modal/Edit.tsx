@@ -1,4 +1,14 @@
 import React, { useRef, useState, useEffect } from 'react';
+import { useRecoilState } from 'recoil';
+
+import { ColorState } from '../../../recoil/atoms/recordState';
+import { SelectFile, drop, DeleteFile } from '../../../utils/imageUpload';
+import useEditRecord from '../../../hooks/useEditRecord';
+import LoadingImage from '../../common/InputSection/LoadingImage';
+import deleteImg from '../../../assets/close.png';
+
+import { GetRecordType } from '../../../types/serverDataType';
+
 import {
     RecordInput,
     RecordInputSection,
@@ -14,24 +24,8 @@ import {
     FileDelete,
     ColorInput,
 } from './style/inputSection';
-import deleteImg from '../../../assets/close.png';
-import { SelectFile, drop, DeleteFile } from '../../../utils/imageUpload';
-import { useRecoilState } from 'recoil';
-import { ColorState } from '../../../recoil/atoms/recordState';
-import useEditRecord from '../../../hooks/useEditRecord';
-import LoadingImage from '../../common/InputSection/LoadingImage';
-interface GetDataType {
-    id: number;
-    user_id: number;
-    datetime: string;
-    content_title: string;
-    content_main: string;
-    content_image: string;
-    color: string;
-}
 interface PropsType {
-    data: GetDataType[];
-    //positionPost: number;
+    data: GetRecordType[];
 }
 //id 와 데이터 전달
 export default function Edit(props: PropsType) {
@@ -42,6 +36,7 @@ export default function Edit(props: PropsType) {
     let [image, setImage] = useState<string>();
     let [dispalyImage, setDisplayImage] = useState<string>('');
     let [loading, setLoading] = useState(false);
+
     useEffect(() => {
         drop(dropSection.current, setFiles, sets3File, setLoading);
     }, [files]);
@@ -51,16 +46,18 @@ export default function Edit(props: PropsType) {
             setDisplayImage(props.data[0].content_image);
         }
     }, []);
-    const { onSubmit, setFile } = useEditRecord(
+
+    const { onSubmit } = useEditRecord(
         props.data[0].id,
         dispalyImage,
         s3file,
         image
     );
-    const ModalClose = () => {};
+
     const handleColor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setColor(e.target.value);
     };
+
     const DeletImage = (e: React.MouseEvent<HTMLImageElement, MouseEvent>) => {
         if (s3file) {
             DeleteFile(e, setFiles, s3file);
@@ -139,7 +136,6 @@ export default function Edit(props: PropsType) {
                     <RecordButton
                         find="confirm"
                         type="submit"
-                        onClick={ModalClose}
                         disabled={loading ? true : false}
                     >
                         완료

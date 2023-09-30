@@ -42,7 +42,7 @@ export default function Month(props: MonthType) {
                 <MonthLabel htmlFor="date">날짜 선택</MonthLabel>
                 <MonthCalendar
                     id="date"
-                    view={isMobile}
+                    mobile={isMobile}
                     type="month"
                     data-placeholder={`${GetMonth.year}-${GetMonth.month}`}
                     onChange={(e) => {
