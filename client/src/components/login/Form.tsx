@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 export default function Form(): JSX.Element {
     let navigate = useNavigate();
-    let { handleSumit, error } = useForm();
+    let { handleSumit, error } = useForm('login');
 
     const [password, setPassword] = useState({ pw: true, rePw: true });
     const ChangePwType = (): void => {
