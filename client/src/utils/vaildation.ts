@@ -51,7 +51,6 @@ const vaildation: Vaildation = (data, type) => {
             };
         }
     }
-    console.log(error);
     return error;
 };
 export { vaildation };
