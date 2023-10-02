@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 export default function Form(): JSX.Element {
     let navigate = useNavigate();
-    let { handleSumit, error } = useForm('login');
+    let { handleSumit, errorMessage, error } = useForm('login');
 
     const [password, setPassword] = useState({ pw: true, rePw: true });
     const ChangePwType = (): void => {
@@ -27,7 +27,7 @@ export default function Form(): JSX.Element {
                     name="email"
                     find="Message"
                 ></Input>
-                {error ? <ErrorMsg>{error.email}</ErrorMsg> : <></>}
+                {error ? <ErrorMsg>{errorMessage.email}</ErrorMsg> : <></>}
             </Label>
             <Label>
                 <Input
@@ -44,7 +44,7 @@ export default function Form(): JSX.Element {
                     alt={password.pw ? '숨김' : '보임'}
                     onClick={ChangePwType}
                 />
-                {error ? <ErrorMsg>{error.password}</ErrorMsg> : <></>}
+                {error ? <ErrorMsg>{errorMessage.password}</ErrorMsg> : <></>}
             </Label>
             <LinkButton
                 type="button"

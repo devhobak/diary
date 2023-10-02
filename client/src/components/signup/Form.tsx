@@ -12,7 +12,7 @@ import { useNavigate } from 'react-router-dom';
 import useForm from '../../hooks/useForm';
 export default function Form() {
     let navigate = useNavigate();
-    let { handleSumit, error } = useForm('signup');
+    let { handleSumit, errorMessage, error } = useForm('signup');
     const [password, setPassword] = useState({ pw: true, rePw: true });
     const ChangePwType = (): void => {
         setPassword({ pw: !password.pw, rePw: password.rePw });
@@ -29,7 +29,7 @@ export default function Form() {
                     name="username"
                     find="Profile"
                 ></Input>
-                {error ? <ErrorMsg>{error.username}</ErrorMsg> : <></>}
+                {error ? <ErrorMsg>{errorMessage.username}</ErrorMsg> : <></>}
             </Label>
             <Label>
                 <Input
@@ -38,7 +38,7 @@ export default function Form() {
                     name="email"
                     find="Message"
                 ></Input>
-                {error ? <ErrorMsg>{error.email}</ErrorMsg> : <></>}
+                {error ? <ErrorMsg>{errorMessage.email}</ErrorMsg> : <></>}
             </Label>
             <Label>
                 <Input
@@ -55,7 +55,7 @@ export default function Form() {
                     alt={password ? '숨김' : '보임'}
                     onClick={ChangePwType}
                 />
-                {error ? <ErrorMsg>{error.password}</ErrorMsg> : <></>}
+                {error ? <ErrorMsg>{errorMessage.password}</ErrorMsg> : <></>}
             </Label>
             <Label>
                 <Input
@@ -74,7 +74,7 @@ export default function Form() {
                     alt={password ? '숨김' : '보임'}
                     onClick={ChangeRePwType}
                 />
-                {error ? <ErrorMsg>{error.password}</ErrorMsg> : <></>}
+                {error ? <ErrorMsg>{errorMessage.repassword}</ErrorMsg> : <></>}
             </Label>
             <LoginButton type="submit">회원가입하기</LoginButton>
             <LinkButton
