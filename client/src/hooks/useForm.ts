@@ -25,21 +25,23 @@ export default function useForm(type: string) {
         repassword: 'password',
     });
 
-    const [error, setError] = useState<ErrorType>({
+    const [errorMessage, setErrorMessage] = useState<ErrorType>({
         username: 'username',
         email: 'email',
         password: 'password',
         repassword: 'repassword',
     });
 
+    const [error, setError] = useState<boolean>(false);
+
     let SignUpmutaion = useSignupMutation();
     let LoginMutation = useLoginMutation();
 
     useEffect(() => {
         if (type === 'signup') {
-            setError(vaildation({ ...value }, 'signup'));
-        } else {
-            setError(vaildation({ ...value }, 'login'));
+            setErrorMessage(vaildation({ ...value }, 'signup', setError));
+        } else if (type === 'login') {
+            setErrorMessage(vaildation({ ...value }, 'login', setError));
         }
     }, [value]);
 
@@ -49,13 +51,20 @@ export default function useForm(type: string) {
         const userInfo = Object.fromEntries(formData);
         const { email, password, username, repassword } = userInfo;
         setValue({ email, password, username, repassword });
-        if (type === 'signup' && !error) {
+        if (
+            type === 'signup' &&
+            !error &&
+            email &&
+            password &&
+            username &&
+            repassword
+        ) {
             SignUpmutaion.mutate({ username, email, password });
-        } else if (type === 'login' && !error) {
+        } else if (type === 'login' && !error && email && password) {
             LoginMutation.mutate({ email, password });
         }
         e.currentTarget.reset();
     };
 
-    return { handleSumit, error, value };
+    return { handleSumit, errorMessage, value, error };
 }
