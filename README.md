@@ -48,6 +48,8 @@ site :https://daily-diary-happy.netlify.app/
 <img width="677" alt="image" src="https://github.com/devhobak/diary/assets/74497080/be5bf3df-085b-4e5d-b425-c3eadf95696c">
 <img width="672" alt="image" src="https://github.com/devhobak/diary/assets/74497080/8a3fcb95-03e7-40c6-9e6d-0c4fb0cb6deb">
 
+## unit 테스트 
+진행중 .. 
 
 ## 💡 리팩토링
 
