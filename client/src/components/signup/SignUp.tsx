@@ -4,7 +4,7 @@ import Form from './Form';
 
 import { LoginArticle, LogoImg } from '../common/Form/style/box';
 
-import Logo from '../../assets/logo.png';
+import Logo from '../../assets/frontLogo.png';
 
 export default function SignUp() {
     const isMobile = useMediaQuery({ maxWidth: 414 });
