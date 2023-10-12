@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import logoImg from '../../../assets/logo.png';
+
+import logoImg from '../../../assets/logo_diary.png';
 import calendarImg from '../../../assets/Category.png';
 import diaryImg from '../../../assets/Chat.png';
 import settimtImg from '../../../assets/Setting.png';

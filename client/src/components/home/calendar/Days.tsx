@@ -82,6 +82,7 @@ export default function Days(props: DayType) {
                             onClick={() => modalUp(item)}
                             view={isMobile}
                             color={recordColor[idx]}
+                            data-testid={`dateLi-${item}`}
                         >
                             <DayDate>{item.split('-')[2]}</DayDate>
                         </DayLi>
@@ -92,7 +93,7 @@ export default function Days(props: DayType) {
                     );
                 })}
             </DayUI>
-            {modal && isSuccess && data ? <Record data={data} /> : <></>}
+            {modal ? <Record /> : <></>}
         </DaySection>
     );
 }

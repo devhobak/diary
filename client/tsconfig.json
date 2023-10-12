@@ -15,7 +15,11 @@
         "isolatedModules": true,
         "noEmit": true,
         "jsx": "react-jsx",
-        "typeRoots": ["./node_modules/@types", "./src/types"]
+        "typeRoots": ["./node_modules/@types", "./src/types"],
+        "baseUrl": "src",
+        "paths": {
+            "test-utils": ["src/test/provider-utils"]
+        }
     },
-    "include": ["src"]
+    "include": ["src", "src/test", "jest.config.ts", "setupTests.ts"]
 }

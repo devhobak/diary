@@ -15,7 +15,7 @@ const LoginArticle = styled.article<PropsType>`
 `;
 
 const LogoImg = styled.img`
-    width: 60px;
-    height: 60px;
+    width: 200px;
+    height: 38px;
 `;
 export { LoginArticle, LogoImg };
