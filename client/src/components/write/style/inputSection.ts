@@ -3,7 +3,7 @@ import { ViewType } from '../../../types/style';
 
 const WriteSection = styled.section<ViewType>`
     width: ${(props) => (props.mobile ? '90%' : '100%')};
-    height: ${(props) => (props.mobile ? '82vh' : '88vh')};
+    height: ${(props) => (props.mobile ? '81vh' : '88vh')};
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     margin: 0 auto;
     text-align: center;

@@ -39,7 +39,9 @@ export default function Month(props: MonthType) {
         <section>
             <h3 className="ir">년도,달 파트</h3>
             <CalendarHead>
-                <MonthLabel htmlFor="date">날짜 선택</MonthLabel>
+                <MonthLabel htmlFor="date" className="ir">
+                    날짜 선택
+                </MonthLabel>
                 <MonthCalendar
                     id="date"
                     mobile={isMobile}
