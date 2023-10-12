@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { Suspense, lazy, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import RecrodList from './RecordList';
+import RecordList from './RecordList';
 import ViewLayout from '../common/Layout/ViewLayout';
 import {
     ViewPageNation,
@@ -9,7 +9,11 @@ import {
     PrevButton,
     NextButton,
 } from './style/RecordList';
+
 import useViewQuery from '../../hooks/queries/useViewQuery';
+import LoadingView from '../common/LoadingView';
+import loading from '../../assets/loadingView.gif';
+
 export default function View() {
     const isMobile = useMediaQuery({ maxWidth: 980 });
     let totalPage: number | undefined = 0;
@@ -57,47 +61,39 @@ export default function View() {
     };
 
     return (
-        <ViewLayout>
-            <ViewSection mobile={isMobile}>
-                <h2 className="ir">일상기록</h2>
-                {data?.totalCount ? (
-                    <RecrodList data={data} page={page} />
-                ) : (
-                    <></>
-                )}
-                {data?.totalCount ? (
-                    <ViewPageNation page={PageArr.length + 1}>
-                        <PrevButton onClick={PrevHandler} child={page}>
-                            Prev
-                        </PrevButton>
-                        {PageArr[positionPage]?.map(
-                            (item: number, index: number) => (
-                                <Page
-                                    child={
-                                        page % limit === 0
-                                            ? limit
-                                            : page % limit
-                                    }
-                                    key={index}
-                                    onClick={() => {
-                                        NextPageHandler(item + 1);
-                                    }}
-                                >
-                                    {item + 1}
-                                </Page>
-                            )
-                        )}
-                        <NextButton
-                            onClick={NextHandler}
-                            child={page === totalPage ? page : 0}
-                        >
-                            Next
-                        </NextButton>
-                    </ViewPageNation>
-                ) : (
-                    <></>
-                )}
-            </ViewSection>
-        </ViewLayout>
+        <>
+            <h2 className="ir">일상기록</h2>
+            {data?.totalCount ? <RecordList data={data} page={page} /> : <></>}
+            {data?.totalCount ? (
+                <ViewPageNation page={PageArr.length + 1}>
+                    <PrevButton onClick={PrevHandler} child={page}>
+                        Prev
+                    </PrevButton>
+                    {PageArr[positionPage]?.map(
+                        (item: number, index: number) => (
+                            <Page
+                                child={
+                                    page % limit === 0 ? limit : page % limit
+                                }
+                                key={index}
+                                onClick={() => {
+                                    NextPageHandler(item + 1);
+                                }}
+                            >
+                                {item + 1}
+                            </Page>
+                        )
+                    )}
+                    <NextButton
+                        onClick={NextHandler}
+                        child={page === totalPage ? page : 0}
+                    >
+                        Next
+                    </NextButton>
+                </ViewPageNation>
+            ) : (
+                <></>
+            )}
+        </>
     );
 }

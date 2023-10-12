@@ -3,7 +3,7 @@ import { ViewType } from '../../../types/style';
 
 const RecordInfoSection = styled.section<ViewType>`
     width: ${(props) => (props.mobile ? '90%' : '100%')};
-    height: ${(props) => (props.mobile ? '82vh' : '100%')};
+    height: ${(props) => (props.mobile ? '81vh' : '100%')};
     position: relative;
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     margin: 0px auto;

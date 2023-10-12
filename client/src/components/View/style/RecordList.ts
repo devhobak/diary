@@ -20,7 +20,7 @@ interface PageCountType {
 
 const ViewSection = styled.section<ViewType>`
     width: ${(props) => (props.mobile ? '90%' : '100%')};
-    height: ${(props) => (props.mobile ? '82vh' : '88vh')};
+    height: ${(props) => (props.mobile ? '81vh' : '88vh')};
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     margin: 0px auto;
     text-align: center;
@@ -168,6 +168,13 @@ const NextButton = styled.button<ChildType>`
     color: ${(props) => (props.child !== 0 ? '#595959' : 'rgb(251, 217, 109)')};
 `;
 
+const LoadingImg = styled.img`
+    display: block;
+    margin: 0 auto;
+    width: 100px;
+    height: 100px;
+    margin-top: 200px;
+`;
 export {
     ViewSection,
     ViewUl,
@@ -183,4 +190,5 @@ export {
     NextButton,
     PrevButton,
     MoreButton,
+    LoadingImg,
 };

@@ -14,7 +14,7 @@ const TopLayout = styled.section`
 `;
 const CalendarLayout = styled.section<ViewType>`
     width: ${(props) => (props.mobile ? '90%' : '100%')};
-    height: ${(props) => (props.mobile ? '82vh' : '100%')};
+    height: ${(props) => (props.mobile ? '81vh' : '100%')};
     background-color: ${({ theme }) => theme.color.headerBackgroundColor};
     text-align: center;
     margin: 0 auto;
