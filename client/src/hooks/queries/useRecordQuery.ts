@@ -30,7 +30,7 @@ export default function useGetReportQuery() {
         retry: 2,
         onError(err: AxiosError) {
             if (err.response?.status === 401 || err.response?.status === 403) {
-                localStorage.removeItem('UserId');
+                localStorage.removeItem('User');
                 localStorage.removeItem('token');
                 toast.error(
                     '로그인 시간이 만료되었습니다. 다시 로그인 해주세요'
