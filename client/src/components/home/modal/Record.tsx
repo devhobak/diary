@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import { format } from 'date-fns';
 import { useMediaQuery } from 'react-responsive';
@@ -25,30 +25,37 @@ import {
 } from '../../common/Modal/modal';
 
 import { GetRecordType } from '../../../types/serverDataType';
+import useGetReportQuery from 'hooks/queries/useRecordQuery';
 
 interface PropType {
     idx?: number;
-    data: GetRecordType[];
+    data?: GetRecordType[];
+    today?: boolean;
 }
 
 export default function Record(props: PropType): JSX.Element {
     const curDate = useRecoilValue(curDateState);
-    const fullDate = format(curDate, 'yyyy-MM-dd');
     const [modal, setClose] = useRecoilState(modalState);
     const selectDay = useRecoilValue(selectDateState);
-    const [edit, setEdit] = useState(false);
     const [color, setColor] = useRecoilState(ColorState);
+    const fullDate = format(curDate, 'yyyy-MM-dd');
+
+    const [edit, setEdit] = useState(false);
+    const [today, setToday] = useState(false);
+
     const isMobile = useMediaQuery({ maxWidth: 980 });
-    let diary = props.data;
+
+    const { data } = useGetReportQuery();
+
     let diaryArr: GetRecordType[] = [];
 
-    diary?.map((item: GetRecordType) => {
+    data?.map((item: GetRecordType) => {
         if (item.datetime.split(' ')[0] === selectDay) {
             diaryArr.push(item);
         }
     });
 
-    const modalClose = (date: string, idx?: number) => {
+    const modalClose = (date: string) => {
         setTimeout(() => {
             setClose(false);
         }, 200);
@@ -59,25 +66,33 @@ export default function Record(props: PropType): JSX.Element {
     };
 
     //선택한 날짜의 데이터를 저장함.
-    const todayRecord = props.data?.filter(
+    const todayRecord = data?.filter(
         (item) => item.datetime.split(' ')[0] === selectDay
     ).length;
 
-    if (selectDay === fullDate) {
+    useEffect(() => {
+        if (selectDay === fullDate) {
+            setToday(true);
+        } else if (selectDay !== fullDate) {
+            setToday(false);
+        }
+    }, [todayRecord]);
+
+    if (today) {
         return (
             <ModalBackground isClose={modal}>
                 <ModalSection
                     isClose={modal}
-                    color={todayRecord ? `#${diaryArr[0].color}` : color}
+                    color={todayRecord ? `#${diaryArr[0]?.color}` : color}
                     view={isMobile}
                 >
-                    <h2 className="ir">일상기록</h2>
+                    <h2 className="ir">일기 모달</h2>
                     <Date>{selectDay}</Date>
                     <CloseButton
                         src={closeImg}
                         alt="모달 닫는 버튼"
                         onClick={() => {
-                            modalClose(selectDay, props.idx);
+                            modalClose(selectDay);
                         }}
                     />
                     {todayRecord ? (
@@ -102,7 +117,7 @@ export default function Record(props: PropType): JSX.Element {
             <ModalBackground isClose={modal}>
                 <ModalSection
                     isClose={modal}
-                    color={`#${diaryArr[0].color}`}
+                    color={`#${diaryArr[0]?.color}`}
                     view={isMobile}
                 >
                     <h2 className="ir">일상기록</h2>
@@ -111,7 +126,7 @@ export default function Record(props: PropType): JSX.Element {
                         src={closeImg}
                         alt="모달 닫는 버튼"
                         onClick={() => {
-                            modalClose(selectDay, props.idx);
+                            modalClose(selectDay);
                         }}
                     />
                     <Diary data={diaryArr} />

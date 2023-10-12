@@ -11,6 +11,7 @@ import {
     Diaryli,
     DiaryImg,
 } from './style/diary';
+
 interface ProsType {
     data: GetRecordType[];
     type?: string;
@@ -18,7 +19,7 @@ interface ProsType {
 export default function Diary(props: ProsType) {
     const isMobile = useMediaQuery({ maxWidth: 980 });
     return (
-        <DiarySection color={`#${props.data[0].color}`} view={isMobile}>
+        <DiarySection color={`#${props.data[0]?.color}`} view={isMobile}>
             <h3 className="ir">오늘의 일상</h3>
             <DiaryList>
                 {props.data?.map((item: GetRecordType, idx: number) => {
