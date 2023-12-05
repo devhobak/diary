@@ -19,7 +19,7 @@ interface MonthType {
 }
 export default function Month(props: MonthType) {
     const [curDate, setCurDate] = useRecoilState(curDateState);
-    const isMobile = useMediaQuery({ maxWidth: 390 });
+    const isMobile = useMediaQuery({ maxWidth: 980 });
     let GetMonth = {
         year: format(curDate, 'yyyy'),
         month: format(curDate, 'MM'),

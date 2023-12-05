@@ -30,7 +30,7 @@ export default function Days(props: DayType) {
     const CurDay = useRecoilValue(formatCurDay);
     const formatDate = useRecoilValue(formatCurDataState);
     const [modal, setModal] = useRecoilState(modalState);
-    const isMobile = useMediaQuery({ maxWidth: 390 });
+    const isMobile = useMediaQuery({ maxWidth: 980 });
     const { data, isSuccess } = useGetReportQuery();
 
     let RecordData = data;
