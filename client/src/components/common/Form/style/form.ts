@@ -47,7 +47,8 @@ const Label = styled.label`
 
 const ErrorMsg = styled.div`
     margin-top: 5px;
-    color: #000;
+    color: #f65252;
+    font-weight: 700;
     font-size: 1.2rem;
     text-align: left;
 `;
