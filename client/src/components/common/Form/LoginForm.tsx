@@ -26,9 +26,9 @@ const emailRegEx =
     /^[A-Za-z0-9]([-_.]?[A-Za-z0-9])*@[A-Za-z0-9]([-_.]?[A-Za-z0-9])*\.[A-Za-z]{2,3}$/;
 const passwordRegEx = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,20}$/;
 const nicknameRefEx = /./;
-const EmailError = '올바른 이메일 형식을 입력해주세요';
-const requiredError = '입력해주세요';
-const pwError = '8자리이상 20자리이하 영어와 숫자 조합으로 입력해주세요';
+const EmailError = '🚫 올바른 이메일 형식을 입력해주세요.';
+const requiredError = '입력해주세요.';
+const pwError = '🚫 8자리이상 20자리이하 영어와 숫자 조합으로 입력해주세요.';
 
 export default function LoginForm({ page }: { page: string }) {
     const [password, setPassword] = useState({
@@ -54,6 +54,7 @@ export default function LoginForm({ page }: { page: string }) {
     const {
         register,
         handleSubmit,
+        watch,
         formState: { errors },
     } = useForm({
         mode: 'onChange',
@@ -64,13 +65,19 @@ export default function LoginForm({ page }: { page: string }) {
             field: '이메일',
             pattern: emailRegEx,
             required: true,
-            error: { pattern: EmailError, required: requiredError },
+            error: {
+                pattern: EmailError,
+                required: '🚫 이메일을 ' + requiredError,
+            },
         },
         password: {
             field: '비밀번호',
             pattern: passwordRegEx,
             required: true,
-            error: { pattern: pwError, required: requiredError },
+            error: {
+                pattern: pwError,
+                required: '🚫 비밀번호를 ' + requiredError,
+            },
         },
     };
 
@@ -79,14 +86,23 @@ export default function LoginForm({ page }: { page: string }) {
             field: '닉네임',
             required: true,
             pattern: nicknameRefEx,
-            error: { required: requiredError, pattern: '오류' },
+            error: {
+                required: '🚫 사용자이름을 ' + requiredError,
+                pattern: '오류',
+            },
         },
         ...login,
         repassword: {
             field: '비밀번호확인',
-            required: true,
-            pattern: passwordRegEx,
-            error: { pattern: pwError, required: requiredError },
+            require: true,
+            validate: {
+                matchPassword: (value: string) => {
+                    return watch('repassword') === watch('password');
+                },
+            },
+            error: {
+                matchPassword: '❌ 비밀번호가 일치하지 않습니다.',
+            },
         },
     };
 
@@ -105,45 +121,45 @@ export default function LoginForm({ page }: { page: string }) {
     };
 
     return (
-        <FormLayout onSubmit={handleSubmit(onSubmit)}>
-            {Object.entries(curPage).map(([key, value]) => (
-                <>
-                    <Label key={value.field}>
-                        <Input
-                            type={
-                                (key === 'password' && password.password) ||
-                                (key === 'repassword' && password.repassword)
-                                    ? 'password'
-                                    : 'text'
+        <FormLayout onSubmit={handleSubmit(onSubmit)} key={page}>
+            {Object.entries(curPage).map(([key, value], index) => (
+                <Label key={index}>
+                    <Input
+                        key={index}
+                        type={
+                            (key === 'password' && password.password) ||
+                            (key === 'repassword' && password.repassword)
+                                ? 'password'
+                                : 'text'
+                        }
+                        placeholder={value.field}
+                        {...register(key, {
+                            ...value,
+                        })}
+                    />
+                    {(key === 'repassword' || key === 'password') && (
+                        <PwImg
+                            key={key}
+                            src={
+                                password[key]
+                                    ? '/assets/eye-off.svg'
+                                    : '/assets/eye.svg '
                             }
-                            placeholder={value.field}
-                            {...register(key, {
-                                required: value.required,
-                                pattern: value.pattern,
-                            })}
+                            alt={password[key] ? '숨김' : '보임'}
+                            onClick={() => {
+                                ChangePwType(key);
+                            }}
                         />
-                        {(key === 'repassword' || key === 'password') && (
-                            <PwImg
-                                src={
-                                    password[key]
-                                        ? '/assets/eye-off.svg'
-                                        : '/assets/eye.svg '
-                                }
-                                alt={password[key] ? '숨김' : '보임'}
-                                onClick={() => {
-                                    ChangePwType(key);
-                                }}
-                            />
-                        )}
-                        {Object.entries(value.error).map(([type, msg]) => (
-                            <>
-                                {errors[key]?.type === type && (
-                                    <ErrorMsg role="alert">{msg}</ErrorMsg>
-                                )}
-                            </>
-                        ))}
-                    </Label>
-                </>
+                    )}
+
+                    {Object.entries(value.error).map(([type, msg]) => (
+                        <div key={type}>
+                            {errors[key]?.type === type && (
+                                <ErrorMsg role="alert">{msg}</ErrorMsg>
+                            )}
+                        </div>
+                    ))}
+                </Label>
             ))}
             {page === 'login' ? (
                 <>
@@ -172,4 +188,7 @@ export default function LoginForm({ page }: { page: string }) {
             )}
         </FormLayout>
     );
+}
+function getValues(): { password: any } {
+    throw new Error('Function not implemented.');
 }
