@@ -6,8 +6,8 @@ import { useNavigate } from 'react-router';
 import { LoginCheck } from '../../apis/api/Login';
 
 interface FormType {
-    email: FormDataEntryValue;
-    password: FormDataEntryValue;
+    email: string;
+    password: string;
 }
 
 export default function useLoginMutation() {

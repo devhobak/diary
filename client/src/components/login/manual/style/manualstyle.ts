@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ViewType } from '../../../types/style';
+import { ViewType } from '../../../../types/style';
 
 const ManualUl = styled.ul`
     display: flex;

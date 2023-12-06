@@ -8,13 +8,13 @@ import {
     ModalBackground,
     ModalSection,
     CloseButton,
-} from '../common/Modal/modal';
+} from '../../common/Modal/modal';
 import { ManualDiv, ManualP, ManualImg, ManualSubP } from './style/manualstyle';
 
-import manual1 from '../../assets/manual1.png';
-import manual2 from '../../assets/manual2.png';
-import manual3 from '../../assets/manual3.png';
-import closeImg from '../../assets/close.png';
+import manual1 from '../../../assets/manual1.png';
+import manual2 from '../../../assets/manual2.png';
+import manual3 from '../../../assets/manual3.png';
+import closeImg from '../../../assets/close.png';
 
 export default function Manual(props: {
     modal: boolean;

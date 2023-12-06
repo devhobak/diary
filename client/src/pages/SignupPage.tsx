@@ -1,5 +1,5 @@
 import Header from '../components/common/Layout/Header';
-import SignUp from '../components/signup/SignUp';
+import SignUp from '../components/login/SignUp';
 export default function SignupPage() {
     return (
         <>

@@ -4,9 +4,9 @@ import { useNavigate } from 'react-router';
 import { toast } from 'react-toastify';
 
 interface FormType {
-    username: FormDataEntryValue;
-    email: FormDataEntryValue;
-    password: FormDataEntryValue;
+    username: string;
+    email: string;
+    password: string;
 }
 
 export default function useSignupMutation() {
