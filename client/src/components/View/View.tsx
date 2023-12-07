@@ -1,18 +1,14 @@
-import { Suspense, lazy, useState } from 'react';
+import { useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import RecordList from './RecordList';
-import ViewLayout from '../common/Layout/ViewLayout';
 import {
     ViewPageNation,
     Page,
-    ViewSection,
     PrevButton,
     NextButton,
 } from './style/RecordList';
 
 import useViewQuery from '../../hooks/queries/useViewQuery';
-import LoadingView from '../common/LoadingView';
-import loading from '../../assets/loadingView.gif';
 
 export default function View() {
     const isMobile = useMediaQuery({ maxWidth: 980 });

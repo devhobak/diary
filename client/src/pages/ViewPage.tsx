@@ -1,6 +1,5 @@
 import { Suspense } from 'react';
 import View from '../components/View/View';
-import LoadingView from 'components/common/LoadingView';
 
 import loadingImg from '../assets/loadingView.gif';
 
