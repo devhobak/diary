@@ -10,10 +10,13 @@ import {
     LoginButton,
     LinkButton,
     PwImg,
+    LoadingImg,
 } from './style/form';
 
 import useSignupMutation from 'hooks/mutations/useSignupMutation';
 import useLoginMutation from 'hooks/mutations/useLoginMutation';
+
+import Loading from '../../../assets/Spinner_login.gif';
 
 interface FieldType {
     email?: string;
@@ -171,7 +174,13 @@ export default function LoginForm({ page }: { page: string }) {
                     >
                         회원가입
                     </LinkButton>
-                    <LoginButton type="submit">로그인</LoginButton>
+                    {LoginMutation.isLoading ? (
+                        <LoginButton type="button">
+                            <LoadingImg src={Loading} alt="로그인로딩중" />
+                        </LoginButton>
+                    ) : (
+                        <LoginButton type="submit">로그인</LoginButton>
+                    )}
                 </>
             ) : (
                 <>
@@ -183,7 +192,13 @@ export default function LoginForm({ page }: { page: string }) {
                     >
                         이미 회원이신가요? 로그인하러가기
                     </LinkButton>
-                    <LoginButton type="submit">회원가입하기</LoginButton>
+                    {SignUpmutaion.isLoading ? (
+                        <LoginButton type="submit">
+                            <LoadingImg src={Loading} alt="회원가입로딩중" />
+                        </LoginButton>
+                    ) : (
+                        <LoginButton type="submit">회원가입하기</LoginButton>
+                    )}
                 </>
             )}
         </FormLayout>

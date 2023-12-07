@@ -60,4 +60,19 @@ const PwImg = styled.img`
     top: 18px;
 `;
 
-export { FormLayout, Input, LoginButton, LinkButton, ErrorMsg, Label, PwImg };
+const LoadingImg = styled.img`
+    width: 5.2rem;
+    text-align: center;
+    height: 5rem;
+`;
+
+export {
+    FormLayout,
+    Input,
+    LoginButton,
+    LinkButton,
+    ErrorMsg,
+    Label,
+    PwImg,
+    LoadingImg,
+};
